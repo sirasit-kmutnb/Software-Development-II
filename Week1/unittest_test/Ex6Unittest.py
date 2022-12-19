@@ -5,27 +5,27 @@ from unittest.mock import patch
 class MixedTenTestCase(unittest.TestCase):
 
     @patch('builtins.input', side_effect=[1, 4, "1 2 3 4", "1 2 3 4", "1 2 3 4", "1 2 3 4"])
-    def test_main(self, mock_inputs):
+    def test_main(self, Mixedten):
         result = Mixedten()
         assert result == [4]
 
     @patch('builtins.input', side_effect=[1, 4, "1 3 5 7", "2 4 8 2", "6 3 1 1", "2 3 5 6"])
-    def test_main1(self, mock_inputs):
+    def test_main1(self, Mixedten):
         result = Mixedten()
         assert result == [7]
 
     @patch('builtins.input', side_effect=[1, 5, "2 2 2 2 2", "2 2 2 2 2", "2 2 2 2 2", "2 2 2 2 2", "2 2 2 2 2"])
-    def test_main2(self, mock_inputs):
+    def test_main2(self, Mixedten):
         result = Mixedten()
         assert result == [10]
 
     @patch('builtins.input', side_effect=[1, 4, "1 6 9 8", "1 6 9 8", "1 6 9 8", "1 6 9 8"])
-    def test_main3(self, mock_inputs):
+    def test_main3(self, Mixedten):
         result = Mixedten()
         assert result == [0]
 
     @patch('builtins.input', side_effect=[2, 4, "1 6 9 8", "1 6 9 8", "1 6 9 8", "1 6 9 8", 5, "2 2 2 2 2", "2 2 2 2 2", "2 2 2 2 2", "2 2 2 2 2", "2 2 2 2 2"])
-    def test_main4(self, mock_inputs):
+    def test_main4(self, Mixedten):
         result = Mixedten()
         assert result == [0, 10]
 
