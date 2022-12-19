@@ -3,8 +3,6 @@ import unittest.mock
 
 from Ex7 import solveEqFromFile
 
-
-
 class TestFunction(unittest.TestCase):
     mock_file_test1 = """16 200 -10
 12
@@ -58,6 +56,7 @@ class TestFunction(unittest.TestCase):
         ) as file_mock:
             result = solveEqFromFile('/dev/null')
             assert result == (50, 150, 20, 70, 90, 40, 130, 30)
+
     def test_solveEq_case2(self):
         with unittest.mock.patch(
             'builtins.open',
@@ -66,6 +65,7 @@ class TestFunction(unittest.TestCase):
         ) as file_mock:
             result = solveEqFromFile('/dev/null')
             assert result == (2,8,5,7,4,12,16,6)
+            
     def test_solveEq_case3(self):
         with unittest.mock.patch(
             'builtins.open',
