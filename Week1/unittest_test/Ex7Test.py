@@ -51,8 +51,7 @@ class TestFunction(unittest.TestCase):
     def test_solveEq_case1(self):
         with unittest.mock.patch(
             'builtins.open',
-            new=unittest.mock.mock_open(read_data=self.mock_file_test1),
-            create=True
+            new=unittest.mock.mock_open(read_data=self.mock_file_test1)
         ) as file_mock:
             result = solveEqFromFile('/dev/null')
             assert result == (50, 150, 20, 70, 90, 40, 130, 30)
@@ -60,8 +59,7 @@ class TestFunction(unittest.TestCase):
     def test_solveEq_case2(self):
         with unittest.mock.patch(
             'builtins.open',
-            new=unittest.mock.mock_open(read_data=self.mock_file_test2),
-            create=True
+            new=unittest.mock.mock_open(read_data=self.mock_file_test2)
         ) as file_mock:
             result = solveEqFromFile('/dev/null')
             assert result == (2,8,5,7,4,12,16,6)
@@ -69,8 +67,7 @@ class TestFunction(unittest.TestCase):
     def test_solveEq_case3(self):
         with unittest.mock.patch(
             'builtins.open',
-            new=unittest.mock.mock_open(read_data=self.mock_file_test3),
-            create=True
+            new=unittest.mock.mock_open(read_data=self.mock_file_test3)
         ) as file_mock:
             result = solveEqFromFile('/dev/null')
             assert result == None
