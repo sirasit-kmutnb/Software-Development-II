@@ -19,7 +19,7 @@ class Sum0TestCase(unittest.TestCase):
         assert result == [[-1, -1, 2], [-1, 0, 1], [-1, 0, 1]]
 
     def test_false(self):
-        result = Sum0([998, 231, 355, 4321, 4314123, 3213123, 45320, 30219, 3210, 09321, 30219])
+        result = Sum0([998, 231, 355, 4321, 4314123, 3213123, 45320, 30219, 3210, 9321, 30219])
         assert result == "No Answer"
 
     def test_main0(self):
