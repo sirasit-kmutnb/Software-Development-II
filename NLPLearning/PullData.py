@@ -1,6 +1,6 @@
 import tweepy
 import pandas as pd
-
+from pythainlp.tokenize import word_tokenize
 
 class PullTweetsData():
     def __init__(self):
@@ -44,6 +44,12 @@ class PullTweetsData():
                 print("done")
                 self.__count = 0
                 break
+    
+    def textSplit(self):
+        textList = []
+        for i in self.__df.text.to_list():
+            print(word_tokenize(i.split("https")[0], engine="newmm"))
+            print("=============================")
 
     def saveTweets(self, excelFileName):
         self.__df.to_excel(f"{excelFileName}.xlsx")
@@ -62,6 +68,6 @@ puller.setUserAuthentication(access_token, access_token_secret)
 puller.getTwitterAPI()
 puller.createDataFrame()
 
-puller.pullTweets("ครับ", 100)
+puller.pullTweets("ครับ", 10)
 
-puller.saveTweets("positiveTweets_1")
+print(puller.textSplit())
