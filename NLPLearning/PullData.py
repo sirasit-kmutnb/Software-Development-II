@@ -50,7 +50,7 @@ class PullTweetsData():
                 break
 
     def removeSpecialChar(self, text):
-        return re.sub(r"[!@#$%+:\"]", "", text)
+        return re.sub(r"[!@#$?%+:\"]", "", text)
 
     def removeEmoji(self, text):
         allchars = [str for str in text]
