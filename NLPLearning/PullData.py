@@ -49,7 +49,7 @@ class PullTweetsData():
                 break
 
     def removeSpecialChar(self,text):
-        return re.sub(r"[!@#$%+:\"]","",text)
+        return re.sub(r"[!@#$?%+:\"]","",text)
 
     def removeEmoji(self,text):
         allchars = [str for str in text]
@@ -84,14 +84,14 @@ api_key_secret = "yaToQPv95OA1fiNTHD8drKM8g8rZGM7jSQnPOLoxU3QA9UpaLm"
 access_token = "1722424471-Xb0DjPVOqXsLj2sXEYXmU2sqxaDC4B793erGO6J"
 access_token_secret = "D2LyXN11zAoZB0M476eb1ZGDM55oRvy4tBWNb8pR4CO0h"
 
-puller = PullTweetsData()
+# puller = PullTweetsData()
 
-puller.getAccessToAPI(api_key, api_key_secret)
-puller.setUserAuthentication(access_token, access_token_secret)
+# puller.getAccessToAPI(api_key, api_key_secret)
+# puller.setUserAuthentication(access_token, access_token_secret)
 
-puller.getTwitterAPI()
-puller.createDataFrame()
+# puller.getTwitterAPI()
+# puller.createDataFrame()
 
-puller.pullTweets("ปีเก่า", 10)
+# puller.pullTweets("ปีเก่า", 10)
 
-print(puller.textSplit())
+# print(puller.textSplit())
