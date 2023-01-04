@@ -11,6 +11,7 @@ from tzlocal import get_localzone
 
 import re
 
+
 class PullTweetsData():
     localTZ = pytz.timezone('Asia/Bangkok')
     def __init__(self):
@@ -65,19 +66,19 @@ class PullTweetsData():
                 self.__count = 0
                 break
 
-    def removeSpecialChar(self,text):
-        return re.sub(r"[!@#$?%+:\"]","",text)
+    def removeSpecialChar(self, text):
+        return re.sub(r"[!@#$?%+:\"]", "", text)
 
-    def removeEmoji(self,text):
+    def removeEmoji(self, text):
         allchars = [str for str in text]
         emoji_list = [c for c in allchars if c in emoji.EMOJI_DATA]
         return ''.join([str for str in allchars if not any(i in str for i in emoji_list)])
 
-    def removeLink(self,text):
+    def removeLink(self, text):
         return re.sub(r'https?:\/\/.*[\r\n]*', '', text, flags=re.MULTILINE)
 
-    def removeEnglish(self,text):
-        return re.sub('[^ก-๙]',"",text)
+    def removeEnglish(self, text):
+        return re.sub('[^ก-๙]', "", text)
 
     def connectToDB(self,database,collection):
         client = pymongo.MongoClient('localhost',27017)
@@ -87,19 +88,21 @@ class PullTweetsData():
     def saveTweets(self):
         self.__db.insert_many(self.__df.to_dict('records'))
 
-    def preprocessText(self,text):
+    def preprocessText(self, text):
         text = self.removeEmoji(text)
         text = self.removeSpecialChar(text)
         text = self.removeLink(text)
         text = self.removeEnglish(text)
         SplitedSentence = word_tokenize(text, engine="newmm")
-        result = [word for word in SplitedSentence if word not in list(thai_stopwords()) and " " not in word]
+        result = [word for word in SplitedSentence if word not in list(
+            thai_stopwords()) and " " not in word]
         return " /".join(result)
 
     def textSplit(self):
         for i in self.__df["text"].to_list():
             print(self.preprocessText(i))
             print("=============================")
+
 
 api_key = "SnxucIPt1fg7UUyVOT0T5j0pR"
 api_key_secret = "yaToQPv95OA1fiNTHD8drKM8g8rZGM7jSQnPOLoxU3QA9UpaLm"
