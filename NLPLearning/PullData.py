@@ -87,7 +87,13 @@ class PullTweetsData():
         self.__db = mydb[collection]
 
     def saveTweets(self):
-        self.__db.insert_many(self.__df.to_dict('records'))
+        count = 1
+        for i in self.__df.to_dict('records'):
+            self.__db.update_one({"tweet_create_at":i["tweet_create_at"],"tweet_author":i["tweet_author"]},
+                                 {"$set":i},upsert=True)
+            print(f"Saved {count} tweets")
+            count += 1
+        
 
     def preprocessText(self, text):
         text = self.removeEmoji(text)
