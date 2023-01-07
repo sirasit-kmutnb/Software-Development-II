@@ -7,15 +7,16 @@ import pymongo
 from datetime import datetime, timezone
 from dateutil import tz
 import pytz
-from tzlocal import get_localzone
 
 import re
 
 
 class PullTweetsData():
     localTZ = pytz.timezone('Asia/Bangkok')
+
     def __init__(self):
         self.__count = 0
+
     def getAccessToAPI(self, api_key, api_key_secret):
         self.__auth = tweepy.OAuthHandler(api_key, api_key_secret)
 
@@ -26,7 +27,8 @@ class PullTweetsData():
         self.__api = tweepy.API(self.__auth)
 
     def createDataFrame(self):
-        self.__df = pd.DataFrame(columns=["tweet_create_at","keyword","tweet_author","text", "hashtag"])
+        self.__df = pd.DataFrame(
+            columns=["tweet_create_at", "keyword", "tweet_author", "text", "hashtag"])
 
     def getHashtag(self, entity_hashtag):
         hashtag = ""
@@ -34,9 +36,11 @@ class PullTweetsData():
             hashtag = hashtag + "#"+entity_hashtag[i]["text"]
         return hashtag
 
-    def utc_to_local(self,utc_dt):
-        local_dt = utc_dt.replace(tzinfo=pytz.utc).astimezone(PullTweetsData.localTZ)
-        return PullTweetsData.localTZ.normalize(local_dt) # .normalize might be unnecessary
+    def utc_to_local(self, utc_dt):
+        local_dt = utc_dt.replace(tzinfo=pytz.utc).astimezone(
+            PullTweetsData.localTZ)
+        # .normalize might be unnecessary
+        return PullTweetsData.localTZ.normalize(local_dt)
 
     def pullTweets(self, query, amount):
         for tweet in tweepy.Cursor(self.__api.search_tweets, q=query, count=100,
@@ -57,7 +61,8 @@ class PullTweetsData():
                 text = tweet.retweeted_status.full_text
             except:
                 text = tweet.full_text
-            new_data = pd.Series([tweet_create_at,keyword,tweet_author,text, hashtag], index=self.__df.columns)
+            new_data = pd.Series(
+                [tweet_create_at, keyword, tweet_author, text, hashtag], index=self.__df.columns)
             self.__df = pd.concat(
                 [self.__df, pd.DataFrame(new_data).T], ignore_index=True)
             self.__count += 1
@@ -81,8 +86,8 @@ class PullTweetsData():
     def removeEnglish(self, text):
         return re.sub('[^ก-๙]', "", text)
 
-    def connectToDB(self,database,collection):
-        client = pymongo.MongoClient('localhost',27017)
+    def connectToDB(self, database, collection):
+        client = pymongo.MongoClient('localhost', 27017)
         mydb = client[database]
         self.__db = mydb[collection]
 
@@ -120,7 +125,5 @@ puller.createDataFrame()
 
 puller.pullTweets("ปีเก่า", 50)
 
-puller.connectToDB("twitter","tweets")
+puller.connectToDB("twitter", "tweets")
 puller.saveTweets()
-
-
