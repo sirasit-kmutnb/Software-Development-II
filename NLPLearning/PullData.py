@@ -26,7 +26,7 @@ class PullTweetsData():
         self.__api = tweepy.API(self.__auth)
 
     def createDataFrame(self):
-        self.__df = pd.DataFrame(columns=["tweet_create_at","text", "hashtag"])
+        self.__df = pd.DataFrame(columns=["tweet_create_at","keyword","tweet_author","text", "hashtag"])
 
     def getHashtag(self, entity_hashtag):
         hashtag = ""
@@ -43,20 +43,21 @@ class PullTweetsData():
                                    result_type="recent", tweet_mode='extended').items():
             entity_hashtag = tweet.entities.get('hashtags')
             hashtag = self.getHashtag(entity_hashtag)
+            tweet_author = tweet.user.screen_name
+            keyword = query
             dt_str = str(tweet.created_at)
             format = "%Y-%m-%d %H:%M:%S%z"
             dt_utc = datetime.strptime(dt_str, format)
             local_zone = tz.tzlocal()
             dt_local = dt_utc.astimezone(local_zone)
             tweet_create_at = dt_local
-            print(tweet_create_at)
             # for i in range(0,len(entity_hashtag)):
             #     hashtag = hashtag +"/"+entity_hashtag[i]["text"]
             try:
                 text = tweet.retweeted_status.full_text
             except:
                 text = tweet.full_text
-            new_data = pd.Series([tweet_create_at,text, hashtag], index=self.__df.columns)
+            new_data = pd.Series([tweet_create_at,keyword,tweet_author,text, hashtag], index=self.__df.columns)
             self.__df = pd.concat(
                 [self.__df, pd.DataFrame(new_data).T], ignore_index=True)
             self.__count += 1
@@ -117,7 +118,7 @@ puller.setUserAuthentication(access_token, access_token_secret)
 puller.getTwitterAPI()
 puller.createDataFrame()
 
-puller.pullTweets("ปีเก่า", 10)
+puller.pullTweets("ปีเก่า", 50)
 
 puller.connectToDB("twitter","tweets")
 puller.saveTweets()
