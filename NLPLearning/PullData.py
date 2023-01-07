@@ -94,4 +94,4 @@ puller.createDataFrame()
 
 puller.pullTweets("ปีเก่า", 10)
 
-print(puller.textSplit())
+print(puller.preprocessText("สภาพฉันวันคริสต์มาสปีนี้ 🎄https://t.co/b2OObKjULZ"))
