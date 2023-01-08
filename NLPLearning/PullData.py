@@ -129,7 +129,7 @@ puller.setUserAuthentication(access_token, access_token_secret)
 puller.getTwitterAPI()
 puller.createDataFrame()
 
-puller.pullTweets("หุ้น", 500)
+puller.pullTweets("#dek66", 17000)
 
 puller.connectToDB("twitter", "tweets")
 puller.saveTweets()
