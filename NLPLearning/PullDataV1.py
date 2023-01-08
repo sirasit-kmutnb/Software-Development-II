@@ -49,8 +49,8 @@ class PullTweetsData():
         return tweet
 
     def pullTweets(self, query, amount):
-        for tweet in tweepy.Cursor(self.__api.search_tweets, q=query, count=100,
-                                   result_type="recent", tweet_mode='extended').items():
+        for tweet in tqdm(tweepy.Cursor(self.__api.search_tweets, q=query, count=100,
+                                        result_type="recent", tweet_mode='extended').items()):
             entity_hashtag = tweet.entities.get('hashtags')
             hashtag = self.getHashtag(entity_hashtag)
             tweet_author = tweet.user.screen_name
@@ -69,9 +69,9 @@ class PullTweetsData():
                 tweet_author, tweet_create_at, hashtag, keyword, text)
             self.saveTweetsDict(tweet_post)
             self.__count += 1
-            print(f"Pulled Tweets : {self.__count} tweets")
+            # print(f"Pulled Tweets : {self.__count} tweets")
             if self.__count == amount:
-                print("done")
+                # print("done")
                 self.__count = 0
                 break
 
