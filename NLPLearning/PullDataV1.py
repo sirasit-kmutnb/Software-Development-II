@@ -7,6 +7,7 @@ import pymongo
 from datetime import datetime, timezone
 from dateutil import tz
 import pytz
+from termcolor import colored
 from tqdm import tqdm
 
 import re
@@ -33,11 +34,11 @@ class PullTweetsData():
             hashtag = hashtag + "#"+entity_hashtag[i]["text"]
         return hashtag
 
-    # def utc_to_local(self, utc_dt):
-    #     local_dt = utc_dt.replace(tzinfo=pytz.utc).astimezone(
-    #         PullTweetsData.localTZ)
-    #     # .normalize might be unnecessary
-    #     return PullTweetsData.localTZ.normalize(local_dt)
+    def utc_to_local(self, utc_dt):
+        local_dt = utc_dt.replace(tzinfo=pytz.utc).astimezone(
+            PullTweetsData.localTZ)
+        # .normalize might be unnecessary
+        return PullTweetsData.localTZ.normalize(local_dt)
 
     def createDictData(self, tweet_author, tweet_create_at, hashtag, keyword, text):
         tweet = {}
@@ -74,6 +75,50 @@ class PullTweetsData():
                 # print("done")
                 self.__count = 0
                 break
+
+    def textSplit(self):
+        for i in self.__df["text"].to_list():
+            print(self.preprocessText(i))
+            print("=============================")
+
+    def find_tweets(self, query, keyword):
+        if query == "author":
+            q = "tweet_author"
+        elif query == "hashtag":
+            q = "hashtag"
+        for i in self.__db.find({q: keyword}):
+            print(colored("======================================", 'red', 'on_red'))
+            print(colored("Username : ", 'red',
+                  attrs=['bold']), i["tweet_author"])
+            print(colored("Create at : ", 'red', attrs=[
+                  'bold']), self.utc_to_local(i["tweet_create_at"]))
+            print(colored("Text : ", 'cyan', attrs=['bold']), i["text"])
+            print(colored("Hashtag : ", 'yellow',
+                  attrs=['bold']), i["hashtag"])
+            print(colored("======================================", 'red', 'on_red'))
+
+    def splittime(self, time):
+        timeset = time.split(".")
+        timeset = [int(i) for i in timeset]
+        return timeset
+
+    def find_tweets_time(self, fromtime, totime):
+        new_fromtime = self.splittime(fromtime)
+        new_totime = self.splittime(totime)
+
+        for i in self.__db.find({"tweet_create_at": {
+            "$gt": datetime(new_fromtime[0], new_fromtime[1], new_fromtime[2], new_fromtime[3], new_fromtime[4], new_fromtime[5]),
+            "$lt": datetime(new_totime[0], new_totime[1], new_totime[2], new_totime[3], new_totime[4], new_totime[5])
+        }}):
+            print(colored("======================================", 'red', 'on_red'))
+            print(colored("Username : ", 'red',
+                  attrs=['bold']), i["tweet_author"])
+            print(colored("Create at : ", 'red', attrs=[
+                  'bold']), self.utc_to_local(i["tweet_create_at"]))
+            print(colored("Text : ", 'cyan', attrs=['bold']), i["text"])
+            print(colored("Hashtag : ", 'yellow',
+                  attrs=['bold']), i["hashtag"])
+            print(colored("======================================", 'red', 'on_red'))
 
     # def removeSpecialChar(self, text):
     #     return re.sub(r"[!@#$?%+:\"]", "", text)
@@ -125,5 +170,7 @@ puller.getAccessToAPI(api_key, api_key_secret)
 puller.setUserAuthentication(access_token, access_token_secret)
 
 puller.getTwitterAPI()
-puller.connectToDB("twitter", "tweetsv1")
-puller.pullTweets("花譜", 2000)
+puller.connectToDB("twitter", "tweets")
+puller.pullTweets("#dek66", 15000)
+# puller.find_tweets_time("2023.1.8.0.0.0", "2023.1.9.0.0.0")
+# puller.find_tweets("hashtag", "#dek66")
