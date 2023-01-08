@@ -7,6 +7,7 @@ import pymongo
 from datetime import datetime, timezone
 from dateutil import tz
 import pytz
+from termcolor import colored
 
 import re
 
@@ -94,11 +95,10 @@ class PullTweetsData():
     def saveTweets(self):
         count = 1
         for i in self.__df.to_dict('records'):
-            self.__db.update_one({"tweet_create_at":i["tweet_create_at"],"tweet_author":i["tweet_author"]},
-                                 {"$set":i},upsert=True)
+            self.__db.update_one({"tweet_create_at": i["tweet_create_at"], "tweet_author": i["tweet_author"]},
+                                 {"$set": i}, upsert=True)
             print(f"Saved {count} tweets")
             count += 1
-        
 
     def preprocessText(self, text):
         text = self.removeEmoji(text)
@@ -115,6 +115,45 @@ class PullTweetsData():
             print(self.preprocessText(i))
             print("=============================")
 
+    def find_tweets(self, query, keyword):
+        if query == "author":
+            q = "tweet_author"
+        elif query == "hashtag":
+            q = "hashtag"
+        for i in self.__db.find({q: keyword}):
+            print(colored("======================================", 'red', 'on_red'))
+            print(colored("Username : ", 'red',
+                  attrs=['bold']), i["tweet_author"])
+            print(colored("Create at : ", 'red', attrs=[
+                  'bold']), self.utc_to_local(i["tweet_create_at"]))
+            print(colored("Text : ", 'cyan', attrs=['bold']), i["text"])
+            print(colored("Hashtag : ", 'yellow',
+                  attrs=['bold']), i["hashtag"])
+            print(colored("======================================", 'red', 'on_red'))
+
+    def splittime(self, time):
+        timeset = time.split(".")
+        timeset = [int(i) for i in timeset]
+        return timeset
+
+    def find_tweets_time(self, fromtime, totime):
+        new_fromtime = self.splittime(fromtime)
+        new_totime = self.splittime(totime)
+
+        for i in self.__db.find({"tweet_create_at": {
+            "$gt": datetime(new_fromtime[0], new_fromtime[1], new_fromtime[2], new_fromtime[3], new_fromtime[4], new_fromtime[5]),
+            "$lt": datetime(new_totime[0], new_totime[1], new_totime[2], new_totime[3], new_totime[4], new_totime[5])
+        }}):
+            print(colored("======================================", 'red', 'on_red'))
+            print(colored("Username : ", 'red',
+                  attrs=['bold']), i["tweet_author"])
+            print(colored("Create at : ", 'red', attrs=[
+                  'bold']), self.utc_to_local(i["tweet_create_at"]))
+            print(colored("Text : ", 'cyan', attrs=['bold']), i["text"])
+            print(colored("Hashtag : ", 'yellow',
+                  attrs=['bold']), i["hashtag"])
+            print(colored("======================================", 'red', 'on_red'))
+
 
 api_key = "SnxucIPt1fg7UUyVOT0T5j0pR"
 api_key_secret = "yaToQPv95OA1fiNTHD8drKM8g8rZGM7jSQnPOLoxU3QA9UpaLm"
@@ -129,7 +168,9 @@ puller.setUserAuthentication(access_token, access_token_secret)
 puller.getTwitterAPI()
 puller.createDataFrame()
 
-puller.pullTweets("#dek66", 17000)
+# puller.pullTweets("#dek66", 1000)
 
-puller.connectToDB("twitter", "tweets")
-puller.saveTweets()
+puller.connectToDB("twitter", "dek66")
+# puller.saveTweets()
+puller.find_tweets_time("2023.1.8.14.0.0", "2023.1.8.15.0.0")
+# puller.find_tweets("author", "thxjeno3")
