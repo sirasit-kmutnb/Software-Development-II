@@ -170,7 +170,7 @@ puller.createDataFrame()
 
 # puller.pullTweets("#dek66", 1000)
 
-puller.connectToDB("twitter", "dek66")
+puller.connectToDB("twitter", "tweets")
 # puller.saveTweets()
 puller.find_tweets_time("2023.1.8.7.10.0", "2023.1.8.8.0.0")
 # puller.find_tweets("author", "thxjeno3")
