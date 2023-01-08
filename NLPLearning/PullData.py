@@ -68,9 +68,9 @@ class PullTweetsData():
             self.__df = pd.concat(
                 [self.__df, pd.DataFrame(new_data).T], ignore_index=True)
             self.__count += 1
-            # print(f"Pulled Tweets : {self.__count} tweets")
+            print(f"Pulled Tweets : {self.__count} tweets")55
             if self.__count == amount:
-                # print("done")
+                print("done")
                 self.__count = 0
                 break
 
@@ -95,10 +95,10 @@ class PullTweetsData():
 
     def saveTweets(self):
         count = 1
-        for i in tqdm(self.__df.to_dict('records')):
+        for i in self.__df.to_dict('records'):
             self.__db.update_one({"tweet_create_at": i["tweet_create_at"], "tweet_author": i["tweet_author"]},
                                  {"$set": i}, upsert=True)
-            # print(f"Saved {count} tweets")
+            print(f"Saved {count} tweets")
             count += 1
 
     def preprocessText(self, text):
