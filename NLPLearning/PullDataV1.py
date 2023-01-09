@@ -76,10 +76,10 @@ class PullTweetsData():
                 self.__count = 0
                 break
 
-    def textSplit(self):
-        for i in self.__df["text"].to_list():
-            print(self.preprocessText(i))
-            print("=============================")
+    # def textSplit(self):
+    #     for i in self.__df["text"].to_list():
+    #         print(self.preprocessText(i))
+    #         print("=============================")
 
     def find_tweets(self, query, keyword):
         if query == "author":
@@ -171,6 +171,6 @@ puller.setUserAuthentication(access_token, access_token_secret)
 
 puller.getTwitterAPI()
 puller.connectToDB("twitter", "tweets")
-puller.pullTweets("#dek66", 15000)
+puller.pullTweets("#dek66", 5000)
 # puller.find_tweets_time("2023.1.8.0.0.0", "2023.1.9.0.0.0")
 # puller.find_tweets("hashtag", "#dek66")
