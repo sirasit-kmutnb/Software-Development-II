@@ -169,7 +169,7 @@ puller.setUserAuthentication(access_token, access_token_secret)
 puller.getTwitterAPI()
 puller.createDataFrame()
 
-puller.pullTweets("#dek66", 100)
+puller.pullTweets("#dek66", 15000)
 
 puller.connectToDB("twitter", "tweets")
 puller.saveTweets()
