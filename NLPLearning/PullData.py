@@ -169,9 +169,15 @@ puller.setUserAuthentication(access_token, access_token_secret)
 puller.getTwitterAPI()
 puller.createDataFrame()
 
+<<<<<<< Updated upstream
 puller.pullTweets("#dek66", 15000)
 
 puller.connectToDB("twitter", "tweets")
+=======
+puller.pullTweets("#dek66", 1000)
+
+puller.connectToDB("twitter", "dek66")
+>>>>>>> Stashed changes
 puller.saveTweets()
 # puller.find_tweets_time("2023.1.8.7.10.0", "2023.1.8.8.0.0")
 # puller.find_tweets("author", "thxjeno3")
