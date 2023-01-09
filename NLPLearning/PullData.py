@@ -8,6 +8,7 @@ from datetime import datetime, timezone
 from dateutil import tz
 import pytz
 from termcolor import colored
+from tqdm import tqdm
 
 import re
 
@@ -44,8 +45,8 @@ class PullTweetsData():
         return PullTweetsData.localTZ.normalize(local_dt)
 
     def pullTweets(self, query, amount):
-        for tweet in tweepy.Cursor(self.__api.search_tweets, q=query, count=100,
-                                   result_type="recent", tweet_mode='extended').items():
+        for tweet in tqdm(tweepy.Cursor(self.__api.search_tweets, q=query, count=100,
+                                        result_type="recent", tweet_mode='extended').items()):
             entity_hashtag = tweet.entities.get('hashtags')
             hashtag = self.getHashtag(entity_hashtag)
             tweet_author = tweet.user.screen_name
@@ -67,7 +68,7 @@ class PullTweetsData():
             self.__df = pd.concat(
                 [self.__df, pd.DataFrame(new_data).T], ignore_index=True)
             self.__count += 1
-            print(f"Pulled Tweets : {self.__count} tweets")
+            print(f"Pulled Tweets : {self.__count} tweets")55
             if self.__count == amount:
                 print("done")
                 self.__count = 0
@@ -168,9 +169,9 @@ puller.setUserAuthentication(access_token, access_token_secret)
 puller.getTwitterAPI()
 puller.createDataFrame()
 
-puller.pullTweets("#dek66", 5500)
+puller.pullTweets("#dek66", 100)
 
 puller.connectToDB("twitter", "tweets")
 puller.saveTweets()
-# puller.find_tweets_time("2023.1.8.14.0.0", "2023.1.8.15.0.0")
+# puller.find_tweets_time("2023.1.8.7.10.0", "2023.1.8.8.0.0")
 # puller.find_tweets("author", "thxjeno3")
