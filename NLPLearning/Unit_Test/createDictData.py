@@ -4,23 +4,41 @@ import unittest
 
 class TestcreateDictData(unittest.TestCase):
 
-    def init(self):
-        self.obj = PullTweetsData()
+    def setUp(self):
+        self.puller = PullTweetsData()
 
     def test_createDictData(self):
-        tweet_author = 'John Doe'
-        tweet_create_at = '2022-01-01 12:00:00'
+        tweet_author = 'Test Test'
+        tweet_create_at = 'times'
         hashtag = '#example'
         keyword = 'test'
         text = 'This is a test tweet'
 
-        expected_output = {'tweet_author': 'John Doe',
-                           'tweet_create_at': '2022-01-01 12:00:00',
+        expected_output = {'tweet_author': 'Test Test',
+                           'tweet_create_at': 'times',
                            'hashtag': '#example',
                            'keyword': 'test',
                            'text': 'This is a test tweet'}
 
-        output = self.obj.createDictData(
+        output = self.puller.createDictData(
+            tweet_author, tweet_create_at, hashtag, keyword, text)
+
+        self.assertEqual(expected_output, output)
+
+    def test_createDictData(self):
+        tweet_author = ''
+        tweet_create_at = ''
+        hashtag = ''
+        keyword = ''
+        text = ''
+
+        expected_output = {'tweet_author': '',
+                           'tweet_create_at': '',
+                           'hashtag': '',
+                           'keyword': '',
+                           'text': ''}
+
+        output = self.puller.createDictData(
             tweet_author, tweet_create_at, hashtag, keyword, text)
 
         self.assertEqual(expected_output, output)

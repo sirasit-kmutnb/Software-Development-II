@@ -35,10 +35,13 @@ class PullTweetsData():
         return hashtag
 
     def utc_to_local(self, utc_dt):
-        local_dt = utc_dt.replace(tzinfo=pytz.utc).astimezone(
-            PullTweetsData.localTZ)
-        # .normalize might be unnecessary
-        return PullTweetsData.localTZ.normalize(local_dt)
+        try:
+            local_dt = utc_dt.replace(tzinfo=pytz.utc).astimezone(
+                PullTweetsData.localTZ)
+            # .normalize might be unnecessary
+            return PullTweetsData.localTZ.normalize(local_dt)
+        except:
+            return "Bad Data"
 
     def createDictData(self, tweet_author, tweet_create_at, hashtag, keyword, text):
         tweet = {}
