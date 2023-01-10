@@ -45,7 +45,7 @@ class PullTweetsData():
         return PullTweetsData.localTZ.normalize(local_dt)
 
     def pullTweets(self, query, amount):
-        for tweet in tqdm(tweepy.Cursor(self.__api.search_tweets, q=query, count=100,
+        for tweet in (tweepy.Cursor(self.__api.search_tweets, q=query, count=100,
                                         result_type="recent", tweet_mode='extended').items()):
             entity_hashtag = tweet.entities.get('hashtags')
             hashtag = self.getHashtag(entity_hashtag)
@@ -68,7 +68,7 @@ class PullTweetsData():
             self.__df = pd.concat(
                 [self.__df, pd.DataFrame(new_data).T], ignore_index=True)
             self.__count += 1
-            print(f"Pulled Tweets : {self.__count} tweets")55
+            print(f"Pulled Tweets : {self.__count} tweets")
             if self.__count == amount:
                 print("done")
                 self.__count = 0
@@ -169,15 +169,9 @@ puller.setUserAuthentication(access_token, access_token_secret)
 puller.getTwitterAPI()
 puller.createDataFrame()
 
-<<<<<<< Updated upstream
-puller.pullTweets("#dek66", 15000)
+puller.pullTweets("#dek66", 10000)
 
 puller.connectToDB("twitter", "tweets")
-=======
-puller.pullTweets("#dek66", 1000)
-
-puller.connectToDB("twitter", "dek66")
->>>>>>> Stashed changes
 puller.saveTweets()
 # puller.find_tweets_time("2023.1.8.7.10.0", "2023.1.8.8.0.0")
 # puller.find_tweets("author", "thxjeno3")
