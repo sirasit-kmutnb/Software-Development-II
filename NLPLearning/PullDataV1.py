@@ -73,9 +73,9 @@ class PullTweetsData():
                 tweet_author, tweet_create_at, hashtag, keyword, text)
             self.saveTweetsDict(tweet_post)
             self.__count += 1
-            # print(f"Pulled Tweets : {self.__count} tweets")
+            # print(f"Pulled Tweets : {self.__count} tweets keyword : {query}")
             if self.__count == amount:
-                # print("done")
+                # print(f"Task done with keyword : {query} saved : {self.__count}")
                 self.__count = 0
                 break
 
@@ -166,27 +166,60 @@ class PullTweetsData():
 # puller.find_tweets_time("2023.1.8.0.0.0", "2023.1.9.0.0.0")
 # puller.find_tweets("hashtag", "#dek66")
 # puller.find_tweets("author", "sun_sxe")
-from threading import Timer,Thread
+# from threading import Timer,Thread
 
-def run_every_20_minutes():
-    Timer(1 * 60, run_every_20_minutes).start()
+# def run_every_20_minutes():
+#     Timer(1 * 60, run_every_20_minutes).start()
+#     api_key = "b1AP2ULpybPSA4QJxwNcIkciB"
+#     api_key_secret = "vUXGZ9ZJ8a0R4YphK9ZHAfwZduAs5v3iCnsxkOuXcZ9edJTqUM"
+#     access_token = "1552621958780530688-rF7v3RU347dHhd00lKnGRExRI1vLB3"
+#     access_token_secret = "2YTPWAIixuKT2LvaizWI8CstmF6ABdZOXYbMDo0DIvVcR"
+
+#     puller = PullTweetsData()
+
+#     puller.getAccessToAPI(api_key, api_key_secret)
+#     puller.setUserAuthentication(access_token, access_token_secret)
+
+#     puller.getTwitterAPI()
+#     puller.connectToDB("twitter", "tweets")
+#     t1 = Thread(target=puller.pullTweets, args=("#dek66", 100))
+#     t2 = Thread(target=puller.pullTweets, args=("#เริ่มต้นปีขอดีบ้างเถาะ", 100))
+
+#     t1.start()
+#     t2.start()
+
+# run_every_20_minutes()
+
+import sched, time
+from threading import Thread
+
+s = sched.scheduler(time.time, time.sleep)
+
+def pullTweetsTask(sc): 
     api_key = "b1AP2ULpybPSA4QJxwNcIkciB"
     api_key_secret = "vUXGZ9ZJ8a0R4YphK9ZHAfwZduAs5v3iCnsxkOuXcZ9edJTqUM"
     access_token = "1552621958780530688-rF7v3RU347dHhd00lKnGRExRI1vLB3"
     access_token_secret = "2YTPWAIixuKT2LvaizWI8CstmF6ABdZOXYbMDo0DIvVcR"
 
-    puller = PullTweetsData()
+    pullerT1 = PullTweetsData()
+    pullerT2 = PullTweetsData()
 
-    puller.getAccessToAPI(api_key, api_key_secret)
-    puller.setUserAuthentication(access_token, access_token_secret)
+    pullerT1.getAccessToAPI(api_key, api_key_secret)
+    pullerT2.getAccessToAPI(api_key, api_key_secret)
 
-    puller.getTwitterAPI()
-    puller.connectToDB("twitter", "tweets")
-    puller.pullTweets("#dek66", 100)
-    t1 = Thread(target=puller.pullTweets, args=("#dek66", 100))
-    t2 = Thread(target=puller.pullTweets, args=("#เริ่มต้นปีขอดีบ้างเถาะ", 100))
+    pullerT1.setUserAuthentication(access_token, access_token_secret)
+    pullerT2.setUserAuthentication(access_token, access_token_secret)
 
-    t1.start()
-    t2.start()
+    pullerT1.getTwitterAPI()
+    pullerT2.getTwitterAPI()
 
-run_every_20_minutes()
+    pullerT1.connectToDB("twitter", "tweets")
+    pullerT2.connectToDB("twitter", "tweets")
+    t1 = Thread(target=pullerT1.pullTweets, args=("#dek66", 100))
+    t2 = Thread(target=pullerT2.pullTweets, args=("#เริ่มต้นปีขอดีบ้างเถาะ", 100))
+    t1.start() 
+    t2.start() 
+    s.enter(60, 1, pullTweetsTask, argument=(sc,)) 
+
+s.enter(0, 1, pullTweetsTask, argument=(s,)) 
+s.run()
