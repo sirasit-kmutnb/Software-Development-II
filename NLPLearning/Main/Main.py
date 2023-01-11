@@ -25,7 +25,7 @@ class main_threading:
     def __init__(self):
         self.setUp()
         t = threading.Thread(target=self.saveTwitter,
-                             args=("#dek66", 100, ))
+                             args=("#dek66", 15000, ))
         t.start()
         # self.paintwall()
 
