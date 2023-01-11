@@ -1,16 +1,22 @@
+import time
+import sched
+from threading import Thread
 import tweepy
 import pandas as pd
 from pythainlp.tokenize import word_tokenize
 from pythainlp.corpus import thai_stopwords
 import emoji
+import re
 import pymongo
 from datetime import datetime, timezone
 from dateutil import tz
 import pytz
 from termcolor import colored
 from tqdm import tqdm
+import os
+from dotenv import load_dotenv
 
-import re
+load_dotenv()
 
 
 class PullTweetsData():
@@ -162,7 +168,6 @@ class PullTweetsData():
     #         print("=============================")
 
 
-
 # puller.find_tweets_time("2023.1.8.0.0.0", "2023.1.9.0.0.0")
 # puller.find_tweets("hashtag", "#dek66")
 # puller.find_tweets("author", "sun_sxe")
@@ -190,16 +195,14 @@ class PullTweetsData():
 
 # run_every_20_minutes()
 
-import sched, time
-from threading import Thread
-
 s = sched.scheduler(time.time, time.sleep)
 
-def pullTweetsTask(sc): 
-    api_key = "b1AP2ULpybPSA4QJxwNcIkciB"
-    api_key_secret = "vUXGZ9ZJ8a0R4YphK9ZHAfwZduAs5v3iCnsxkOuXcZ9edJTqUM"
-    access_token = "1552621958780530688-rF7v3RU347dHhd00lKnGRExRI1vLB3"
-    access_token_secret = "2YTPWAIixuKT2LvaizWI8CstmF6ABdZOXYbMDo0DIvVcR"
+
+def pullTweetsTask(sc):
+    api_key = os.getenv('API_KEY')
+    api_key_secret = os.getenv('API_KEY_SECRET')
+    access_token = os.getenv('ACCESS_TOKEN')
+    access_token_secret = os.getenv('ACCESS_TOKEN_SECRET')
 
     pullerT1 = PullTweetsData()
     pullerT2 = PullTweetsData()
@@ -213,13 +216,15 @@ def pullTweetsTask(sc):
     pullerT1.getTwitterAPI()
     pullerT2.getTwitterAPI()
 
-    pullerT1.connectToDB("twitter", "tweets")
-    pullerT2.connectToDB("twitter", "tweets")
+    pullerT1.connectToDB("twitter", "tweetsv1")
+    pullerT2.connectToDB("twitter", "tweetsv1")
     t1 = Thread(target=pullerT1.pullTweets, args=("#dek66", 100))
-    t2 = Thread(target=pullerT2.pullTweets, args=("#เริ่มต้นปีขอดีบ้างเถาะ", 100))
-    t1.start() 
-    t2.start() 
-    s.enter(60, 1, pullTweetsTask, argument=(sc,)) 
+    t2 = Thread(target=pullerT2.pullTweets, args=(
+        "#เริ่มต้นปีขอดีบ้างเถาะ", 100))
+    t1.start()
+    t2.start()
+    s.enter(60, 1, pullTweetsTask, argument=(sc,))
 
-s.enter(0, 1, pullTweetsTask, argument=(s,)) 
+
+s.enter(0, 1, pullTweetsTask, argument=(s,))
 s.run()
