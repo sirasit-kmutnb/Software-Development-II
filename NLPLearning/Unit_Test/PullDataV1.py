@@ -28,10 +28,6 @@ class PullTweetsData():
     def getTwitterAPI(self):
         self.__api = tweepy.API(self.__auth)
 
-    def createDataFrame(self):
-        self.__df = pd.DataFrame(
-            columns=["tweet_create_at", "keyword", "tweet_author", "text", "hashtag"])
-
     def getHashtag(self, entity_hashtag):
         hashtag = ""
         for i in range(0, len(entity_hashtag)):
@@ -39,10 +35,22 @@ class PullTweetsData():
         return hashtag
 
     def utc_to_local(self, utc_dt):
-        local_dt = utc_dt.replace(tzinfo=pytz.utc).astimezone(
-            PullTweetsData.localTZ)
-        # .normalize might be unnecessary
-        return PullTweetsData.localTZ.normalize(local_dt)
+        try:
+            local_dt = utc_dt.replace(tzinfo=pytz.utc).astimezone(
+                PullTweetsData.localTZ)
+            # .normalize might be unnecessary
+            return PullTweetsData.localTZ.normalize(local_dt)
+        except:
+            return "Bad Data"
+
+    def createDictData(self, tweet_author, tweet_create_at, hashtag, keyword, text):
+        tweet = {}
+        tweet["tweet_author"] = tweet_author
+        tweet["tweet_create_at"] = tweet_create_at
+        tweet["hashtag"] = hashtag
+        tweet["keyword"] = keyword
+        tweet["text"] = text
+        return tweet
 
     def pullTweets(self, query, amount):
         for tweet in tqdm(tweepy.Cursor(self.__api.search_tweets, q=query, count=100,
@@ -57,64 +65,24 @@ class PullTweetsData():
             local_zone = tz.tzlocal()
             dt_local = dt_utc.astimezone(local_zone)
             tweet_create_at = dt_local
-            # for i in range(0,len(entity_hashtag)):
-            #     hashtag = hashtag +"/"+entity_hashtag[i]["text"]
             try:
                 text = tweet.retweeted_status.full_text
             except:
                 text = tweet.full_text
-            new_data = pd.Series(
-                [tweet_create_at, keyword, tweet_author, text, hashtag], index=self.__df.columns)
-            self.__df = pd.concat(
-                [self.__df, pd.DataFrame(new_data).T], ignore_index=True)
+            tweet_post = self.createDictData(
+                tweet_author, tweet_create_at, hashtag, keyword, text)
+            self.saveTweetsDict(tweet_post)
             self.__count += 1
-            print(f"Pulled Tweets : {self.__count} tweets")
+            # print(f"Pulled Tweets : {self.__count} tweets")
             if self.__count == amount:
-                print("done")
+                # print("done")
                 self.__count = 0
                 break
 
-    def removeSpecialChar(self, text):
-        return re.sub(r"[!@#$?%+:\"]", "", text)
-
-    def removeEmoji(self, text):
-        allchars = [str for str in text]
-        emoji_list = [c for c in allchars if c in emoji.EMOJI_DATA]
-        return ''.join([str for str in allchars if not any(i in str for i in emoji_list)])
-
-    def removeLink(self, text):
-        return re.sub(r'https?:\/\/.*[\r\n]*', '', text, flags=re.MULTILINE)
-
-    def removeEnglish(self, text):
-        return re.sub('[^ก-๙]', "", text)
-
-    def connectToDB(self, database, collection):
-        client = pymongo.MongoClient('localhost', 27017)
-        mydb = client[database]
-        self.__db = mydb[collection]
-
-    def saveTweets(self):
-        count = 1
-        for i in self.__df.to_dict('records'):
-            self.__db.update_one({"tweet_create_at": i["tweet_create_at"], "tweet_author": i["tweet_author"]},
-                                 {"$set": i}, upsert=True)
-            print(f"Saved {count} tweets")
-            count += 1
-
-    def preprocessText(self, text):
-        text = self.removeEmoji(text)
-        text = self.removeSpecialChar(text)
-        text = self.removeLink(text)
-        text = self.removeEnglish(text)
-        SplitedSentence = word_tokenize(text, engine="newmm")
-        result = [word for word in SplitedSentence if word not in list(
-            thai_stopwords()) and " " not in word]
-        return " /".join(result)
-
-    def textSplit(self):
-        for i in self.__df["text"].to_list():
-            print(self.preprocessText(i))
-            print("=============================")
+    # def textSplit(self):
+    #     for i in self.__df["text"].to_list():
+    #         print(self.preprocessText(i))
+    #         print("=============================")
 
     def find_tweets(self, query, keyword):
         if query == "author":
@@ -155,11 +123,49 @@ class PullTweetsData():
                   attrs=['bold']), i["hashtag"])
             print(colored("======================================", 'red', 'on_red'))
 
+    # def removeSpecialChar(self, text):
+    #     return re.sub(r"[!@#$?%+:\"]", "", text)
 
-api_key = "SnxucIPt1fg7UUyVOT0T5j0pR"
-api_key_secret = "yaToQPv95OA1fiNTHD8drKM8g8rZGM7jSQnPOLoxU3QA9UpaLm"
-access_token = "1722424471-Xb0DjPVOqXsLj2sXEYXmU2sqxaDC4B793erGO6J"
-access_token_secret = "D2LyXN11zAoZB0M476eb1ZGDM55oRvy4tBWNb8pR4CO0h"
+    # def removeEmoji(self, text):
+    #     allchars = [str for str in text]
+    #     emoji_list = [c for c in allchars if c in emoji.EMOJI_DATA]
+    #     return ''.join([str for str in allchars if not any(i in str for i in emoji_list)])
+
+    # def removeLink(self, text):
+    #     return re.sub(r'https?:\/\/.*[\r\n]*', '', text, flags=re.MULTILINE)
+
+    # def removeEnglish(self, text):
+    #     return re.sub('[^ก-๙]', "", text)
+
+    def connectToDB(self, database, collection):
+        client = pymongo.MongoClient('localhost', 27017)
+        mydb = client[database]
+        self.__db = mydb[collection]
+
+    def saveTweetsDict(self, tweet_post):
+        self.__db.update_one({"tweet_create_at": tweet_post["tweet_create_at"], "tweet_author": tweet_post["tweet_author"]},
+                             {"$set": tweet_post}, upsert=True)
+
+    # def preprocessText(self, text):
+    #     text = self.removeEmoji(text)
+    #     text = self.removeSpecialChar(text)
+    #     text = self.removeLink(text)
+    #     text = self.removeEnglish(text)
+    #     SplitedSentence = word_tokenize(text, engine="newmm")
+    #     result = [word for word in SplitedSentence if word not in list(
+    #         thai_stopwords()) and " " not in word]
+    #     return " /".join(result)
+
+    # def textSplit(self):
+    #     for i in self.__df["text"].to_list():
+    #         print(self.preprocessText(i))
+    #         print("=============================")
+
+
+api_key = "b1AP2ULpybPSA4QJxwNcIkciB"
+api_key_secret = "vUXGZ9ZJ8a0R4YphK9ZHAfwZduAs5v3iCnsxkOuXcZ9edJTqUM"
+access_token = "1552621958780530688-rF7v3RU347dHhd00lKnGRExRI1vLB3"
+access_token_secret = "2YTPWAIixuKT2LvaizWI8CstmF6ABdZOXYbMDo0DIvVcR"
 
 puller = PullTweetsData()
 
@@ -167,11 +173,8 @@ puller.getAccessToAPI(api_key, api_key_secret)
 puller.setUserAuthentication(access_token, access_token_secret)
 
 puller.getTwitterAPI()
-puller.createDataFrame()
-
-puller.pullTweets("#dek66", 1000)
-
-puller.connectToDB("twitter", "tweets")
-puller.saveTweets()
-# puller.find_tweets_time("2023.1.8.7.10.0", "2023.1.8.8.0.0")
-# puller.find_tweets("author", "thxjeno3")
+# puller.connectToDB("twitter", "tweets")
+# puller.pullTweets("#dek66", 15000)
+# puller.find_tweets_time("2023.1.8.0.0.0", "2023.1.9.0.0.0")
+# puller.find_tweets("hashtag", "#dek66")
+# puller.find_tweets("author", "sun_sxe")

@@ -205,24 +205,24 @@ def pullTweetsTask(sc):
     access_token_secret = os.getenv('ACCESS_TOKEN_SECRET')
 
     pullerT1 = PullTweetsData()
-    pullerT2 = PullTweetsData()
+    # pullerT2 = PullTweetsData()
 
     pullerT1.getAccessToAPI(api_key, api_key_secret)
-    pullerT2.getAccessToAPI(api_key, api_key_secret)
+    # pullerT2.getAccessToAPI(api_key, api_key_secret)
 
     pullerT1.setUserAuthentication(access_token, access_token_secret)
-    pullerT2.setUserAuthentication(access_token, access_token_secret)
+    # pullerT2.setUserAuthentication(access_token, access_token_secret)
 
     pullerT1.getTwitterAPI()
-    pullerT2.getTwitterAPI()
+    # pullerT2.getTwitterAPI()
 
-    pullerT1.connectToDB("twitter", "tweetsv1")
-    pullerT2.connectToDB("twitter", "tweetsv1")
-    t1 = Thread(target=pullerT1.pullTweets, args=("#dek66", 100))
-    t2 = Thread(target=pullerT2.pullTweets, args=(
-        "#เริ่มต้นปีขอดีบ้างเถาะ", 100))
+    pullerT1.connectToDB("twitter", "tweets")
+    # pullerT2.connectToDB("twitter", "tweets")
+    t1 = Thread(target=pullerT1.pullTweets, args=("#dek66", 15000))
+    # t2 = Thread(target=pullerT2.pullTweets, args=(
+    # "#เริ่มต้นปีขอดีบ้างเถาะ", 100))
     t1.start()
-    t2.start()
+    # t2.start()
     s.enter(60, 1, pullTweetsTask, argument=(sc,))
 
 

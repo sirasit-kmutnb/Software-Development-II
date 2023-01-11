@@ -35,10 +35,13 @@ class PullTweetsData():
         return hashtag
 
     def utc_to_local(self, utc_dt):
-        local_dt = utc_dt.replace(tzinfo=pytz.utc).astimezone(
-            PullTweetsData.localTZ)
-        # .normalize might be unnecessary
-        return PullTweetsData.localTZ.normalize(local_dt)
+        try:
+            local_dt = utc_dt.replace(tzinfo=pytz.utc).astimezone(
+                PullTweetsData.localTZ)
+            # .normalize might be unnecessary
+            return PullTweetsData.localTZ.normalize(local_dt)
+        except:
+            return "Bad Data"
 
     def createDictData(self, tweet_author, tweet_create_at, hashtag, keyword, text):
         tweet = {}
@@ -76,10 +79,10 @@ class PullTweetsData():
                 self.__count = 0
                 break
 
-    def textSplit(self):
-        for i in self.__df["text"].to_list():
-            print(self.preprocessText(i))
-            print("=============================")
+    # def textSplit(self):
+    #     for i in self.__df["text"].to_list():
+    #         print(self.preprocessText(i))
+    #         print("=============================")
 
     def find_tweets(self, query, keyword):
         if query == "author":
@@ -164,14 +167,14 @@ api_key_secret = "vUXGZ9ZJ8a0R4YphK9ZHAfwZduAs5v3iCnsxkOuXcZ9edJTqUM"
 access_token = "1552621958780530688-rF7v3RU347dHhd00lKnGRExRI1vLB3"
 access_token_secret = "2YTPWAIixuKT2LvaizWI8CstmF6ABdZOXYbMDo0DIvVcR"
 
-puller = PullTweetsData()
+# puller = PullTweetsData()
 
-puller.getAccessToAPI(api_key, api_key_secret)
-puller.setUserAuthentication(access_token, access_token_secret)
+# puller.getAccessToAPI(api_key, api_key_secret)
+# puller.setUserAuthentication(access_token, access_token_secret)
 
-puller.getTwitterAPI()
-puller.connectToDB("twitter", "tweets")
-puller.pullTweets("#dek66", 15000)
-# puller.find_tweets_time("2023.1.9.0.0.0", "2023.1.9.2.0.0")
+# puller.getTwitterAPI()
+# puller.connectToDB("twitter", "tweets")
+# puller.pullTweets("#dek66", 15000)
+# puller.find_tweets_time("2023.1.8.0.0.0", "2023.1.9.0.0.0")
 # puller.find_tweets("hashtag", "#dek66")
 # puller.find_tweets("author", "sun_sxe")
