@@ -1,7 +1,6 @@
 import time
 import sched
 from threading import Thread
-from threading import Lock
 import tweepy
 import pandas as pd
 from pythainlp.tokenize import word_tokenize
@@ -20,7 +19,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-class Twitter_Keeper:
+class PullTweetsData():
 
     def __init__(self):
         self.__count = 0
@@ -59,12 +58,14 @@ class Twitter_Keeper:
         return tweet
 
     def pullTweets(self, query, amount):
+        thread = Thread(target=self.pullTweetsThread, args=(query, amount))
+        thread.start()
+
+    def pullTweetsThread(self, query, amount):
         for tweet in tqdm(tweepy.Cursor(self.__api.search_tweets, q=query, count=100,
                                         result_type="recent", tweet_mode='extended').items()):
-            entity_hashtag = Thread(
-                target=tweet.entities.get, args=('hashtags', ))
-            hashtag = Thread(target=self.getHashtag, args=(entity_hashtag))
-            hashtag.start()
+            entity_hashtag = tweet.entities.get('hashtags')
+            hashtag = self.getHashtag(entity_hashtag)
             tweet_author = tweet.user.screen_name
             keyword = query
             dt_str = str(tweet.created_at)
@@ -81,9 +82,7 @@ class Twitter_Keeper:
                 tweet_author, tweet_create_at, hashtag, keyword, text)
             self.saveTweetsDict(tweet_post)
             self.__count += 1
-            # print(f"Pulled Tweets : {self.__count} tweets keyword : {query}")
             if self.__count == amount:
-                # print(f"Task done with keyword : {query} saved : {self.__count}")
                 self.__count = 0
                 break
 
@@ -134,3 +133,21 @@ class Twitter_Keeper:
     def saveTweetsDict(self, tweet_post):
         self.__db.update_one({"tweet_create_at": tweet_post["tweet_create_at"], "tweet_author": tweet_post["tweet_author"]},
                              {"$set": tweet_post}, upsert=True)
+
+
+def pullTweetsTask():
+    api_key = os.getenv('API_KEY')
+    api_key_secret = os.getenv('API_KEY_SECRET')
+    access_token = os.getenv('ACCESS_TOKEN')
+    access_token_secret = os.getenv('ACCESS_TOKEN_SECRET')
+
+    pullerT1 = PullTweetsData()
+    pullerT1.getAccessToAPI(api_key, api_key_secret)
+    pullerT1.setUserAuthentication(access_token, access_token_secret)
+    pullerT1.getTwitterAPI()
+    pullerT1.connectToDB("twitter", "tweetsv1")
+    t1 = Thread(target=pullerT1.pullTweets, args=("#dek66", 100))
+    t1.start()
+
+
+pullTweetsTask()
