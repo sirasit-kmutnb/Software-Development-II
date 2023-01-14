@@ -1,6 +1,7 @@
 import time
 import sched
 from threading import Thread
+from threading import Lock
 import tweepy
 import pandas as pd
 from pythainlp.tokenize import word_tokenize
@@ -24,6 +25,7 @@ class PullTweetsData():
     def __init__(self):
         self.__count = 0
         self.localTZ = pytz.timezone('Asia/Bangkok')
+        self.lock = Lock()  # create a lock object
 
     def getAccessToAPI(self, api_key, api_key_secret):
         self.__auth = tweepy.OAuthHandler(api_key, api_key_secret)
@@ -80,7 +82,9 @@ class PullTweetsData():
                 text = tweet.full_text
             tweet_post = self.createDictData(
                 tweet_author, tweet_create_at, hashtag, keyword, text)
-            self.saveTweetsDict(tweet_post)
+            saveTweet = Thread(target=self.saveTweetsDict,
+                               args=(tweet_post,))
+            saveTweet.start()
             self.__count += 1
             if self.__count == amount:
                 self.__count = 0
@@ -145,8 +149,8 @@ def pullTweetsTask():
     pullerT1.getAccessToAPI(api_key, api_key_secret)
     pullerT1.setUserAuthentication(access_token, access_token_secret)
     pullerT1.getTwitterAPI()
-    pullerT1.connectToDB("twitter", "tweets")
-    t1 = Thread(target=pullerT1.pullTweets, args=("#dek66", 15000))
+    pullerT1.connectToDB("twitter", "tweetsv2")
+    t1 = Thread(target=pullerT1.pullTweets, args=("#dek66", 100))
     t1.start()
 
 
