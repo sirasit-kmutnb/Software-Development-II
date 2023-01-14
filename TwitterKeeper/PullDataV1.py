@@ -61,9 +61,8 @@ class PullTweetsData():
     def pullTweets(self, query, amount):
         for tweet in tqdm(tweepy.Cursor(self.__api.search_tweets, q=query, count=100,
                                         result_type="recent", tweet_mode='extended').items()):
-            entity_hashtag = Thread(
-                target=tweet.entities.get, args=('hashtags', ))
-            hashtag = Thread(target=self.getHashtag, args=(entity_hashtag))
+            entity_hashtag = tweet.entities.get('hashtags')
+            hashtag = self.getHashtag(entity_hashtag)
             tweet_author = tweet.user.screen_name
             keyword = query
             dt_str = str(tweet.created_at)
@@ -196,36 +195,19 @@ class PullTweetsData():
 
 # run_every_20_minutes()
 
-s = sched.scheduler(time.time, time.sleep)
-
-
-def pullTweetsTask(sc):
+def pullTweetsTask():
     api_key = os.getenv('API_KEY')
     api_key_secret = os.getenv('API_KEY_SECRET')
     access_token = os.getenv('ACCESS_TOKEN')
     access_token_secret = os.getenv('ACCESS_TOKEN_SECRET')
 
     pullerT1 = PullTweetsData()
-    # pullerT2 = PullTweetsData()
-
     pullerT1.getAccessToAPI(api_key, api_key_secret)
-    # pullerT2.getAccessToAPI(api_key, api_key_secret)
-
     pullerT1.setUserAuthentication(access_token, access_token_secret)
-    # pullerT2.setUserAuthentication(access_token, access_token_secret)
-
     pullerT1.getTwitterAPI()
-    # pullerT2.getTwitterAPI()
-
-    pullerT1.connectToDB("twitter", "tweets")
-    # pullerT2.connectToDB("twitter", "tweets")
+    pullerT1.connectToDB("twitter", "dek66")
     t1 = Thread(target=pullerT1.pullTweets, args=("#dek66", 1000))
-    # t2 = Thread(target=pullerT2.pullTweets, args=(
-    # "#เริ่มต้นปีขอดีบ้างเถาะ", 100))
     t1.start()
-    # t2.start()
-    s.enter(60, 1, pullTweetsTask, argument=(sc,))
 
 
-s.enter(0, 1, pullTweetsTask, argument=(s,))
-s.run()
+pullTweetsTask()
