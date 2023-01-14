@@ -61,8 +61,9 @@ class PullTweetsData():
     def pullTweets(self, query, amount):
         for tweet in tqdm(tweepy.Cursor(self.__api.search_tweets, q=query, count=100,
                                         result_type="recent", tweet_mode='extended').items()):
-            entity_hashtag = tweet.entities.get('hashtags')
-            hashtag = self.getHashtag(entity_hashtag)
+            entity_hashtag = Thread(
+                target=tweet.entities.get, args=('hashtags', ))
+            hashtag = Thread(target=self.getHashtag, args=(entity_hashtag))
             tweet_author = tweet.user.screen_name
             keyword = query
             dt_str = str(tweet.created_at)
@@ -218,7 +219,7 @@ def pullTweetsTask(sc):
 
     pullerT1.connectToDB("twitter", "tweets")
     # pullerT2.connectToDB("twitter", "tweets")
-    t1 = Thread(target=pullerT1.pullTweets, args=("#dek66", 15000))
+    t1 = Thread(target=pullerT1.pullTweets, args=("#dek66", 1000))
     # t2 = Thread(target=pullerT2.pullTweets, args=(
     # "#เริ่มต้นปีขอดีบ้างเถาะ", 100))
     t1.start()
