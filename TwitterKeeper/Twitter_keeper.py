@@ -154,4 +154,4 @@ def pullTweetsTask():
     t1.start()
 
 
-pullTweetsTask()
+# pullTweetsTask()
