@@ -21,9 +21,9 @@ load_dotenv()
 
 class PullTweetsData():
     localTZ = pytz.timezone('Asia/Bangkok')
-
     def __init__(self):
         self.__count = 0
+        self.__db = None
 
     def getAccessToAPI(self, api_key, api_key_secret):
         self.__auth = tweepy.OAuthHandler(api_key, api_key_secret)
@@ -82,7 +82,6 @@ class PullTweetsData():
             # print(f"Pulled Tweets : {self.__count} tweets keyword : {query}")
             if self.__count == amount:
                 # print(f"Task done with keyword : {query} saved : {self.__count}")
-                self.__count = 0
                 break
 
     # def textSplit(self):
@@ -206,25 +205,45 @@ def pullTweetsTask(sc):
 
     pullerT1 = PullTweetsData()
     pullerT2 = PullTweetsData()
+    pullerT3 = PullTweetsData()
+    pullerT4 = PullTweetsData()
+    pullerT5 = PullTweetsData()
 
     pullerT1.getAccessToAPI(api_key, api_key_secret)
     pullerT2.getAccessToAPI(api_key, api_key_secret)
+    pullerT3.getAccessToAPI(api_key, api_key_secret)
+    pullerT4.getAccessToAPI(api_key, api_key_secret)
+    pullerT5.getAccessToAPI(api_key, api_key_secret)
 
     pullerT1.setUserAuthentication(access_token, access_token_secret)
     pullerT2.setUserAuthentication(access_token, access_token_secret)
+    pullerT3.setUserAuthentication(access_token, access_token_secret)
+    pullerT4.setUserAuthentication(access_token, access_token_secret)
+    pullerT5.setUserAuthentication(access_token, access_token_secret)
 
     pullerT1.getTwitterAPI()
     pullerT2.getTwitterAPI()
+    pullerT3.getTwitterAPI()
+    pullerT4.getTwitterAPI()
+    pullerT5.getTwitterAPI()
 
-    pullerT1.connectToDB("twitter", "tweetsv1")
-    pullerT2.connectToDB("twitter", "tweetsv1")
+    pullerT1.connectToDB("twitter", "tweets")
+    pullerT2.connectToDB("twitter", "tweets")
+    pullerT3.connectToDB("twitter", "tweets")
+    pullerT4.connectToDB("twitter", "tweets")
+    pullerT5.connectToDB("twitter", "tweets")
+
     t1 = Thread(target=pullerT1.pullTweets, args=("#dek66", 100))
-    t2 = Thread(target=pullerT2.pullTweets, args=(
-        "#เริ่มต้นปีขอดีบ้างเถาะ", 100))
+    t2 = Thread(target=pullerT2.pullTweets, args=("#เริ่มต้นปีขอดีบ้างเถาะ", 100))
+    t3 = Thread(target=pullerT3.pullTweets, args=("#บอลไทย", 100))
+    t4 = Thread(target=pullerT4.pullTweets, args=("หุ้น", 100))
+    t5 = Thread(target=pullerT5.pullTweets, args=("#ข่าวบันเทิง", 100))
     t1.start()
     t2.start()
-    s.enter(60, 1, pullTweetsTask, argument=(sc,))
-
+    t3.start()
+    t4.start()
+    t5.start()
+    s.enter(5*60, 1, pullTweetsTask, argument=(sc,))
 
 s.enter(0, 1, pullTweetsTask, argument=(s,))
 s.run()
