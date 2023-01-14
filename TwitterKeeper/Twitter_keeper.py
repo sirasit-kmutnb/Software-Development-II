@@ -145,8 +145,8 @@ def pullTweetsTask():
     pullerT1.getAccessToAPI(api_key, api_key_secret)
     pullerT1.setUserAuthentication(access_token, access_token_secret)
     pullerT1.getTwitterAPI()
-    pullerT1.connectToDB("twitter", "tweetsv1")
-    t1 = Thread(target=pullerT1.pullTweets, args=("#dek66", 100))
+    pullerT1.connectToDB("twitter", "tweets")
+    t1 = Thread(target=pullerT1.pullTweets, args=("#dek66", 15000))
     t1.start()
 
 
