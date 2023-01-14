@@ -25,7 +25,6 @@ class PullTweetsData():
     def __init__(self):
         self.__count = 0
         self.localTZ = pytz.timezone('Asia/Bangkok')
-        self.lock = Lock()  # create a lock object
 
     def getAccessToAPI(self, api_key, api_key_secret):
         self.__auth = tweepy.OAuthHandler(api_key, api_key_secret)
@@ -41,6 +40,18 @@ class PullTweetsData():
         for i in range(0, len(entity_hashtag)):
             hashtag = hashtag + "#"+entity_hashtag[i]["text"]
         return hashtag
+
+    def local_to_utc(self, local_dt):
+        try:
+            time = local_dt
+            # Localize the datetime object to the local timezone
+            local_time = self.localTZ.localize(time)
+            # Convert the localized datetime to UTC
+            utc_time = local_time.astimezone(pytz.utc)
+            # .normalize might be unnecessary
+            return utc_time
+        except:
+            return "Bad Data"
 
     def utc_to_local(self, utc_dt):
         try:
@@ -95,8 +106,11 @@ class PullTweetsData():
             q = "tweet_author"
         elif query == "hashtag":
             q = "hashtag"
-        for i in self.__db.find({q: keyword}):
+        count = 0
+        for i in self.__db.find({q: {"$regex": keyword}}):
+            count += 1
             print(colored("======================================", 'red', 'on_red'))
+            print(" ")
             print(colored("Username : ", 'red',
                   attrs=['bold']), i["tweet_author"])
             print(colored("Create at : ", 'red', attrs=[
@@ -104,7 +118,18 @@ class PullTweetsData():
             print(colored("Text : ", 'cyan', attrs=['bold']), i["text"])
             print(colored("Hashtag : ", 'yellow',
                   attrs=['bold']), i["hashtag"])
+            print(" ")
             print(colored("======================================", 'red', 'on_red'))
+
+        if count == 0:
+            print(colored("No Data in this keyword", 'red'))
+        else:
+            print(colored("======================================", 'red', 'on_blue'))
+            print(" ")
+            print(colored("This query have", 'red'),
+                  colored(count, 'yellow', attrs=['bold']))
+            print(" ")
+            print(colored("======================================", 'red', 'on_blue'))
 
     def splittime(self, time):
         timeset = time.split(".")
@@ -115,19 +140,40 @@ class PullTweetsData():
         new_fromtime = self.splittime(fromtime)
         new_totime = self.splittime(totime)
 
+        utc_fromtime = self.local_to_utc(datetime(
+            new_fromtime[0], new_fromtime[1], new_fromtime[2], new_fromtime[3], new_fromtime[4], new_fromtime[5]))
+        utc_totime = self.local_to_utc(datetime(
+            new_totime[0], new_totime[1], new_totime[2], new_totime[3], new_totime[4], new_totime[5]))
+
+        count = 0
+
         for i in self.__db.find({"tweet_create_at": {
-            "$gt": datetime(new_fromtime[0], new_fromtime[1], new_fromtime[2], new_fromtime[3], new_fromtime[4], new_fromtime[5]),
-            "$lt": datetime(new_totime[0], new_totime[1], new_totime[2], new_totime[3], new_totime[4], new_totime[5])
+            "$gt": utc_fromtime,
+            "$lt": utc_totime
         }}):
+            count += 1
             print(colored("======================================", 'red', 'on_red'))
+            print(" ")
             print(colored("Username : ", 'red',
                   attrs=['bold']), i["tweet_author"])
             print(colored("Create at : ", 'red', attrs=[
                   'bold']), self.utc_to_local(i["tweet_create_at"]))
+            # print(i["tweet_create_at"])
             print(colored("Text : ", 'cyan', attrs=['bold']), i["text"])
             print(colored("Hashtag : ", 'yellow',
                   attrs=['bold']), i["hashtag"])
+            print(" ")
             print(colored("======================================", 'red', 'on_red'))
+
+        if count == 0:
+            print(colored("No Data in this period", 'red'))
+        else:
+            print(colored("======================================", 'red', 'on_blue'))
+            print(" ")
+            print(colored("This query have", 'red'),
+                  colored(count, 'yellow', attrs=['bold']))
+            print(" ")
+            print(colored("======================================", 'red', 'on_blue'))
 
     def connectToDB(self, database, collection):
         client = pymongo.MongoClient('localhost', 27017)
@@ -150,8 +196,11 @@ def pullTweetsTask():
     pullerT1.setUserAuthentication(access_token, access_token_secret)
     pullerT1.getTwitterAPI()
     pullerT1.connectToDB("twitter", "dek66")
-    t1 = Thread(target=pullerT1.pullTweets, args=("#dek66", 1000))
-    t1.start()
+    pullerT1.find_tweets("hashtag", "KAF")
+    # pullerT1.find_tweets_time("2023.1.14.5.0.0", "2023.1.14.5.0.0")
+    # pullerT1.find_tweets_time("2023.1.14.14.0.0", "2023.1.15.5.0.0")
+    # t1 = Thread(target=pullerT1.pullTweets, args=("#dek66", 1000))
+    # t1.start()
 
 
 pullTweetsTask()
