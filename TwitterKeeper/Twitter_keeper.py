@@ -101,6 +101,16 @@ class PullTweetsData():
                 self.__count = 0
                 break
 
+    def find_tweets1(self, query, keyword):
+        if query == "author":
+            q = "tweet_author"
+        elif query == "hashtag":
+            q = "hashtag"
+        elif query == "keyword":
+            q = "keyword"
+        cursor = self.__db.find({q: {"$regex": keyword}})
+        print([doc for doc in cursor])
+
     def find_tweets(self, query, keyword):
         if query == "author":
             q = "tweet_author"
@@ -196,8 +206,10 @@ def pullTweetsTask():
     pullerT1.setUserAuthentication(access_token, access_token_secret)
     pullerT1.getTwitterAPI()
     pullerT1.connectToDB("twitter", "tweets")
-    t1 = Thread(target=pullerT1.pullTweets, args=("#dek66", 1000))
-    t1.start()
+    pullerT1.find_tweets1("keyword", "#dek66")
+    # t1 = Thread(target=pullerT1.pullTweets, args=("#dek66", 1000))
+    # t1 = Thread(target=pullerT1.pullTweets, args=("#dek66", 1000))
+    # t1.start()
 
 
-# pullTweetsTask()
+pullTweetsTask()
