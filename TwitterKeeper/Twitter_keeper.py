@@ -6,6 +6,7 @@ import tweepy
 import pandas as pd
 from pythainlp.tokenize import word_tokenize
 from pythainlp.corpus import thai_stopwords
+from sklearn.feature_extraction.text import CountVectorizer
 import emoji
 import re
 import pymongo
@@ -106,30 +107,36 @@ class PullTweetsData():
             q = "tweet_author"
         elif query == "hashtag":
             q = "hashtag"
+        elif query == "keyword":
+            q = "keyword"
+        elif query == "text":
+            q = "text"
         count = 0
-        for i in self.__db.find({q: {"$regex": keyword}}):
-            count += 1
-            print(colored("======================================", 'red', 'on_red'))
-            print(" ")
-            print(colored("Username : ", 'red',
-                  attrs=['bold']), i["tweet_author"])
-            print(colored("Create at : ", 'red', attrs=[
-                  'bold']), self.utc_to_local(i["tweet_create_at"]))
-            print(colored("Text : ", 'cyan', attrs=['bold']), i["text"])
-            print(colored("Hashtag : ", 'yellow',
-                  attrs=['bold']), i["hashtag"])
-            print(" ")
-            print(colored("======================================", 'red', 'on_red'))
+        cursor = self.__db.find({q: {"$regex": keyword}})
+        return [doc["text"] for doc in cursor]
+        # for i in self.__db.find({q: {"$regex": keyword}}):
+        #     count += 1
+        #     print(colored("======================================", 'red', 'on_red'))
+        #     print(" ")
+        #     print(colored("Username : ", 'red',
+        #           attrs=['bold']), i["tweet_author"])
+        #     print(colored("Create at : ", 'red', attrs=[
+        #           'bold']), self.utc_to_local(i["tweet_create_at"]))
+        #     print(colored("Text : ", 'cyan', attrs=['bold']), i["text"])
+        #     print(colored("Hashtag : ", 'yellow',
+        #           attrs=['bold']), i["hashtag"])
+        #     print(" ")
+        #     print(colored("======================================", 'red', 'on_red'))
 
-        if count == 0:
-            print(colored("No Data in this keyword", 'red'))
-        else:
-            print(colored("======================================", 'red', 'on_blue'))
-            print(" ")
-            print(colored("This query have", 'red'),
-                  colored(count, 'yellow', attrs=['bold']))
-            print(" ")
-            print(colored("======================================", 'red', 'on_blue'))
+        # if count == 0:
+        #     print(colored("No Data in this keyword", 'red'))
+        # else:
+        #     print(colored("======================================", 'red', 'on_blue'))
+        #     print(" ")
+        #     print(colored("This query have", 'red'),
+        #           colored(count, 'yellow', attrs=['bold']))
+        #     print(" ")
+        #     print(colored("======================================", 'red', 'on_blue'))
 
     def splittime(self, time):
         timeset = time.split(".")
@@ -184,6 +191,38 @@ class PullTweetsData():
         self.__db.update_one({"tweet_create_at": tweet_post["tweet_create_at"], "tweet_author": tweet_post["tweet_author"]},
                              {"$set": tweet_post}, upsert=True)
 
+    def removeSpecialChar(self, text):
+        return re.sub(r"[\]\[!-@#$?%+:\"\n^_]", "", text)
+
+    def removeEmoji(self, text):
+        allchars = [str for str in text]
+        emoji_list = [c for c in allchars if c in emoji.EMOJI_DATA]
+        return ''.join([str for str in allchars if not any(i in str for i in emoji_list)])
+
+    def removeLink(self, text):
+        return re.sub(r'https?:\/\/.*[\r\n]*', '', text, flags=re.MULTILINE)
+
+    def preprocessText(self, text):
+        text = self.removeLink(text)
+        text = self.removeEmoji(text)
+        text = self.removeSpecialChar(text)
+        SplitedSentence = word_tokenize(text, engine="newmm")
+        result = [word for word in SplitedSentence if word not in list(
+            thai_stopwords()) and " " not in word]
+        return "/".join(result)
+
+    def tokenize(self,d):  
+        result = d.split("/")
+        result = list(filter(None, result))
+        return result
+
+    def prepared_Text(self,text_list):
+        new_text = []
+        for text in text_list:
+            new_text.append(self.preprocessText(text))
+        return new_text
+
+
 
 def pullTweetsTask():
     api_key = os.getenv('API_KEY')
@@ -196,8 +235,10 @@ def pullTweetsTask():
     pullerT1.setUserAuthentication(access_token, access_token_secret)
     pullerT1.getTwitterAPI()
     pullerT1.connectToDB("twitter", "tweets")
-    t1 = Thread(target=pullerT1.pullTweets, args=("#dek66", 1000))
-    t1.start()
+    # t1 = Thread(target=pullerT1.pullTweets, args=("หุ้น", 17000))
+    # t1.start()
+    # print((pullerT1.find_tweets("text","ยู")))
+    pullerT1.find_tweets("text","ยู")
 
 
 # pullTweetsTask()
