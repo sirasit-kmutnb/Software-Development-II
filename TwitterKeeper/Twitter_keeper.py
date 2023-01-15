@@ -211,17 +211,16 @@ class PullTweetsData():
             thai_stopwords()) and " " not in word]
         return "/".join(result)
 
-    def tokenize(self,d):  
+    def tokenize(self, d):
         result = d.split("/")
         result = list(filter(None, result))
         return result
 
-    def prepared_Text(self,text_list):
+    def prepared_Text(self, text_list):
         new_text = []
         for text in text_list:
             new_text.append(self.preprocessText(text))
         return new_text
-
 
 
 def pullTweetsTask():
@@ -235,10 +234,10 @@ def pullTweetsTask():
     pullerT1.setUserAuthentication(access_token, access_token_secret)
     pullerT1.getTwitterAPI()
     pullerT1.connectToDB("twitter", "tweets")
-    # t1 = Thread(target=pullerT1.pullTweets, args=("หุ้น", 17000))
-    # t1.start()
+    t1 = Thread(target=pullerT1.pullTweets, args=("dek66", 1000))
+    t1.start()
     # print((pullerT1.find_tweets("text","ยู")))
-    pullerT1.find_tweets("text","ยู")
+    # pullerT1.find_tweets("text","ยู")
 
 
-# pullTweetsTask()
+pullTweetsTask()
