@@ -102,7 +102,29 @@ class PullTweetsData():
                 self.__count = 0
                 break
 
-    def find_tweets(self, query, keyword):
+    def print_tweet(self, tweet_author, tweet_create_at, text, hashtag):
+        print(colored("======================================", 'red', 'on_red'))
+        print(" ")
+        print(colored("Username : ", 'red', attrs=['bold']), tweet_author)
+        print(colored("Create at : ", 'red', attrs=[
+              'bold']), self.utc_to_local(tweet_create_at))
+        print(colored("Text : ", 'cyan', attrs=['bold']), text)
+        print(colored("Hashtag : ", 'yellow', attrs=['bold']), hashtag)
+        print(" ")
+        print(colored("======================================", 'red', 'on_red'))
+
+    def print_count_tweet(self, count):
+        if count == 0:
+            print(colored("No Data in this query", 'red'))
+        else:
+            print(colored("======================================", 'red', 'on_blue'))
+            print(" ")
+            print(colored("This query have", 'red'),
+                  colored(count, 'yellow', attrs=['bold']))
+            print(" ")
+            print(colored("======================================", 'red', 'on_blue'))
+
+    def find_tweets(self, query, keyword, mode):
         if query == "author":
             q = "tweet_author"
         elif query == "hashtag":
@@ -113,34 +135,20 @@ class PullTweetsData():
             q = "text"
         count = 0
         cursor = self.__db.find({q: {"$regex": keyword}})
-        return [doc["text"] for doc in cursor]
-        # for i in self.__db.find({q: {"$regex": keyword}}):
-        #     count += 1
-        #     print(colored("======================================", 'red', 'on_red'))
-        #     print(" ")
-        #     print(colored("Username : ", 'red',
-        #           attrs=['bold']), i["tweet_author"])
-        #     print(colored("Create at : ", 'red', attrs=[
-        #           'bold']), self.utc_to_local(i["tweet_create_at"]))
-        #     print(colored("Text : ", 'cyan', attrs=['bold']), i["text"])
-        #     print(colored("Hashtag : ", 'yellow',
-        #           attrs=['bold']), i["hashtag"])
-        #     print(" ")
-        #     print(colored("======================================", 'red', 'on_red'))
-
-        # if count == 0:
-        #     print(colored("No Data in this keyword", 'red'))
-        # else:
-        #     print(colored("======================================", 'red', 'on_blue'))
-        #     print(" ")
-        #     print(colored("This query have", 'red'),
-        #           colored(count, 'yellow', attrs=['bold']))
-        #     print(" ")
-        #     print(colored("======================================", 'red', 'on_blue'))
+        if mode == "return":
+            return [doc["text"] for doc in cursor]
+        elif mode == "print":
+            for i in cursor:
+                count += 1
+                self.print_tweet(
+                    i["tweet_author"], i["tweet_create_at"], i["text"], i["hashtag"])
+            self.print_count_tweet(count)
+        else:
+            print("Mode Error")
 
     def splittime(self, time):
-        timeset = time.split(".")
-        timeset = [int(i) for i in timeset]
+        timeset = time.split(".")  # split text from dot and send it to list
+        timeset = [int(i) for i in timeset]  # change str to integer
         return timeset
 
     def find_tweets_time(self, fromtime, totime):
@@ -159,28 +167,9 @@ class PullTweetsData():
             "$lt": utc_totime
         }}):
             count += 1
-            print(colored("======================================", 'red', 'on_red'))
-            print(" ")
-            print(colored("Username : ", 'red',
-                  attrs=['bold']), i["tweet_author"])
-            print(colored("Create at : ", 'red', attrs=[
-                  'bold']), self.utc_to_local(i["tweet_create_at"]))
-            # print(i["tweet_create_at"])
-            print(colored("Text : ", 'cyan', attrs=['bold']), i["text"])
-            print(colored("Hashtag : ", 'yellow',
-                  attrs=['bold']), i["hashtag"])
-            print(" ")
-            print(colored("======================================", 'red', 'on_red'))
-
-        if count == 0:
-            print(colored("No Data in this period", 'red'))
-        else:
-            print(colored("======================================", 'red', 'on_blue'))
-            print(" ")
-            print(colored("This query have", 'red'),
-                  colored(count, 'yellow', attrs=['bold']))
-            print(" ")
-            print(colored("======================================", 'red', 'on_blue'))
+            self.print_tweet(
+                i["tweet_author"], i["tweet_create_at"], i["text"], i["hashtag"])
+        self.print_count_tweet(count)
 
     def connectToDB(self, database, collection):
         client = pymongo.MongoClient('localhost', 27017)
@@ -234,9 +223,10 @@ def pullTweetsTask():
     pullerT1.setUserAuthentication(access_token, access_token_secret)
     pullerT1.getTwitterAPI()
     pullerT1.connectToDB("twitter", "tweets")
-    t1 = Thread(target=pullerT1.pullTweets, args=("dek66", 1000))
-    t1.start()
-    # print((pullerT1.find_tweets("text","ยู")))
+    # t1 = Thread(target=pullerT1.pullTweets, args=("dek66", 1000))
+    # t1.start()
+    # pullerT1.find_tweets("hashtag", "tcas", "print1")
+    # pullerT1.find_tweets_time("2023.1.7.0.0.0", "2023.1.8.0.0.0")
     # pullerT1.find_tweets("text","ยู")
 
 
