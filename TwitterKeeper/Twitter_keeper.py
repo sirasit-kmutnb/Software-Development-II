@@ -223,10 +223,10 @@ def pullTweetsTask():
     pullerT1.setUserAuthentication(access_token, access_token_secret)
     pullerT1.getTwitterAPI()
     pullerT1.connectToDB("twitter", "tweets")
-    # t1 = Thread(target=pullerT1.pullTweets, args=("dek66", 1000))
-    # t1.start()
-    # pullerT1.find_tweets("hashtag", "tcas", "print1")
-    # pullerT1.find_tweets_time("2023.1.7.0.0.0", "2023.1.8.0.0.0")
+    t1 = Thread(target=pullerT1.pullTweets, args=("dek66", 1000))
+    t1.start()
+    # pullerT1.find_tweets("hashtag", "tcas", "print")
+    # pullerT1.find_tweets_time("2023.1.14.0.0.0", "2023.1.15.0.0.0")
     # pullerT1.find_tweets("text","ยู")
 
 
