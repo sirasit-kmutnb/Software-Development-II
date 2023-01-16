@@ -195,36 +195,19 @@ class PullTweetsData():
 
 # run_every_20_minutes()
 
-s = sched.scheduler(time.time, time.sleep)
-
-
-def pullTweetsTask(sc):
+def pullTweetsTask():
     api_key = os.getenv('API_KEY')
     api_key_secret = os.getenv('API_KEY_SECRET')
     access_token = os.getenv('ACCESS_TOKEN')
     access_token_secret = os.getenv('ACCESS_TOKEN_SECRET')
 
     pullerT1 = PullTweetsData()
-    pullerT2 = PullTweetsData()
-
     pullerT1.getAccessToAPI(api_key, api_key_secret)
-    pullerT2.getAccessToAPI(api_key, api_key_secret)
-
     pullerT1.setUserAuthentication(access_token, access_token_secret)
-    pullerT2.setUserAuthentication(access_token, access_token_secret)
-
     pullerT1.getTwitterAPI()
-    pullerT2.getTwitterAPI()
-
-    pullerT1.connectToDB("twitter", "tweetsv1")
-    pullerT2.connectToDB("twitter", "tweetsv1")
-    t1 = Thread(target=pullerT1.pullTweets, args=("#dek66", 100))
-    t2 = Thread(target=pullerT2.pullTweets, args=(
-        "#เริ่มต้นปีขอดีบ้างเถาะ", 100))
+    pullerT1.connectToDB("twitter", "tweets")
+    t1 = Thread(target=pullerT1.pullTweets, args=("#dek66", 1000))
     t1.start()
-    t2.start()
-    s.enter(60, 1, pullTweetsTask, argument=(sc,))
 
 
-s.enter(0, 1, pullTweetsTask, argument=(s,))
-s.run()
+pullTweetsTask()
