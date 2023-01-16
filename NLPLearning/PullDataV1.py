@@ -216,8 +216,8 @@ def pullTweetsTask(sc):
     pullerT1.getTwitterAPI()
     pullerT2.getTwitterAPI()
 
-    pullerT1.connectToDB("twitter", "tweetsv1")
-    pullerT2.connectToDB("twitter", "tweetsv1")
+    pullerT1.connectToDB("twitter", "tweets")
+    pullerT2.connectToDB("twitter", "tweets")
     t1 = Thread(target=pullerT1.pullTweets, args=("#dek66", 100))
     t2 = Thread(target=pullerT2.pullTweets, args=(
         "#เริ่มต้นปีขอดีบ้างเถาะ", 100))
