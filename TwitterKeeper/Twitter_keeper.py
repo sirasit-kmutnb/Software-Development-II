@@ -17,6 +17,7 @@ from termcolor import colored
 from tqdm import tqdm
 import os
 from dotenv import load_dotenv
+from urllib.parse import urlparse
 
 load_dotenv()
 
@@ -181,15 +182,33 @@ class PullTweetsData():
                              {"$set": tweet_post}, upsert=True)
 
     def removeSpecialChar(self, text):
-        return re.sub(r"[\]\[!-@#$?%+:\"\n^_]", "", text)
+        return re.sub(r"[\]\[!-@#$?%+:\"\n^_]", "", text).rstrip()
 
     def removeEmoji(self, text):
         allchars = [str for str in text]
         emoji_list = [c for c in allchars if c in emoji.EMOJI_DATA]
-        return ''.join([str for str in allchars if not any(i in str for i in emoji_list)])
+        return ''.join([str for str in allchars if not any(i in str for i in emoji_list)]).rstrip()
+
+    # def removeLink(self, text):
+    #     return re.sub(r'https?:\/\/.*[\r\n]*', '', text, flags=re.MULTILINE).rstrip()
+
+    # def removeLink(self, text):
+    #     if 'http' in text or 'https' in text:
+    #         parsed_url = urlparse(text)
+    #         domain = parsed_url.netloc
+    #         return text.replace(domain, '')
+    #     else:
+    #         return text
+
 
     def removeLink(self, text):
-        return re.sub(r'https?:\/\/.*[\r\n]*', '', text, flags=re.MULTILINE)
+        link_regex = r"(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))"
+        match = re.search(link_regex, text)
+        if match:
+            domain = match.group(1)
+            return re.sub(domain, "", text).rstrip().lstrip()
+        else:
+            return text.rstrip().lstrip()
 
     def preprocessText(self, text):
         text = self.removeLink(text)
@@ -198,7 +217,7 @@ class PullTweetsData():
         SplitedSentence = word_tokenize(text, engine="newmm")
         result = [word for word in SplitedSentence if word not in list(
             thai_stopwords()) and " " not in word]
-        return "/".join(result)
+        return "/".join(result).rstrip()
 
     def tokenize(self, d):
         result = d.split("/")
@@ -230,4 +249,4 @@ def pullTweetsTask():
     # pullerT1.find_tweets("text","ยู")
 
 
-pullTweetsTask()
+# pullTweetsTask()
