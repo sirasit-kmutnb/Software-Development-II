@@ -1,18 +1,22 @@
 import unittest
 from unittest.mock import patch, MagicMock
+import pymongo
 from PullDataV1 import PullTweetsData
 
 class TestPullTweetsData(unittest.TestCase):
     
-    @patch('pymongo.MongoClient')
-    def test_connectToDB(self, mock_client):
+    def test_connectToDB(self):
+        # Test if the method can select the correct database and collection
         pull_tweets_data = PullTweetsData()
-        database = 'mydb'
-        collection = 'tweets'
-        pull_tweets_data.connectToDB(database, collection)
-        mock_client.assert_called_with('localhost', 27017)
-        mock_client().__getitem__.assert_called_with(database)
-        mock_client().__getitem__().__getitem__.assert_called_with(collection)
+        pull_tweets_data.connectToDB("twitter", "tweets")
+        client = pymongo.MongoClient('localhost', 27017)
+        self.assertEqual(client['twitter']['tweets'], pull_tweets_data._PullTweetsData__db)
+
+        # database = 'mydb'
+        # collection = 'tweets'
+        # mock_client.assert_called_with('localhost', 27017)
+        # mock_client().__getitem__.assert_called_with(database)
+        # mock_client().__getitem__().__getitem__.assert_called_with(collection)
 
     @patch('pymongo.MongoClient')
     def test_saveTweetsDict(self, mock_client):
@@ -24,7 +28,8 @@ class TestPullTweetsData(unittest.TestCase):
         pull_tweets_data.saveTweetsDict(tweet_post)
 
         # check that update_one method is called with correct arguments
-        mock_db.update_one.assert_called_with({"tweet_create_at": "2022-01-01", "tweet_author": "John Doe"}, {"$set": tweet_post}, upsert=True)
+        mock_db.update_one.assert_called_with({"tweet_create_at": "2022-01-01",
+         "tweet_author": "John Doe"}, {"$set": tweet_post}, upsert=True)
   
 if __name__ == '__main__':
     unittest.main()
