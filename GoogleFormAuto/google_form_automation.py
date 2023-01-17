@@ -8,8 +8,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-index_number = 10
-
 chrome_options = Options()
 chrome_options.add_experimental_option("detach", True)
 
@@ -51,7 +49,7 @@ text1.send_keys("Test")
 dropdown = browser.find_element(
     By.XPATH, '//*[@id="mG61Hd"]/div[2]/div/div[2]/div[4]/div/div/div[2]/div')
 dropdown.click()
-for _ in range(index_number):
+for _ in range(2):
     pyautogui.keyDown('down')
     pyautogui.keyUp('down')
 pyautogui.keyDown('enter')
