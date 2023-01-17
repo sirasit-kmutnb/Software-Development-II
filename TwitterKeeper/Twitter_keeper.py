@@ -139,7 +139,7 @@ class PullTweetsData():
         if mode == "return":
             return [doc["text"] for doc in cursor]
         elif mode == "print":
-            for i in cursor:
+            for i in tqdm(cursor):
                 count += 1
                 self.print_tweet(
                     i["tweet_author"], i["tweet_create_at"], i["text"], i["hashtag"])
@@ -200,7 +200,6 @@ class PullTweetsData():
     #     else:
     #         return text
 
-
     def removeLink(self, text):
         link_regex = r"(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))"
         match = re.search(link_regex, text)
@@ -244,9 +243,9 @@ def pullTweetsTask():
     pullerT1.connectToDB("twitter", "tweets")
     t1 = Thread(target=pullerT1.pullTweets, args=("dek66", 1000))
     t1.start()
-    # pullerT1.find_tweets("hashtag", "tcas", "print")
+    pullerT1.find_tweets("hashtag", "tcas", "print")
     # pullerT1.find_tweets_time("2023.1.14.0.0.0", "2023.1.15.0.0.0")
     # pullerT1.find_tweets("text","ยู")
 
 
-# pullTweetsTask()
+pullTweetsTask()
