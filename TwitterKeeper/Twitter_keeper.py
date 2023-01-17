@@ -192,23 +192,21 @@ class PullTweetsData():
     # def removeLink(self, text):
     #     return re.sub(r'https?:\/\/.*[\r\n]*', '', text, flags=re.MULTILINE).rstrip()
 
-    # def removeLink(self, text):
-    #     if 'http' in text or 'https' in text:
-    #         parsed_url = urlparse(text)
-    #         domain = parsed_url.netloc
-    #         return text.replace(domain, '')
-    #     else:
-    #         return text
-
-
+    
     def removeLink(self, text):
-        link_regex = r"(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))"
-        match = re.search(link_regex, text)
-        if match:
-            domain = match.group(1)
-            return re.sub(domain, "", text).rstrip().lstrip()
-        else:
-            return text.rstrip().lstrip()
+        text = re.sub(r'https?:\/\/.*[\r\n]*', '', text, flags=re.MULTILINE).rstrip()
+        link_regex = r"(https?:\/\/[-a-zA-Z0-9@:%._\+~#=]+)"
+        return re.sub(link_regex, '', text).rstrip().lstrip()
+
+
+    # def removeLink(self, text):
+    #     link_regex = r"(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]+\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]+))"
+    #     match = re.search(link_regex, text)
+    #     if match:
+    #         domain = match.group(1)
+    #         return re.sub(domain, "", text).rstrip()
+    #     else:
+    #         return text.rstrip()
 
     def preprocessText(self, text):
         text = self.removeLink(text)
@@ -242,7 +240,7 @@ def pullTweetsTask():
     pullerT1.setUserAuthentication(access_token, access_token_secret)
     pullerT1.getTwitterAPI()
     pullerT1.connectToDB("twitter", "tweets")
-    t1 = Thread(target=pullerT1.pullTweets, args=("dek66", 1000))
+    t1 = Thread(target=pullerT1.pullTweets, args=("#ทรงอย่างแบด", 16000))
     t1.start()
     # pullerT1.find_tweets("hashtag", "tcas", "print")
     # pullerT1.find_tweets_time("2023.1.14.0.0.0", "2023.1.15.0.0.0")
