@@ -17,6 +17,7 @@ from termcolor import colored
 from tqdm import tqdm
 import os
 from dotenv import load_dotenv
+from urllib.parse import urlparse
 
 load_dotenv()
 
@@ -102,7 +103,29 @@ class PullTweetsData():
                 self.__count = 0
                 break
 
-    def find_tweets(self, query, keyword):
+    def print_tweet(self, tweet_author, tweet_create_at, text, hashtag):
+        print(colored("======================================", 'red', 'on_red'))
+        print(" ")
+        print(colored("Username : ", 'red', attrs=['bold']), tweet_author)
+        print(colored("Create at : ", 'red', attrs=[
+              'bold']), self.utc_to_local(tweet_create_at))
+        print(colored("Text : ", 'cyan', attrs=['bold']), text)
+        print(colored("Hashtag : ", 'yellow', attrs=['bold']), hashtag)
+        print(" ")
+        print(colored("======================================", 'red', 'on_red'))
+
+    def print_count_tweet(self, count):
+        if count == 0:
+            print(colored("No Data in this query", 'red'))
+        else:
+            print(colored("======================================", 'red', 'on_blue'))
+            print(" ")
+            print(colored("This query have", 'red'),
+                  colored(count, 'yellow', attrs=['bold']))
+            print(" ")
+            print(colored("======================================", 'red', 'on_blue'))
+
+    def find_tweets(self, query, keyword, mode):
         if query == "author":
             q = "tweet_author"
         elif query == "hashtag":
@@ -113,34 +136,20 @@ class PullTweetsData():
             q = "text"
         count = 0
         cursor = self.__db.find({q: {"$regex": keyword}})
-        return [doc["text"] for doc in cursor]
-        # for i in self.__db.find({q: {"$regex": keyword}}):
-        #     count += 1
-        #     print(colored("======================================", 'red', 'on_red'))
-        #     print(" ")
-        #     print(colored("Username : ", 'red',
-        #           attrs=['bold']), i["tweet_author"])
-        #     print(colored("Create at : ", 'red', attrs=[
-        #           'bold']), self.utc_to_local(i["tweet_create_at"]))
-        #     print(colored("Text : ", 'cyan', attrs=['bold']), i["text"])
-        #     print(colored("Hashtag : ", 'yellow',
-        #           attrs=['bold']), i["hashtag"])
-        #     print(" ")
-        #     print(colored("======================================", 'red', 'on_red'))
-
-        # if count == 0:
-        #     print(colored("No Data in this keyword", 'red'))
-        # else:
-        #     print(colored("======================================", 'red', 'on_blue'))
-        #     print(" ")
-        #     print(colored("This query have", 'red'),
-        #           colored(count, 'yellow', attrs=['bold']))
-        #     print(" ")
-        #     print(colored("======================================", 'red', 'on_blue'))
+        if mode == "return":
+            return [doc["text"] for doc in cursor]
+        elif mode == "print":
+            for i in tqdm(cursor):
+                count += 1
+                self.print_tweet(
+                    i["tweet_author"], i["tweet_create_at"], i["text"], i["hashtag"])
+            self.print_count_tweet(count)
+        else:
+            print("Mode Error")
 
     def splittime(self, time):
-        timeset = time.split(".")
-        timeset = [int(i) for i in timeset]
+        timeset = time.split(".")  # split text from dot and send it to list
+        timeset = [int(i) for i in timeset]  # change str to integer
         return timeset
 
     def find_tweets_time(self, fromtime, totime):
@@ -159,28 +168,9 @@ class PullTweetsData():
             "$lt": utc_totime
         }}):
             count += 1
-            print(colored("======================================", 'red', 'on_red'))
-            print(" ")
-            print(colored("Username : ", 'red',
-                  attrs=['bold']), i["tweet_author"])
-            print(colored("Create at : ", 'red', attrs=[
-                  'bold']), self.utc_to_local(i["tweet_create_at"]))
-            # print(i["tweet_create_at"])
-            print(colored("Text : ", 'cyan', attrs=['bold']), i["text"])
-            print(colored("Hashtag : ", 'yellow',
-                  attrs=['bold']), i["hashtag"])
-            print(" ")
-            print(colored("======================================", 'red', 'on_red'))
-
-        if count == 0:
-            print(colored("No Data in this period", 'red'))
-        else:
-            print(colored("======================================", 'red', 'on_blue'))
-            print(" ")
-            print(colored("This query have", 'red'),
-                  colored(count, 'yellow', attrs=['bold']))
-            print(" ")
-            print(colored("======================================", 'red', 'on_blue'))
+            self.print_tweet(
+                i["tweet_author"], i["tweet_create_at"], i["text"], i["hashtag"])
+        self.print_count_tweet(count)
 
     def connectToDB(self, database, collection):
         client = pymongo.MongoClient('localhost', 27017)
@@ -192,15 +182,32 @@ class PullTweetsData():
                              {"$set": tweet_post}, upsert=True)
 
     def removeSpecialChar(self, text):
-        return re.sub(r"[\]\[!-@#$?%+:\"\n^_]", "", text)
+        return re.sub(r"[\]\[!-@#$?%+:\"\n^_]", "", text).rstrip()
 
     def removeEmoji(self, text):
         allchars = [str for str in text]
         emoji_list = [c for c in allchars if c in emoji.EMOJI_DATA]
-        return ''.join([str for str in allchars if not any(i in str for i in emoji_list)])
+        return ''.join([str for str in allchars if not any(i in str for i in emoji_list)]).rstrip()
+
+    # def removeLink(self, text):
+    #     return re.sub(r'https?:\/\/.*[\r\n]*', '', text, flags=re.MULTILINE).rstrip()
+
+    # def removeLink(self, text):
+    #     if 'http' in text or 'https' in text:
+    #         parsed_url = urlparse(text)
+    #         domain = parsed_url.netloc
+    #         return text.replace(domain, '')
+    #     else:
+    #         return text
 
     def removeLink(self, text):
-        return re.sub(r'https?:\/\/.*[\r\n]*', '', text, flags=re.MULTILINE)
+        link_regex = r"(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))"
+        match = re.search(link_regex, text)
+        if match:
+            domain = match.group(1)
+            return re.sub(domain, "", text).rstrip().lstrip()
+        else:
+            return text.rstrip().lstrip()
 
     def preprocessText(self, text):
         text = self.removeLink(text)
@@ -209,19 +216,18 @@ class PullTweetsData():
         SplitedSentence = word_tokenize(text, engine="newmm")
         result = [word for word in SplitedSentence if word not in list(
             thai_stopwords()) and " " not in word]
-        return "/".join(result)
+        return "/".join(result).rstrip()
 
-    def tokenize(self,d):  
+    def tokenize(self, d):
         result = d.split("/")
         result = list(filter(None, result))
         return result
 
-    def prepared_Text(self,text_list):
+    def prepared_Text(self, text_list):
         new_text = []
         for text in text_list:
             new_text.append(self.preprocessText(text))
         return new_text
-
 
 
 def pullTweetsTask():
@@ -235,10 +241,11 @@ def pullTweetsTask():
     pullerT1.setUserAuthentication(access_token, access_token_secret)
     pullerT1.getTwitterAPI()
     pullerT1.connectToDB("twitter", "tweets")
-    # t1 = Thread(target=pullerT1.pullTweets, args=("หุ้น", 17000))
-    # t1.start()
-    # print((pullerT1.find_tweets("text","ยู")))
-    pullerT1.find_tweets("text","ยู")
+    t1 = Thread(target=pullerT1.pullTweets, args=("dek66", 1000))
+    t1.start()
+    pullerT1.find_tweets("hashtag", "tcas", "print")
+    # pullerT1.find_tweets_time("2023.1.14.0.0.0", "2023.1.15.0.0.0")
+    # pullerT1.find_tweets("text","ยู")
 
 
-# pullTweetsTask()
+pullTweetsTask()
