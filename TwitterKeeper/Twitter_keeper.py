@@ -192,12 +192,11 @@ class PullTweetsData():
     # def removeLink(self, text):
     #     return re.sub(r'https?:\/\/.*[\r\n]*', '', text, flags=re.MULTILINE).rstrip()
 
-    
     def removeLink(self, text):
-        text = re.sub(r'https?:\/\/.*[\r\n]*', '', text, flags=re.MULTILINE).rstrip()
+        text = re.sub(r'https?:\/\/.*[\r\n]*', '',
+                      text, flags=re.MULTILINE).rstrip()
         link_regex = r"(https?:\/\/[-a-zA-Z0-9@:%._\+~#=]+)"
         return re.sub(link_regex, '', text).rstrip().lstrip()
-
 
     # def removeLink(self, text):
     #     link_regex = r"(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]+\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]+))"
@@ -240,7 +239,7 @@ def pullTweetsTask():
     pullerT1.setUserAuthentication(access_token, access_token_secret)
     pullerT1.getTwitterAPI()
     pullerT1.connectToDB("twitter", "tweets")
-    t1 = Thread(target=pullerT1.pullTweets, args=("#ทรงอย่างแบด", 16000))
+    t1 = Thread(target=pullerT1.pullTweets, args=("#หวยรัฐบาลไทย", 1000))
     t1.start()
     # pullerT1.find_tweets("hashtag", "tcas", "print")
     # pullerT1.find_tweets_time("2023.1.14.0.0.0", "2023.1.15.0.0.0")
