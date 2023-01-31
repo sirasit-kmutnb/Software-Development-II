@@ -90,7 +90,6 @@ class TestPullTweetsData(unittest.TestCase):
 
         # check that update_one method is called with correct arguments
         mock_db.update_one.assert_called_with({"tweet_create_at": "2022-01-01", "tweet_author": "John Doe"}, {"$set": tweet_post}, upsert=True)
-  
 
 if __name__ == '__main__':
     unittest.main()

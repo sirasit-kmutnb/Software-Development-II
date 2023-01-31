@@ -193,10 +193,10 @@ class PullTweetsData():
     #     return re.sub(r'https?:\/\/.*[\r\n]*', '', text, flags=re.MULTILINE).rstrip()
 
     def removeLink(self, text):
-        text = re.sub(r'https?:\/\/.*[\r\n]*', '',
-                      text, flags=re.MULTILINE).rstrip()
+        new_text = re.sub(r'https?:\/\/[^\s]+', '', text)
+        # text = re.sub(r'https?:\/\/.*[\r\n]*', '', text, flags=re.MULTILINE).rstrip()
         link_regex = r"(https?:\/\/[-a-zA-Z0-9@:%._\+~#=]+)"
-        return re.sub(link_regex, '', text).rstrip().lstrip()
+        return re.sub(link_regex, '', new_text).rstrip().lstrip()
 
     # def removeLink(self, text):
     #     link_regex = r"(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]+\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]+))"
