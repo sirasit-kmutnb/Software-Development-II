@@ -63,10 +63,9 @@ class PullTweetsData():
         except:
             return "Bad Data"
 
-    def createDictData(self, tweet_author, tweet_location, tweet_create_at, hashtag, keyword, text):
+    def createDictData(self, tweet_author, tweet_create_at, hashtag, keyword, text):
         tweet = {}
         tweet["tweet_author"] = tweet_author
-        tweet["tweet_location"] = tweet_location
         tweet["tweet_create_at"] = tweet_create_at
         tweet["hashtag"] = hashtag
         tweet["keyword"] = keyword
@@ -80,26 +79,28 @@ class PullTweetsData():
     def pullTweetsThread(self, query, amount):
         for tweet in tqdm(tweepy.Cursor(self.__api.search_tweets, q=query, count=100,
                                         result_type="recent", tweet_mode='extended').items()):
-            entity_hashtag = tweet.entities.get('hashtags')
-            hashtag = self.getHashtag(entity_hashtag)
-            tweet_author = tweet.user.screen_name
-            keyword = query
-            dt_str = str(tweet.created_at)
-            format = "%Y-%m-%d %H:%M:%S%z"
-            dt_utc = datetime.strptime(dt_str, format)
-            local_zone = tz.tzlocal()
-            dt_local = dt_utc.astimezone(local_zone)
-            tweet_create_at = dt_local
-            tweet_location = tweet.user.location
-            try:
-                text = tweet.retweeted_status.full_text
-            except:
-                text = tweet.full_text
-            tweet_post = self.createDictData(
-                tweet_author, tweet_location, tweet_create_at, hashtag, keyword, text)
-            saveTweet = Thread(target=self.saveTweetsDict,
-                               args=(tweet_post,))
-            saveTweet.start()
+            print(tweet.user.location)
+            print("==========")
+            print(tweet)
+            # entity_hashtag = tweet.entities.get('hashtags')
+            # hashtag = self.getHashtag(entity_hashtag)
+            # tweet_author = tweet.user.screen_name
+            # keyword = query
+            # dt_str = str(tweet.created_at)
+            # format = "%Y-%m-%d %H:%M:%S%z"
+            # dt_utc = datetime.strptime(dt_str, format)
+            # local_zone = tz.tzlocal()
+            # dt_local = dt_utc.astimezone(local_zone)
+            # tweet_create_at = dt_local
+            # try:
+            #     text = tweet.retweeted_status.full_text
+            # except:
+            #     text = tweet.full_text
+            # tweet_post = self.createDictData(
+            #     tweet_author, tweet_create_at, hashtag, keyword, text)
+            # saveTweet = Thread(target=self.saveTweetsDict,
+            #                    args=(tweet_post,))
+            # saveTweet.start()
             self.__count += 1
             if self.__count == amount:
                 self.__count = 0
@@ -240,8 +241,8 @@ def pullTweetsTask():
     pullerT1.getAccessToAPI(api_key, api_key_secret)
     pullerT1.setUserAuthentication(access_token, access_token_secret)
     pullerT1.getTwitterAPI()
-    pullerT1.connectToDB("twitter_keeper", "tweets")
-    t1 = Thread(target=pullerT1.pullTweets, args=("#お隣の天使様", 100))
+    pullerT1.connectToDB("twitter", "tweets")
+    t1 = Thread(target=pullerT1.pullTweets, args=("#お隣の天使様", 1))
     t1.start()
     # pullerT1.find_tweets("hashtag", "tcas", "print")
     # pullerT1.find_tweets_time("2023.1.14.0.0.0", "2023.1.15.0.0.0")
