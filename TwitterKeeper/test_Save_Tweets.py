@@ -54,7 +54,7 @@ class TestPullTweetsData(unittest.TestCase):
         }
         new_tweet = {
             "tweet_create_at": "2022-01-02 12:00:32",
-            "tweet_author": "test_author",
+            "tweet_author": "test_author2",
             "tweet_text": "test_tweet2"
         }
         # insert a duplicate tweets and a new tweet
@@ -67,7 +67,7 @@ class TestPullTweetsData(unittest.TestCase):
 
         saved_tweet = self.mock_db.find_one({
             "tweet_create_at": "2022-01-02 12:00:32",
-            "tweet_author": "test_author"})
+            "tweet_author": "test_author2"})
 
         # Check accuracy between saved tweet and new tweet
         self.assertEqual(saved_tweet["tweet_create_at"], new_tweet["tweet_create_at"])
