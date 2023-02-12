@@ -63,14 +63,14 @@ class PullTweetsData():
         except:
             return "Bad Data"
 
-    def createDictData(self, tweet_author, tweet_location, tweet_create_at, hashtag, keyword, text):
+    def createDictData(self, tweet_author, tweet_create_at, tweet_location, hashtag, keyword, text):
         tweet = {}
         tweet["tweet_author"] = tweet_author
-        tweet["tweet_location"] = tweet_location
         tweet["tweet_create_at"] = tweet_create_at
         tweet["hashtag"] = hashtag
         tweet["keyword"] = keyword
         tweet["text"] = text
+        tweet["tweet_location"] = tweet_location
         return tweet
 
     def pullTweets(self, query, amount):
@@ -96,7 +96,8 @@ class PullTweetsData():
             except:
                 text = tweet.full_text
             tweet_post = self.createDictData(
-                tweet_author, tweet_location, tweet_create_at, hashtag, keyword, text)
+                tweet_author, tweet_create_at, tweet_location, hashtag, keyword, text)
+            # print(tweet_post)
             saveTweet = Thread(target=self.saveTweetsDict,
                                args=(tweet_post,))
             saveTweet.start()
@@ -126,6 +127,41 @@ class PullTweetsData():
                   colored(count, 'yellow', attrs=['bold']))
             print(" ")
             print(colored("======================================", 'red', 'on_blue'))
+
+    def find_multi(self, author, keyword, hashtag, location, text, fromtime, totime):
+        if not fromtime and not totime:
+            query = {"tweet_author": {"$regex": author},
+                     "keyword": {"$regex": keyword},
+                     "hashtag": {"$regex": hashtag},
+                     "tweet_location": {"$regex": location},
+                     "text": {"$regex": text}
+                     }
+        else:
+            new_fromtime = self.splittime(fromtime)
+            new_totime = self.splittime(totime)
+
+            utc_fromtime = self.local_to_utc(datetime(
+                new_fromtime[0], new_fromtime[1], new_fromtime[2], new_fromtime[3], new_fromtime[4], new_fromtime[5]))
+            utc_totime = self.local_to_utc(datetime(
+                new_totime[0], new_totime[1], new_totime[2], new_totime[3], new_totime[4], new_totime[5]))
+            query = {"tweet_author": {"$regex": author},
+                     "keyword": {"$regex": keyword},
+                     "hashtag": {"$regex": hashtag},
+                     "tweet_location": {"$regex": location},
+                     "text": {"$regex": text},
+                     "tweet_create_at": {
+                "$gt": utc_fromtime,
+                "$lt": utc_totime
+            }}
+        cursor = self.__db.find(query)
+        for i in cursor:
+            print("author == ", i["tweet_author"])
+            print("create_at == ", self.utc_to_local(i["tweet_create_at"]))
+            print("keyword == ", i["keyword"])
+            print("hashtag == ", i["hashtag"])
+            print("location == ", i["tweet_location"])
+            print("text == ", i["text"])
+            print("======================")
 
     def find_tweets(self, query, keyword, mode):
         if query == "author":
@@ -241,10 +277,14 @@ def pullTweetsTask():
     pullerT1.setUserAuthentication(access_token, access_token_secret)
     pullerT1.getTwitterAPI()
     pullerT1.connectToDB("twitter_keeper", "tweets")
-    t1 = Thread(target=pullerT1.pullTweets, args=("#お隣の天使様", 100))
-    t1.start()
+    # t1 = Thread(target=pullerT1.pullTweets, args=("#dek66", 1000))
+    # t1.start()
+
+    pullerT1.find_multi("", "", "", "Thailand", "",
+                        "2023.2.12.17.0.0", "2023.2.12.17.40.0")
+    # pullerT1.find_multi("", "", "", "Bangkok", "", "", "")
     # pullerT1.find_tweets("hashtag", "tcas", "print")
-    # pullerT1.find_tweets_time("2023.1.14.0.0.0", "2023.1.15.0.0.0")
+    # pullerT1.find_tweets_time("2023.2.12.0.0.0", "2023.2.12.17.40.0")
     # pullerT1.find_tweets("text","ยู")
 
 
