@@ -153,8 +153,10 @@ class PullTweetsData():
                 "$gt": utc_fromtime,
                 "$lt": utc_totime
             }}
+        count = 0
         cursor = self.__db.find(query)
         for i in cursor:
+            count += 1
             print("author == ", i["tweet_author"])
             print("create_at == ", self.utc_to_local(i["tweet_create_at"]))
             print("keyword == ", i["keyword"])
@@ -162,6 +164,8 @@ class PullTweetsData():
             print("location == ", i["tweet_location"])
             print("text == ", i["text"])
             print("======================")
+        if count == 0:
+            print("No Data")
 
     def find_tweets(self, query, keyword, mode):
         if query == "author":
@@ -277,7 +281,7 @@ def pullTweetsTask():
     pullerT1.setUserAuthentication(access_token, access_token_secret)
     pullerT1.getTwitterAPI()
     pullerT1.connectToDB("twitter_keeper", "tweets")
-    # t1 = Thread(target=pullerT1.pullTweets, args=("#dek66", 1000))
+    # t1 = Thread(target=pullerT1.pullTweets, args=("#dek66", 15000))
     # t1.start()
 
     pullerT1.find_multi("", "", "", "Thailand", "",
