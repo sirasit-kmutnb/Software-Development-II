@@ -182,7 +182,7 @@ class PullTweetsData():
                              {"$set": tweet_post}, upsert=True)
 
     def removeSpecialChar(self, text):
-        return re.sub(r"[\]\[!-@#$?%+:\"\n^_]", "", text).rstrip()
+        return re.sub(r"[\]\[!-@#$?%+:\"\n^_‘’“”]", "", text).rstrip()
 
     def removeEmoji(self, text):
         allchars = [str for str in text]
@@ -239,7 +239,7 @@ def pullTweetsTask():
     pullerT1.setUserAuthentication(access_token, access_token_secret)
     pullerT1.getTwitterAPI()
     pullerT1.connectToDB("twitter", "tweets")
-    t1 = Thread(target=pullerT1.pullTweets, args=("#หวยรัฐบาลไทย", 1000))
+    t1 = Thread(target=pullerT1.pullTweets, args=("#Onet66", 5000))
     t1.start()
     # pullerT1.find_tweets("hashtag", "tcas", "print")
     # pullerT1.find_tweets_time("2023.1.14.0.0.0", "2023.1.15.0.0.0")
