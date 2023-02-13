@@ -60,10 +60,10 @@ class TestPullTweetsData(unittest.TestCase):
         # insert a duplicate tweets and a new tweet
         self.Puller.saveTweetsDict(init_tweet)
         self.Puller.saveTweetsDict(new_tweet)
-        saved_tweet = list(self.mock_db.find())
+        all_tweet = list(self.mock_db.find())
 
         # Check that saved tweets has unique tweet only
-        self.assertEqual(len(saved_tweet),2)
+        self.assertEqual(len(all_tweet),2)
 
         saved_tweet = self.mock_db.find_one({
             "tweet_create_at": "2022-01-02 12:00:32",
