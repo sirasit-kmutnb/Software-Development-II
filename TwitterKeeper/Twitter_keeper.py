@@ -155,9 +155,11 @@ class PullTweetsData():
             }}
         count = 0
         cursor = self.__db.find(query)
+        setTweets = []
         for i in cursor:
             count += 1
-            return [i["tweet_author"], self.utc_to_local(i["tweet_create_at"]), i["keyword"], i["hashtag"], i["tweet_location"], i["text"]]
+            setTweets.append(i)
+            # [i["tweet_author"], self.utc_to_local(i["tweet_create_at"]), i["keyword"], i["hashtag"], i["tweet_location"], i["text"]]
             # print("author == ", i["tweet_author"])
             # print("create_at == ", self.utc_to_local(i["tweet_create_at"]))
             # print("keyword == ", i["keyword"])
@@ -165,9 +167,10 @@ class PullTweetsData():
             # print("location == ", i["tweet_location"])
             # print("text == ", i["text"])
             # print("======================")
-        if count == 0:
-            pass
+        # if count == 0:
+        #     pass
             # print("No Data")
+        return setTweets
 
     def find_tweets(self, query, keyword, mode):
         if query == "author":
