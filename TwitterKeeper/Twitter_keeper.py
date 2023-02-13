@@ -157,15 +157,17 @@ class PullTweetsData():
         cursor = self.__db.find(query)
         for i in cursor:
             count += 1
-            print("author == ", i["tweet_author"])
-            print("create_at == ", self.utc_to_local(i["tweet_create_at"]))
-            print("keyword == ", i["keyword"])
-            print("hashtag == ", i["hashtag"])
-            print("location == ", i["tweet_location"])
-            print("text == ", i["text"])
-            print("======================")
+            return [i["tweet_author"], self.utc_to_local(i["tweet_create_at"]), i["keyword"], i["hashtag"], i["tweet_location"], i["text"]]
+            # print("author == ", i["tweet_author"])
+            # print("create_at == ", self.utc_to_local(i["tweet_create_at"]))
+            # print("keyword == ", i["keyword"])
+            # print("hashtag == ", i["hashtag"])
+            # print("location == ", i["tweet_location"])
+            # print("text == ", i["text"])
+            # print("======================")
         if count == 0:
-            print("No Data")
+            pass
+            # print("No Data")
 
     def find_tweets(self, query, keyword, mode):
         if query == "author":
@@ -281,15 +283,15 @@ def pullTweetsTask():
     pullerT1.setUserAuthentication(access_token, access_token_secret)
     pullerT1.getTwitterAPI()
     pullerT1.connectToDB("twitter_keeper", "tweets")
-    t1 = Thread(target=pullerT1.pullTweets, args=("#Onet66", 15000))
-    t1.start()
+    # t1 = Thread(target=pullerT1.pullTweets, args=("#Onet66", 15000))
+    # t1.start()
 
-    # pullerT1.find_multi("", "", "", "Thailand", "",
-                        # "2023.2.12.17.0.0", "2023.2.12.17.40.0")
-    # pullerT1.find_multi("", "", "", "Bangkok", "", "", "")
+    # pullerT1.find_multi("", "", "", "Bangkok", "",
+    #                     "2023.2.12.17.0.0", "2023.2.12.17.40.0")
+    pullerT1.find_multi("", "", "Onet", "Bangkok", "", "", "")
     # pullerT1.find_tweets("hashtag", "tcas", "print")
     # pullerT1.find_tweets_time("2023.2.12.0.0.0", "2023.2.12.17.40.0")
     # pullerT1.find_tweets("text","ยู")
 
 
-# pullTweetsTask()
+pullTweetsTask()
