@@ -289,12 +289,13 @@ def pullTweetsTask():
     # t1 = Thread(target=pullerT1.pullTweets, args=("#Onet66", 15000))
     # t1.start()
 
-    # pullerT1.find_multi("", "", "", "Bangkok", "",
-    #                     "2023.2.12.17.0.0", "2023.2.12.17.40.0")
-    pullerT1.find_multi("", "", "Onet", "Bangkok", "", "", "")
+    A = pullerT1.find_multi("", "", "", "Bangkok", "",
+                            "2023.2.12.17.0.0", "2023.2.12.17.40.0")
+    print(A)
+    # pullerT1.find_multi("", "", "Onet", "Bangkok", "", "", "")
     # pullerT1.find_tweets("hashtag", "tcas", "print")
     # pullerT1.find_tweets_time("2023.2.12.0.0.0", "2023.2.12.17.40.0")
     # pullerT1.find_tweets("text","ยู")
 
 
-pullTweetsTask()
+# pullTweetsTask()
