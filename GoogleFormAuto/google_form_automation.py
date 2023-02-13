@@ -6,6 +6,8 @@ import pyautogui
 import os
 from dotenv import load_dotenv
 
+# create .env file and set EMAIL and PASSWORD of gmail
+
 load_dotenv()
 
 chrome_options = Options()
