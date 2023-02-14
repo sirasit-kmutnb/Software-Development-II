@@ -286,7 +286,7 @@ def pullTweetsTask():
     pullerT1.setUserAuthentication(access_token, access_token_secret)
     pullerT1.getTwitterAPI()
     pullerT1.connectToDB("twitter_keeper", "tweets")
-    t1 = Thread(target=pullerT1.pullTweets, args=("#Onet66", 15000))
+    t1 = Thread(target=pullerT1.pullTweets, args=("#ใส่นัวแฟมิลี่", 15000))
     t1.start()
 
     # A = pullerT1.find_multi("", "", "", "Bangkok", "",
@@ -298,4 +298,4 @@ def pullTweetsTask():
     # pullerT1.find_tweets("text","ยู")
 
 
-pullTweetsTask()
+# pullTweetsTask()
