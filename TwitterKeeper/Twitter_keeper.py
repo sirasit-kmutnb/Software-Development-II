@@ -70,7 +70,7 @@ class PullTweetsData():
         tweet["hashtag"] = hashtag
         tweet["keyword"] = keyword
         tweet["text"] = text
-        tweet["tweet_location"] = tweet_location
+        tweet["tweet_location"] quit`21` = tweet_location
         return tweet
 
     def pullTweets(self, query, amount):
@@ -78,8 +78,11 @@ class PullTweetsData():
         thread.start()
 
     def pullTweetsThread(self, query, amount):
-        for tweet in tqdm(tweepy.Cursor(self.__api.search_tweets, q=query, count=100,
-                                        result_type="recent", tweet_mode='extended').items()):
+        count = 0
+        # for tweet in tqdm(tweepy.Cursor(self.__api.search_tweets, q=query, count=100,
+        #                                 result_type="recent", tweet_mode='extended').items()):
+        for tweet in tweepy.Cursor(self.__api.search_tweets, q=query, count=100,
+                                   result_type="recent", tweet_mode='extended').items():
             entity_hashtag = tweet.entities.get('hashtags')
             hashtag = self.getHashtag(entity_hashtag)
             tweet_author = tweet.user.screen_name
@@ -101,10 +104,14 @@ class PullTweetsData():
             saveTweet = Thread(target=self.saveTweetsDict,
                                args=(tweet_post,))
             saveTweet.start()
-            self.__count += 1
-            if self.__count == amount:
-                self.__count = 0
+            count += 1
+            if count == amount:
+                count = 0
                 break
+            # self.__count += 1
+            # if self.__count == amount:
+            #     self.__count = 0
+            #     break
 
     def print_tweet(self, tweet_author, tweet_create_at, text, hashtag):
         print(colored("======================================", 'red', 'on_red'))
@@ -199,26 +206,6 @@ class PullTweetsData():
         timeset = [int(i) for i in timeset]  # change str to integer
         return timeset
 
-    def find_tweets_time(self, fromtime, totime):
-        new_fromtime = self.splittime(fromtime)
-        new_totime = self.splittime(totime)
-
-        utc_fromtime = self.local_to_utc(datetime(
-            new_fromtime[0], new_fromtime[1], new_fromtime[2], new_fromtime[3], new_fromtime[4], new_fromtime[5]))
-        utc_totime = self.local_to_utc(datetime(
-            new_totime[0], new_totime[1], new_totime[2], new_totime[3], new_totime[4], new_totime[5]))
-
-        count = 0
-
-        for i in self.__db.find({"tweet_create_at": {
-            "$gt": utc_fromtime,
-            "$lt": utc_totime
-        }}):
-            count += 1
-            self.print_tweet(
-                i["tweet_author"], i["tweet_create_at"], i["text"], i["hashtag"])
-        self.print_count_tweet(count)
-
     def connectToDB(self, database, collection):
         client = pymongo.MongoClient('localhost', 27017)
         mydb = client[database]
@@ -236,23 +223,11 @@ class PullTweetsData():
         emoji_list = [c for c in allchars if c in emoji.EMOJI_DATA]
         return ''.join([str for str in allchars if not any(i in str for i in emoji_list)]).rstrip()
 
-    # def removeLink(self, text):
-    #     return re.sub(r'https?:\/\/.*[\r\n]*', '', text, flags=re.MULTILINE).rstrip()
-
     def removeLink(self, text):
         new_text = re.sub(r'https?:\/\/[^\s]+', '', text)
         # text = re.sub(r'https?:\/\/.*[\r\n]*', '', text, flags=re.MULTILINE).rstrip()
         link_regex = r"(https?:\/\/[-a-zA-Z0-9@:%._\+~#=]+)"
         return re.sub(link_regex, '', new_text).rstrip().lstrip()
-
-    # def removeLink(self, text):
-    #     link_regex = r"(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]+\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]+))"
-    #     match = re.search(link_regex, text)
-    #     if match:
-    #         domain = match.group(1)
-    #         return re.sub(domain, "", text).rstrip()
-    #     else:
-    #         return text.rstrip()
 
     def preprocessText(self, text):
         text = self.removeLink(text)
