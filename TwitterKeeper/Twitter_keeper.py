@@ -70,7 +70,7 @@ class PullTweetsData():
         tweet["hashtag"] = hashtag
         tweet["keyword"] = keyword
         tweet["text"] = text
-        tweet["tweet_location"] quit`21` = tweet_location
+        tweet["tweet_location"] = tweet_location
         return tweet
 
     def pullTweets(self, query, amount):
@@ -135,7 +135,7 @@ class PullTweetsData():
             print(" ")
             print(colored("======================================", 'red', 'on_blue'))
 
-    def find_multi(self, author, keyword, hashtag, location, text, fromtime, totime):
+    def find_multi(self, author="", keyword="", hashtag="", location="", text="", fromtime="", totime=""):
         if not fromtime and not totime:
             query = {"tweet_author": {"$regex": author},
                      "keyword": {"$regex": keyword},
