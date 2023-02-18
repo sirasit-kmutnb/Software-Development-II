@@ -25,7 +25,6 @@ load_dotenv()
 class PullTweetsData():
 
     def __init__(self):
-        self.__count = 0
         self.localTZ = pytz.timezone('Asia/Bangkok')
 
     def getAccessToAPI(self, api_key, api_key_secret):
@@ -122,11 +121,13 @@ class PullTweetsData():
         else:
             new_fromtime = self.splittime(fromtime)
             new_totime = self.splittime(totime)
-
-            utc_fromtime = self.local_to_utc(datetime(
-                new_fromtime[0], new_fromtime[1], new_fromtime[2], new_fromtime[3], new_fromtime[4], new_fromtime[5]))
-            utc_totime = self.local_to_utc(datetime(
-                new_totime[0], new_totime[1], new_totime[2], new_totime[3], new_totime[4], new_totime[5]))
+            try:
+                utc_fromtime = self.local_to_utc(datetime(
+                    new_fromtime[0], new_fromtime[1], new_fromtime[2], new_fromtime[3], new_fromtime[4], new_fromtime[5]))
+                utc_totime = self.local_to_utc(datetime(
+                    new_totime[0], new_totime[1], new_totime[2], new_totime[3], new_totime[4], new_totime[5]))
+            except:
+                return "Bad Data"
             query = {"tweet_author": {"$regex": author},
                      "keyword": {"$regex": keyword},
                      "hashtag": {"$regex": hashtag},
@@ -137,6 +138,7 @@ class PullTweetsData():
                 "$lt": utc_totime
             }}
         count = 0
+
         cursor = self.__db.find(query)
         setTweets = []
         for i in cursor:
@@ -213,7 +215,7 @@ def pullTweetsTask():
     # pullerT1.find_multi(location="Bangkok")
     # pullerT1.find_tweets("hashtag", "tcas", "print")
     pullerT1.find_multi(location="Bangkok", fromtime="2023.2.12.17.0.0",
-                        totime="2023.2.12.17.40.0")
+                        totime="2023.2.12.179.40.0")
     # pullerT1.find_tweets("text","ยู")
 
 

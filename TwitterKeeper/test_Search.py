@@ -104,8 +104,11 @@ class TestFindTweets(unittest.TestCase):
             fromtime="2023.1.1.0.0.0", totime="2023.1.2.0.0.0")
         self.assertEqual(result, [])
 
-        # find tweets that tweeted in 2023
+        # find tweets that have only fromtime or totime
         result = self.Puller.find_multi(fromtime="2023.1.1.0.0.0")
+        self.assertEqual(result, "Missing Time")
+
+        result = self.Puller.find_multi(totime="2023.1.1.0.0.0")
         self.assertEqual(result, "Missing Time")
 
     def test_FindbyMultiCriteria(self):
@@ -129,7 +132,9 @@ class TestFindTweets(unittest.TestCase):
         self.assertEqual(result, self.dummy_tweets)
 
     def test_FindbyUnexpextedCriteria(self):
-        pass
+        result = self.Puller.find_multi(
+            fromtime="99999.99.99.99.99.99", totime="99999.99.99.99.99.99")
+        self.assertEqual(result, "Bad Data")
 
 
 if __name__ == "__main__":
