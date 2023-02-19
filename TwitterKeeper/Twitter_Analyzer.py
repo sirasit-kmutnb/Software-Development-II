@@ -4,6 +4,8 @@ from sklearn.model_selection import train_test_split
 from tqdm import tqdm
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.metrics import accuracy_score
+from dotenv import load_dotenv
+import os
 import re
 import emoji
 import numpy as np
@@ -93,12 +95,25 @@ class SentimentAnalyze(PullTweetsData):
 
 class main():
     def __init__(self):
+        TH_Bangkok = 1225448
+        JP_Tokyo = 1118370
+        self.WOEID = TH_Bangkok
+        api_key = os.getenv('API_KEY')
+        api_key_secret = os.getenv('API_KEY_SECRET')
+        access_token = os.getenv('ACCESS_TOKEN')
+        access_token_secret = os.getenv('ACCESS_TOKEN_SECRET')
+        self.database = "twitter_keeper"
+        self.collection = "tweets"
         self.find_top_word = FindTopWord()
         self.sentiment_analyze = SentimentAnalyze()
         self.pull_tweets = PullTweetsData()
+        self.pull_tweets.getAccessToAPI(api_key, api_key_secret)
+        self.pull_tweets.setUserAuthentication(
+            access_token, access_token_secret)
+        self.pull_tweets.getTwitterAPI()
+        self.pull_tweets.connectToDB("twitter_keeper", "tweets")
 
     def load_sample_tweets(self, author="", keyword="", hashtag="", location="", text="", fromTime="", toTime=""):
-        self.pull_tweets.connectToDB("twitter_keeper", "tweets_JP")
         return self.pull_tweets.find_multi(author, keyword, hashtag, location, text, fromTime, toTime)
 
     def tweets_find_top_word(self, author="", keyword="", hashtag="", location="", text="", fromTime="", toTime=""):
@@ -119,5 +134,32 @@ class main():
                 pd.Series([tweet['text'], sentiment], index=df.columns)).T], ignore_index=True)
         return df
 
+    def topTrends(self):
+        trends = self.pull_tweets._PullTweetsData__api.get_place_trends(
+            self.WOEID)
+        top50 = trends[0]['trends']
+        new_list = [d for d in top50 if d.get('tweet_volume') != None]
+        sorted_list = sorted(
+            new_list, key=lambda x: x['tweet_volume'], reverse=True)
+        top10 = sorted_list[0:10]
+        return top10
 
-TweetsCounter = main()
+    def top10Analyzer(self):
+        top10 = self.topTrends()
+        names = [d['name'] for d in top10]
+        for i in tqdm(names):
+            self.pull_tweets.pullTweets(i, 1)
+        resultSenti = pd.DataFrame({'text': [], 'sentiment': []})
+        for i in tqdm(names):
+            df = self.tweets_sentiment_analyzer(text="", keyword=i)
+            # dfTitle(i)
+            # resultSenti = pd.concat([resultSenti, dfTitle(i)])
+            resultSenti = pd.concat([resultSenti, df])
+        print(resultSenti)
+
+    def printtest(self):
+        print("Test")
+
+
+if __name__ == "__main__":
+    main()
