@@ -110,7 +110,7 @@ class main():
         self.pull_tweets.getAccessToAPI(api_key, api_key_secret)
         self.pull_tweets.setUserAuthentication(
             access_token, access_token_secret)
-        self.pull_tweets.getTwitterAPI()
+        self.pull_tweets._Pull.getTwitterAPI()
         self.pull_tweets.connectToDB("twitter_keeper", "tweets")
 
     def load_sample_tweets(self, author="", keyword="", hashtag="", location="", text="", fromTime="", toTime=""):
@@ -137,6 +137,8 @@ class main():
     def topTrends(self):
         trends = self.pull_tweets._PullTweetsData__api.get_place_trends(
             self.WOEID)
+        # trends = self.getAPI.get_place_trends(
+        #     self.WOEID)
         top50 = trends[0]['trends']
         new_list = [d for d in top50 if d.get('tweet_volume') != None]
         sorted_list = sorted(
@@ -162,4 +164,4 @@ class main():
 
 
 if __name__ == "__main__":
-    main()
+    main().top10Analyzer()
