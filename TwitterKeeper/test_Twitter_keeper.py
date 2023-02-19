@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock, patch, Mock
 import tweepy
 from datetime import datetime
 from Twitter_keeper import PullTweetsData
@@ -16,6 +16,13 @@ class TestPullTweetsData(unittest.TestCase):
         self.pull_tweets.setUserAuthentication(
             self.access_token, self.access_token_secret)
         self.pull_tweets.getTwitterAPI()
+        self.query = "test"
+        self.amount = 5
+        self.tweets = []
+        self.tweepy = MagicMock()
+        self.tweepy.Cursor().items.return_value = self.tweets
+        self.pull_tweets_mock = PullTweetsData()
+        self.pull_tweets_mock._PullTweetsData__api = self.tweepy
 
     def test_getAccessToAPI(self):
         self.assertEqual(
@@ -60,23 +67,10 @@ class TestPullTweetsData(unittest.TestCase):
     def test_pullTweets(self):
         pass  # This method cannot be unit tested as it starts a thread
 
-    # @patch('tweepy.Cursor')
-    # def test_pullTweetsThread(self, mock_cursor):
-    #     mock_cursor.return_value.items.return_value = [
-    #         tweepy.models.Status(
-    #             id=1,
-    #             entities={'hashtags': [{'text': 'test1'}, {'text': 'test2'}]},
-    #             user=tweepy.models.User(screen_name='test_author'),
-    #             created_at=datetime.now(),
-    #             retweeted_status=None,
-    #             full_text='test text'
-    #         ) for i in range(5)
-    #     ]
-    #     self.pull_tweets.pullTweetsThread("test", 5)
-    #     self.pull_tweets.getHashtag.assert_called_once()
-    #     self.pull_tweets.createDictData.assert_called_once()
-    #     self.pull_tweets.saveTweetsDict.assert_called_once()
-    #     self.assertEqual(self.pull_tweets._PullTweetsData__count, 0)
+
+    def test_pull_tweets_thread(self):
+        pass
+
 
     @patch('pymongo.MongoClient')
     def test_connectToDB(self, mock_client):
