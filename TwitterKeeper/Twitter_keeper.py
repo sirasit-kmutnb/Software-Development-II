@@ -206,16 +206,16 @@ def pullTweetsTask():
     pullerT1.setUserAuthentication(access_token, access_token_secret)
     pullerT1.getTwitterAPI()
     pullerT1.connectToDB("twitter_keeper", "tweets")
-    # t1 = Thread(target=pullerT1.pullTweets, args=("#breakingnews", 1000))
-    # t1.start()
+    t1 = Thread(target=pullerT1.pullTweets, args=("#breakingnews", 1000))
+    t1.start()
 
     # A = pullerT1.find_multi("", "", "", "Bangkok", "",
     #                         "2023.2.12.17.0.0", "2023.2.12.17.40.0")
     # print(A)
     # pullerT1.find_multi(location="Bangkok")
     # pullerT1.find_tweets("hashtag", "tcas", "print")
-    pullerT1.find_multi(location="Bangkok", fromtime="2023.2.12.17.0.0",
-                        totime="2023.2.12.179.40.0")
+    # pullerT1.find_multi(location="Bangkok", fromtime="2023.2.12.17.0.0",
+    #                     totime="2023.2.12.179.40.0")
     # pullerT1.find_tweets("text","ยู")
 
 
