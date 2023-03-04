@@ -217,10 +217,10 @@ def pullTweetsTask():
     # print(A)
     # pullerT1.find_multi(location="Bangkok")
     # pullerT1.find_tweets("hashtag", "tcas", "print")
-    TW = pullerT1.find_multi(location="Bangkok", fromtime="2023.2.12.17.0.0",
-                             totime="2023432423423.2.12.17.40.0")
-    print(TW)
+    # TW = pullerT1.find_multi(location="Bangkok", fromtime="2023.2.12.17.0.0",
+    #                          totime="2023432423423.2.12.17.40.0")
+    # print(TW)
     # pullerT1.find_tweets("text","ยู")
 
 
-pullTweetsTask()
+# pullTweetsTask()

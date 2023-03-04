@@ -26,9 +26,12 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true"/>
+   <string notr="true">background-color: rgb(17, 19, 22);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <property name="spacing">
      <number>0</number>
@@ -70,6 +73,9 @@
         <property name="frameShadow">
          <enum>QFrame::Raised</enum>
         </property>
+        <property name="lineWidth">
+         <number>0</number>
+        </property>
         <layout class="QGridLayout" name="gridLayout_2">
          <property name="leftMargin">
           <number>0</number>
@@ -88,29 +94,55 @@
          </property>
          <item row="0" column="0">
           <widget class="QListWidget" name="List_Menu">
+           <property name="layoutDirection">
+            <enum>Qt::LeftToRight</enum>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgb(255, 255, 255);
+background-color:rgb(35, 38, 53);
+padding: 10px;
+</string>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::NoFrame</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+           <property name="lineWidth">
+            <number>0</number>
+           </property>
+           <property name="showDropIndicator" stdset="0">
+            <bool>false</bool>
+           </property>
+           <property name="spacing">
+            <number>10</number>
+           </property>
+           <property name="selectionRectVisible">
+            <bool>false</bool>
+           </property>
            <item>
             <property name="text">
              <string>Home</string>
+            </property>
+            <property name="textAlignment">
+             <set>AlignCenter</set>
             </property>
            </item>
            <item>
             <property name="text">
              <string>Search</string>
             </property>
+            <property name="textAlignment">
+             <set>AlignCenter</set>
+            </property>
            </item>
            <item>
             <property name="text">
              <string>Analyze</string>
             </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Pull</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Others</string>
+            <property name="textAlignment">
+             <set>AlignCenter</set>
             </property>
            </item>
           </widget>
@@ -121,10 +153,13 @@
       <item>
        <widget class="QFrame" name="frame_2">
         <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
+         <enum>QFrame::NoFrame</enum>
         </property>
         <property name="frameShadow">
          <enum>QFrame::Raised</enum>
+        </property>
+        <property name="lineWidth">
+         <number>0</number>
         </property>
         <layout class="QGridLayout" name="gridLayout" rowstretch="1">
          <property name="leftMargin">
@@ -149,12 +184,45 @@
            </property>
            <item>
             <widget class="QFrame" name="Top_Bar">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(35, 38, 53);</string>
+             </property>
              <property name="frameShape">
-              <enum>QFrame::StyledPanel</enum>
+              <enum>QFrame::NoFrame</enum>
              </property>
              <property name="frameShadow">
               <enum>QFrame::Raised</enum>
              </property>
+             <property name="lineWidth">
+              <number>0</number>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_2">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <property name="leftMargin">
+               <number>12</number>
+              </property>
+              <property name="rightMargin">
+               <number>12</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="label">
+                <property name="styleSheet">
+                 <string notr="true">color:rgb(255, 255, 255);</string>
+                </property>
+                <property name="text">
+                 <string>Twitter Keeper</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </widget>
            </item>
            <item>

@@ -7,6 +7,7 @@
 
 
 from PyQt6 import QtCore, QtGui, QtWidgets
+from PyQt6.QtGui import QColor
 
 
 class Ui_MainWindow(object):
@@ -17,6 +18,7 @@ class Ui_MainWindow(object):
         MainWindow.setMaximumSize(QtCore.QSize(800, 600))
         MainWindow.setStyleSheet("background-color: rgb(17, 19, 22);")
         self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
+        self.centralwidget.setEnabled(True)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
@@ -38,6 +40,7 @@ class Ui_MainWindow(object):
         self.List_Menu = QtWidgets.QListWidget(parent=self.Side_Menu)
         self.List_Menu.setLayoutDirection(
             QtCore.Qt.LayoutDirection.LeftToRight)
+        self.List_Menu.setSpacing(5)
         self.List_Menu.setStyleSheet("color: rgb(255, 255, 255);\n"
                                      "background-color:rgb(35, 38, 53);\n"
                                      "padding: 10px;\n"
@@ -45,9 +48,14 @@ class Ui_MainWindow(object):
         self.List_Menu.setFrameShape(QtWidgets.QFrame.Shape.NoFrame)
         self.List_Menu.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.List_Menu.setLineWidth(0)
+        self.List_Menu.setProperty("showDropIndicator", False)
+        self.List_Menu.setSelectionRectVisible(False)
         self.List_Menu.setObjectName("List_Menu")
         item = QtWidgets.QListWidgetItem()
         item.setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        # self.List_Menu.addItem(item)
+        # self.List_Menu.setStyleSheet(
+        #     "QListWidget::item:selected { background-color: red;}")
         self.List_Menu.addItem(item)
         item = QtWidgets.QListWidgetItem()
         item.setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
@@ -77,7 +85,7 @@ class Ui_MainWindow(object):
         self.Top_Bar.setLineWidth(0)
         self.Top_Bar.setObjectName("Top_Bar")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.Top_Bar)
-        self.verticalLayout_2.setContentsMargins(12, -1, 12, -1)
+        self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_2.setSpacing(0)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.label = QtWidgets.QLabel(parent=self.Top_Bar)
