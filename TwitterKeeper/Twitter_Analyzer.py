@@ -214,7 +214,7 @@ class main():
         top10 = self.topTrends()
         names = [d['name'] for d in top10]
         for i in tqdm(names):
-            self.pull_tweets.pullTweets(i, 1)
+            self.pull_tweets.pullTweets(i, 10)
         resultSenti = pd.DataFrame({'text': [], 'sentiment': []})
         for i in tqdm(names):
             df = self.tweets_sentiment_analyzer(text="", keyword=i)
