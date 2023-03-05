@@ -222,4 +222,4 @@ def pullTweetsTask():
     # pullerT1.find_tweets("text","ยู")
 
 
-pullTweetsTask()
+# pullTweetsTask()
