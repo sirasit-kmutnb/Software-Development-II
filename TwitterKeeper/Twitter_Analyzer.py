@@ -12,6 +12,7 @@ import numpy as np
 from pythainlp.tokenize import word_tokenize
 from pythainlp.corpus import thai_stopwords
 import pandas as pd
+import plotly.graph_objs as go
 
 
 class FindTopWord(PullTweetsData):
@@ -41,7 +42,7 @@ class FindTopWord(PullTweetsData):
 class SentimentAnalyze(PullTweetsData):
 
     def __init__(self):
-        self.__df_train = pd.read_csv("general-amy.csv")
+        self.__df_train = pd.read_csv('general-amy.csv')
         self.__vectorizer = CountVectorizer()
         self.__model = MultinomialNB()
 
@@ -146,7 +147,7 @@ class main():
         top10 = sorted_list[0:10]
         return top10
 
-    def oneAnalyzer(self):
+    def top10Analyzer(self):
         top10 = self.topTrends()
         for i in range(len(top10)):
             print("Number", i, "=>", top10[i]["name"])
@@ -175,5 +176,4 @@ class main():
 
 
 if __name__ == "__main__":
-    # main().top10Analyzer()
-    main().oneAnalyzer()
+    main().top10Analyzer()
