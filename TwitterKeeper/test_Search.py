@@ -1,5 +1,4 @@
 import unittest
-from unittest.mock import MagicMock
 from Twitter_keeper import PullTweetsData
 from mongomock import MongoClient
 from datetime import datetime
