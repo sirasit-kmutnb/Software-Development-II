@@ -78,9 +78,6 @@ class PullTweetsData():
 
     def pullTweetsThread(self, query, amount):
         count = 0
-        start_date = "2023-01-01"
-        end_date = "2023-01-15"
-        # , since_id=start_date, max_id=end_date
         for tweet in tweepy.Cursor(self.__api.search_tweets, q=query, count=100,
                                    result_type="recent", tweet_mode='extended').items():
             entity_hashtag = tweet.entities.get('hashtags')
@@ -104,6 +101,7 @@ class PullTweetsData():
             saveTweet = Thread(target=self.saveTweetsDict,
                                args=(tweet_post,))
             saveTweet.start()
+            print(tweet)
             count += 1
             if count == amount:
                 count = 0
@@ -209,8 +207,8 @@ def pullTweetsTask():
     pullerT1.setUserAuthentication(access_token, access_token_secret)
     pullerT1.getTwitterAPI()
     pullerT1.connectToDB("twitter_keeper", "tweets")
-    # t1 = Thread(target=pullerT1.pullTweets, args=("#tcas66", 1000))
-    # t1.start()
+    t1 = Thread(target=pullerT1.pullTweets, args=("#tcas66", 1))
+    t1.start()
 
     # A = pullerT1.find_multi("", "", "", "Bangkok", "",
     #                         "2023.2.12.17.0.0", "2023.2.12.17.40.0")
@@ -223,4 +221,4 @@ def pullTweetsTask():
     # pullerT1.find_tweets("text","ยู")
 
 
-# pullTweetsTask()
+pullTweetsTask()

@@ -111,7 +111,7 @@ class main():
         self.pull_tweets.setUserAuthentication(
             access_token, access_token_secret)
         self.pull_tweets.getTwitterAPI()
-        self.pull_tweets.connectToDB("twitter_keeper", "tweets")
+        self.pull_tweets.connectToDB("twitter_keeper", "tweets_1")
 
     def load_sample_tweets(self, author="", keyword="", hashtag="", location="", text="", fromTime="", toTime=""):
         return self.pull_tweets.find_multi(author, keyword, hashtag, location, text, fromTime, toTime)
@@ -146,22 +146,34 @@ class main():
         top10 = sorted_list[0:10]
         return top10
 
-    def top10Analyzer(self):
+    def oneAnalyzer(self):
         top10 = self.topTrends()
-        names = [d['name'] for d in top10]
-        for i in tqdm(names):
-            self.pull_tweets.pullTweets(i, 10)
-        resultSenti = pd.DataFrame({'text': [], 'sentiment': []})
-        for i in tqdm(names):
-            df = self.tweets_sentiment_analyzer(text="", keyword=i)
-            # dfTitle(i)
-            # resultSenti = pd.concat([resultSenti, dfTitle(i)])
-            resultSenti = pd.concat([resultSenti, df])
-        print(resultSenti)
+        for i in range(len(top10)):
+            print("Number", i, "=>", top10[i]["name"])
+        selectNumber = int(
+            input("Please select Number to pull and analyze : "))
+        selectOne = top10[selectNumber]
+        # print(selectOne)
+        objectSelectName = selectOne["name"]
+        # print(objectSelectName)
+        self.pull_tweets.pullTweets(objectSelectName, 10)
+        df = self.tweets_sentiment_analyzer(keyword=objectSelectName)
+        print(df)
 
-    def printtest(self):
-        print("Test")
+    # def top10Analyzer(self):
+    #     top10 = self.topTrends()
+    #     names = [d['name'] for d in top10]
+    #     for i in tqdm(names):
+    #         self.pull_tweets.pullTweets(i, 10)
+    #     resultSenti = pd.DataFrame({'text': [], 'sentiment': []})
+    #     for i in tqdm(names):
+    #         df = self.tweets_sentiment_analyzer(text="", keyword=i)
+    #         # dfTitle(i)
+    #         # resultSenti = pd.concat([resultSenti, dfTitle(i)])
+    #         resultSenti = pd.concat([resultSenti, df])
+    #     print(resultSenti)
 
 
 if __name__ == "__main__":
-    main().top10Analyzer()
+    # main().top10Analyzer()
+    main().oneAnalyzer()
