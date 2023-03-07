@@ -112,7 +112,7 @@ class main():
         self.pull_tweets.setUserAuthentication(
             access_token, access_token_secret)
         self.pull_tweets.getTwitterAPI()
-        self.pull_tweets.connectToDB("twitter_keeper", "tweets_1")
+        self.pull_tweets.connectToDB("twitter_keeper", "tweets")
 
     def load_sample_tweets(self, author="", keyword="", hashtag="", location="", text="", fromTime="", toTime=""):
         return self.pull_tweets.find_multi(author, keyword, hashtag, location, text, fromTime, toTime)
@@ -147,7 +147,69 @@ class main():
         top10 = sorted_list[0:10]
         return top10
 
-    def top10Analyzer(self):
+    def spatialPloting(self, tw_list):
+        countries_dict = {
+            "country": {}
+        }
+        c_data = pd.read_csv('country.csv')
+        for i in tw_list:
+            if i['tweet_location'].lower() in [str(element).lower() for element in c_data['name'].to_list()]:
+                try:
+                    countries_dict["country"][i['tweet_location'].lower()] += 1
+                except:
+                    countries_dict["country"][i['tweet_location'].lower()] = 1
+
+        data = pd.DataFrame({
+            'country': list(countries_dict['country'].keys()),
+            'value': list(countries_dict['country'].values())
+        })
+
+        # Define the scattergeo trace
+        trace = go.Scattergeo(
+            locationmode='country names',
+            locations=data['country'],
+            mode='markers',
+            marker={
+                'size': data['value'],
+                'color': data['value'],
+                'colorscale': 'Viridis',
+                'opacity': 0.7,
+                'colorbar': {'title': 'Value'}
+            },
+            text=data['country'] + ': ' + data['value'].astype(str)
+        )
+
+        # Define the layout
+        layout = go.Layout(
+            title='World Map',
+            geo=dict(
+                projection_type='natural earth',
+                showland=True,
+                landcolor='rgb(243, 243, 243)',
+                showcountries=True,
+                countrycolor='rgb(204, 204, 204)',
+                countrywidth=0.5,
+                showocean=True,
+                oceancolor='rgb(157, 214, 255)',
+                showlakes=True,
+                lakecolor='rgb(157, 214, 255)',
+                showrivers=True,
+                rivercolor='rgb(157, 214, 255)',
+                riverwidth=1,
+                showcoastlines=True,
+                coastlinecolor='rgb(204, 204, 204)',
+                coastlinewidth=1,
+                showframe=False
+            )
+        )
+
+        # Create the figure
+        fig = go.Figure(data=[trace], layout=layout)
+
+        # Show the figure
+        return fig
+
+    def OneAnalyzer(self):
         top10 = self.topTrends()
         for i in range(len(top10)):
             print("Number", i, "=>", top10[i]["name"])
@@ -176,4 +238,8 @@ class main():
 
 
 if __name__ == "__main__":
-    main().top10Analyzer()
+    main().OneAnalyzer()
+    # x = main().load_sample_tweets()
+    # for i in x:
+    #     print(i['tweet_location'].lower())
+    # main().spatialPloting(x).show()
