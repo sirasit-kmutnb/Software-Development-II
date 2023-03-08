@@ -220,7 +220,7 @@ class main():
         # print(selectOne)
         objectSelectName = selectOne["name"]
         # print(objectSelectName)
-        self.pull_tweets.pullTweets(objectSelectName, 10)
+        self.pull_tweets.pullTweets(objectSelectName, 100)
         df = self.tweets_sentiment_analyzer(keyword=objectSelectName)
         print(df)
 
