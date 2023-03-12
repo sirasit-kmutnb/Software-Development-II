@@ -145,7 +145,7 @@ class Ui_MainWindow(object):
         self.frame_3.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.frame_3.setObjectName("frame_3")
         self.PullTweet_Field = QtWidgets.QPushButton(parent=self.frame_3)
-        self.PullTweet_Field.setGeometry(QtCore.QRect(390, 70, 113, 32))
+        self.PullTweet_Field.setGeometry(QtCore.QRect(400, 110, 113, 32))
         self.PullTweet_Field.setStyleSheet("QPushButton {\n"
                                            "    color: rgb(255, 255, 255);\n"
                                            "    background-color: rgb(35, 38, 53);\n"
@@ -172,9 +172,21 @@ class Ui_MainWindow(object):
                                               "}")
         self.Keyword_Pull_Field.setObjectName("Keyword_Pull_Field")
         self.progressBar = QtWidgets.QProgressBar(parent=self.frame_3)
-        self.progressBar.setGeometry(QtCore.QRect(140, 120, 361, 23))
+        self.progressBar.setGeometry(QtCore.QRect(140, 170, 361, 23))
         self.progressBar.setProperty("value", 24)
         self.progressBar.setObjectName("progressBar")
+        self.Keyword_Pull_Field_2 = QtWidgets.QLineEdit(parent=self.frame_3)
+        self.Keyword_Pull_Field_2.setGeometry(QtCore.QRect(140, 110, 240, 30))
+        self.Keyword_Pull_Field_2.setMinimumSize(QtCore.QSize(240, 30))
+        self.Keyword_Pull_Field_2.setMaximumSize(QtCore.QSize(240, 30))
+        self.Keyword_Pull_Field_2.setStyleSheet("QLineEdit {\n"
+                                                "    border: 2px solid rgb(37,39,48);\n"
+                                                "    border-radius: 50px;\n"
+                                                "    color: #FFF;\n"
+                                                "    padding-left: 20px;\n"
+                                                "    padding-right: 20px;\n"
+                                                "}")
+        self.Keyword_Pull_Field_2.setObjectName("Keyword_Pull_Field_2")
         self.verticalLayout_7.addWidget(self.frame_3)
         self.stackedWidget.addWidget(self.page_1)
         self.page_2 = QtWidgets.QWidget()
@@ -415,6 +427,8 @@ class Ui_MainWindow(object):
         self.PullTweet_Field.setText(_translate("MainWindow", "Pull Tweets"))
         self.Keyword_Pull_Field.setPlaceholderText(
             _translate("MainWindow", "Keyword"))
+        self.Keyword_Pull_Field_2.setPlaceholderText(
+            _translate("MainWindow", "Amount"))
         self.Hashtag_Search.setPlaceholderText(
             _translate("MainWindow", "Hashtag"))
         self.Author_Search.setPlaceholderText(
