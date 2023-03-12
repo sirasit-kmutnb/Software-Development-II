@@ -170,11 +170,12 @@ class main():
             locations=data['country'],
             mode='markers',
             marker={
-                'size': data['value'],
+                'size': data['value']/2,
                 'color': data['value'],
                 'colorscale': 'Viridis',
                 'opacity': 0.7,
-                'colorbar': {'title': 'Value'}
+                'colorbar': {'title': 'Value'},
+                'sizemin':5
             },
             text=data['country'] + ': ' + data['value'].astype(str)
         )
@@ -207,7 +208,7 @@ class main():
         fig = go.Figure(data=[trace], layout=layout)
 
         # Show the figure
-        return fig
+        return data
 
     def OneAnalyzer(self):
         top10 = self.topTrends()
@@ -238,8 +239,9 @@ class main():
 
 
 if __name__ == "__main__":
-    main().OneAnalyzer()
-    # x = main().load_sample_tweets()
+    # main().OneAnalyzer()
+    x = main().load_sample_tweets()
     # for i in x:
     #     print(i['tweet_location'].lower())
     # main().spatialPloting(x).show()
+    print(main().spatialPloting(x))
