@@ -36,11 +36,11 @@ class Ui_MainWindow(object):
         self.frame_top.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.frame_top.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.frame_top.setObjectName("frame_top")
-        self.label_3 = QtWidgets.QLabel(parent=self.frame_top)
-        self.label_3.setGeometry(QtCore.QRect(370, 10, 90, 16))
-        self.label_3.setStyleSheet("color: rgb(255, 255, 255);")
-        self.label_3.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.label_3.setObjectName("label_3")
+        self.Title = QtWidgets.QLabel(parent=self.frame_top)
+        self.Title.setGeometry(QtCore.QRect(370, 10, 90, 16))
+        self.Title.setStyleSheet("color: rgb(255, 255, 255);")
+        self.Title.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.Title.setObjectName("Title")
         self.verticalLayout_2.addWidget(self.frame_top)
         self.verticalLayout.addWidget(self.Top_Bar)
         self.Content = QtWidgets.QFrame(parent=self.centralwidget)
@@ -61,62 +61,62 @@ class Ui_MainWindow(object):
         self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.frame_left_menu)
         self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_3.setObjectName("verticalLayout_3")
-        self.btn_page_1 = QtWidgets.QPushButton(parent=self.frame_left_menu)
-        self.btn_page_1.setMinimumSize(QtCore.QSize(0, 40))
-        self.btn_page_1.setStyleSheet("QPushButton {\n"
-                                      "    color: rgb(255, 255, 255);\n"
-                                      "    background-color: rgb(35, 38, 53);\n"
-                                      "    border: 0px solid;\n"
-                                      "}\n"
-                                      "QPushButton:hover {\n"
-                                      "    background-color: rgb(49, 54, 80);\n"
-                                      "}\n"
-                                      "\n"
-                                      "QPushButton:checked {\n"
-                                      "    background-color: rgb(49, 54, 80);\n"
-                                      "}")
-        self.btn_page_1.setCheckable(True)
-        self.btn_page_1.setChecked(True)
-        self.btn_page_1.setAutoExclusive(True)
-        self.btn_page_1.setObjectName("btn_page_1")
-        self.verticalLayout_3.addWidget(self.btn_page_1)
-        self.btn_page_2 = QtWidgets.QPushButton(parent=self.frame_left_menu)
-        self.btn_page_2.setMinimumSize(QtCore.QSize(0, 40))
-        self.btn_page_2.setStyleSheet("QPushButton {\n"
-                                      "    color: rgb(255, 255, 255);\n"
-                                      "    background-color:  rgb(35, 38, 53);\n"
-                                      "    border: 0px solid;\n"
-                                      "}\n"
-                                      "QPushButton:hover {\n"
-                                      "    background-color: rgb(49, 54, 80);\n"
-                                      "}\n"
-                                      "\n"
-                                      "QPushButton:checked {\n"
-                                      "    background-color: rgb(49, 54, 80);\n"
-                                      "}")
-        self.btn_page_2.setCheckable(True)
-        self.btn_page_2.setChecked(False)
-        self.btn_page_2.setAutoExclusive(True)
-        self.btn_page_2.setObjectName("btn_page_2")
-        self.verticalLayout_3.addWidget(self.btn_page_2)
-        self.btn_page_3 = QtWidgets.QPushButton(parent=self.frame_left_menu)
-        self.btn_page_3.setMinimumSize(QtCore.QSize(0, 40))
-        self.btn_page_3.setStyleSheet("QPushButton {\n"
-                                      "    color: rgb(255, 255, 255);\n"
-                                      "    background-color:  rgb(35, 38, 53);\n"
-                                      "    border: 0px solid;\n"
-                                      "}\n"
-                                      "QPushButton:hover {\n"
-                                      "    background-color: rgb(49, 54, 80);\n"
-                                      "}\n"
-                                      "\n"
-                                      "QPushButton:checked {\n"
-                                      "    background-color: rgb(49, 54, 80);\n"
-                                      "}")
-        self.btn_page_3.setCheckable(True)
-        self.btn_page_3.setAutoExclusive(True)
-        self.btn_page_3.setObjectName("btn_page_3")
-        self.verticalLayout_3.addWidget(self.btn_page_3)
+        self.Home_Page = QtWidgets.QPushButton(parent=self.frame_left_menu)
+        self.Home_Page.setMinimumSize(QtCore.QSize(0, 40))
+        self.Home_Page.setStyleSheet("QPushButton {\n"
+                                     "    color: rgb(255, 255, 255);\n"
+                                     "    background-color: rgb(35, 38, 53);\n"
+                                     "    border: 0px solid;\n"
+                                     "}\n"
+                                     "QPushButton:hover {\n"
+                                     "    background-color: rgb(49, 54, 80);\n"
+                                     "}\n"
+                                     "\n"
+                                     "QPushButton:checked {\n"
+                                     "    background-color: rgb(49, 54, 80);\n"
+                                     "}")
+        self.Home_Page.setCheckable(True)
+        self.Home_Page.setChecked(True)
+        self.Home_Page.setAutoExclusive(True)
+        self.Home_Page.setObjectName("Home_Page")
+        self.verticalLayout_3.addWidget(self.Home_Page)
+        self.Search_Page = QtWidgets.QPushButton(parent=self.frame_left_menu)
+        self.Search_Page.setMinimumSize(QtCore.QSize(0, 40))
+        self.Search_Page.setStyleSheet("QPushButton {\n"
+                                       "    color: rgb(255, 255, 255);\n"
+                                       "    background-color:  rgb(35, 38, 53);\n"
+                                       "    border: 0px solid;\n"
+                                       "}\n"
+                                       "QPushButton:hover {\n"
+                                       "    background-color: rgb(49, 54, 80);\n"
+                                       "}\n"
+                                       "\n"
+                                       "QPushButton:checked {\n"
+                                       "    background-color: rgb(49, 54, 80);\n"
+                                       "}")
+        self.Search_Page.setCheckable(True)
+        self.Search_Page.setChecked(False)
+        self.Search_Page.setAutoExclusive(True)
+        self.Search_Page.setObjectName("Search_Page")
+        self.verticalLayout_3.addWidget(self.Search_Page)
+        self.Analyze_Page = QtWidgets.QPushButton(parent=self.frame_left_menu)
+        self.Analyze_Page.setMinimumSize(QtCore.QSize(0, 40))
+        self.Analyze_Page.setStyleSheet("QPushButton {\n"
+                                        "    color: rgb(255, 255, 255);\n"
+                                        "    background-color:  rgb(35, 38, 53);\n"
+                                        "    border: 0px solid;\n"
+                                        "}\n"
+                                        "QPushButton:hover {\n"
+                                        "    background-color: rgb(49, 54, 80);\n"
+                                        "}\n"
+                                        "\n"
+                                        "QPushButton:checked {\n"
+                                        "    background-color: rgb(49, 54, 80);\n"
+                                        "}")
+        self.Analyze_Page.setCheckable(True)
+        self.Analyze_Page.setAutoExclusive(True)
+        self.Analyze_Page.setObjectName("Analyze_Page")
+        self.verticalLayout_3.addWidget(self.Analyze_Page)
         self.frame_top_menus = QtWidgets.QFrame(parent=self.frame_left_menu)
         self.frame_top_menus.setFrameShape(QtWidgets.QFrame.Shape.NoFrame)
         self.frame_top_menus.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
@@ -144,33 +144,33 @@ class Ui_MainWindow(object):
         self.frame_3.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.frame_3.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.frame_3.setObjectName("frame_3")
-        self.pushButton_5 = QtWidgets.QPushButton(parent=self.frame_3)
-        self.pushButton_5.setGeometry(QtCore.QRect(390, 70, 113, 32))
-        self.pushButton_5.setStyleSheet("QPushButton {\n"
-                                        "    color: rgb(255, 255, 255);\n"
-                                        "    background-color: rgb(35, 38, 53);\n"
-                                        "    border: 0px solid;\n"
-                                        "}\n"
-                                        "QPushButton:hover {\n"
-                                        "    background-color: rgb(49, 54, 80);\n"
-                                        "}\n"
-                                        "\n"
-                                        "QPushButton:checked {\n"
-                                        "    background-color: rgb(49, 54, 80);\n"
-                                        "}")
-        self.pushButton_5.setObjectName("pushButton_5")
-        self.lineEdit_19 = QtWidgets.QLineEdit(parent=self.frame_3)
-        self.lineEdit_19.setGeometry(QtCore.QRect(140, 70, 240, 30))
-        self.lineEdit_19.setMinimumSize(QtCore.QSize(240, 30))
-        self.lineEdit_19.setMaximumSize(QtCore.QSize(240, 30))
-        self.lineEdit_19.setStyleSheet("QLineEdit {\n"
-                                       "    border: 2px solid rgb(37,39,48);\n"
-                                       "    border-radius: 50px;\n"
-                                       "    color: #FFF;\n"
-                                       "    padding-left: 20px;\n"
-                                       "    padding-right: 20px;\n"
-                                       "}")
-        self.lineEdit_19.setObjectName("lineEdit_19")
+        self.PullTweet_Field = QtWidgets.QPushButton(parent=self.frame_3)
+        self.PullTweet_Field.setGeometry(QtCore.QRect(390, 70, 113, 32))
+        self.PullTweet_Field.setStyleSheet("QPushButton {\n"
+                                           "    color: rgb(255, 255, 255);\n"
+                                           "    background-color: rgb(35, 38, 53);\n"
+                                           "    border: 0px solid;\n"
+                                           "}\n"
+                                           "QPushButton:hover {\n"
+                                           "    background-color: rgb(49, 54, 80);\n"
+                                           "}\n"
+                                           "\n"
+                                           "QPushButton:checked {\n"
+                                           "    background-color: rgb(49, 54, 80);\n"
+                                           "}")
+        self.PullTweet_Field.setObjectName("PullTweet_Field")
+        self.Keyword_Pull_Field = QtWidgets.QLineEdit(parent=self.frame_3)
+        self.Keyword_Pull_Field.setGeometry(QtCore.QRect(140, 70, 240, 30))
+        self.Keyword_Pull_Field.setMinimumSize(QtCore.QSize(240, 30))
+        self.Keyword_Pull_Field.setMaximumSize(QtCore.QSize(240, 30))
+        self.Keyword_Pull_Field.setStyleSheet("QLineEdit {\n"
+                                              "    border: 2px solid rgb(37,39,48);\n"
+                                              "    border-radius: 50px;\n"
+                                              "    color: #FFF;\n"
+                                              "    padding-left: 20px;\n"
+                                              "    padding-right: 20px;\n"
+                                              "}")
+        self.Keyword_Pull_Field.setObjectName("Keyword_Pull_Field")
         self.progressBar = QtWidgets.QProgressBar(parent=self.frame_3)
         self.progressBar.setGeometry(QtCore.QRect(140, 120, 361, 23))
         self.progressBar.setProperty("value", 24)
@@ -185,98 +185,98 @@ class Ui_MainWindow(object):
         self.frame.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.frame.setObjectName("frame")
-        self.lineEdit = QtWidgets.QLineEdit(parent=self.frame)
-        self.lineEdit.setGeometry(QtCore.QRect(80, 10, 240, 30))
-        self.lineEdit.setMinimumSize(QtCore.QSize(240, 30))
-        self.lineEdit.setMaximumSize(QtCore.QSize(240, 30))
-        self.lineEdit.setStyleSheet("QLineEdit {\n"
-                                    "    border: 2px solid rgb(37,39,48);\n"
-                                    "    border-radius: 50px;\n"
-                                    "    color: #FFF;\n"
-                                    "    padding-left: 20px;\n"
-                                    "    padding-right: 20px;\n"
-                                    "}")
-        self.lineEdit.setObjectName("lineEdit")
-        self.lineEdit_2 = QtWidgets.QLineEdit(parent=self.frame)
-        self.lineEdit_2.setGeometry(QtCore.QRect(330, 10, 240, 30))
-        self.lineEdit_2.setMinimumSize(QtCore.QSize(240, 30))
-        self.lineEdit_2.setMaximumSize(QtCore.QSize(240, 30))
-        self.lineEdit_2.setStyleSheet("QLineEdit {\n"
-                                      "    border: 2px solid rgb(37,39,48);\n"
-                                      "    border-radius: 50px;\n"
-                                      "    color: #FFF;\n"
-                                      "    padding-left: 20px;\n"
-                                      "    padding-right: 20px;\n"
-                                      "}")
-        self.lineEdit_2.setObjectName("lineEdit_2")
-        self.lineEdit_3 = QtWidgets.QLineEdit(parent=self.frame)
-        self.lineEdit_3.setGeometry(QtCore.QRect(80, 50, 240, 30))
-        self.lineEdit_3.setMinimumSize(QtCore.QSize(240, 30))
-        self.lineEdit_3.setMaximumSize(QtCore.QSize(240, 30))
-        self.lineEdit_3.setStyleSheet("QLineEdit {\n"
-                                      "    border: 2px solid rgb(37,39,48);\n"
-                                      "    border-radius: 50px;\n"
-                                      "    color: #FFF;\n"
-                                      "    padding-left: 20px;\n"
-                                      "    padding-right: 20px;\n"
-                                      "}")
-        self.lineEdit_3.setObjectName("lineEdit_3")
-        self.lineEdit_4 = QtWidgets.QLineEdit(parent=self.frame)
-        self.lineEdit_4.setGeometry(QtCore.QRect(330, 50, 240, 30))
-        self.lineEdit_4.setMinimumSize(QtCore.QSize(240, 30))
-        self.lineEdit_4.setMaximumSize(QtCore.QSize(240, 30))
-        self.lineEdit_4.setStyleSheet("QLineEdit {\n"
-                                      "    border: 2px solid rgb(37,39,48);\n"
-                                      "    border-radius: 50px;\n"
-                                      "    color: #FFF;\n"
-                                      "    padding-left: 20px;\n"
-                                      "    padding-right: 20px;\n"
-                                      "}")
-        self.lineEdit_4.setObjectName("lineEdit_4")
-        self.lineEdit_5 = QtWidgets.QLineEdit(parent=self.frame)
-        self.lineEdit_5.setGeometry(QtCore.QRect(80, 90, 240, 30))
-        self.lineEdit_5.setMinimumSize(QtCore.QSize(240, 30))
-        self.lineEdit_5.setMaximumSize(QtCore.QSize(240, 30))
-        self.lineEdit_5.setStyleSheet("QLineEdit {\n"
-                                      "    border: 2px solid rgb(37,39,48);\n"
-                                      "    border-radius: 50px;\n"
-                                      "    color: #FFF;\n"
-                                      "    padding-left: 20px;\n"
-                                      "    padding-right: 20px;\n"
-                                      "}")
-        self.lineEdit_5.setObjectName("lineEdit_5")
-        self.lineEdit_6 = QtWidgets.QLineEdit(parent=self.frame)
-        self.lineEdit_6.setGeometry(QtCore.QRect(330, 90, 240, 30))
-        self.lineEdit_6.setMinimumSize(QtCore.QSize(240, 30))
-        self.lineEdit_6.setMaximumSize(QtCore.QSize(240, 30))
-        self.lineEdit_6.setStyleSheet("QLineEdit {\n"
-                                      "    border: 2px solid rgb(37,39,48);\n"
-                                      "    border-radius: 50px;\n"
-                                      "    color: #FFF;\n"
-                                      "    padding-left: 20px;\n"
-                                      "    padding-right: 20px;\n"
-                                      "}")
-        self.lineEdit_6.setObjectName("lineEdit_6")
-        self.pushButton = QtWidgets.QPushButton(parent=self.frame)
-        self.pushButton.setGeometry(QtCore.QRect(260, 130, 113, 32))
-        self.pushButton.setStyleSheet("QPushButton {\n"
-                                      "    color: rgb(255, 255, 255);\n"
-                                      "    background-color: rgb(35, 38, 53);\n"
-                                      "    border: 0px solid;\n"
-                                      "}\n"
-                                      "QPushButton:hover {\n"
-                                      "    background-color: rgb(49, 54, 80);\n"
-                                      "}\n"
-                                      "\n"
-                                      "QPushButton:checked {\n"
-                                      "    background-color: rgb(49, 54, 80);\n"
-                                      "}")
-        self.pushButton.setObjectName("pushButton")
-        self.listWidget = QtWidgets.QListWidget(parent=self.frame)
-        self.listWidget.setGeometry(QtCore.QRect(35, 200, 591, 291))
-        self.listWidget.setStyleSheet("background-color:  rgb(35, 38, 53);\n"
-                                      "color:#FFF;")
-        self.listWidget.setObjectName("listWidget")
+        self.Hashtag_Search = QtWidgets.QLineEdit(parent=self.frame)
+        self.Hashtag_Search.setGeometry(QtCore.QRect(80, 10, 240, 30))
+        self.Hashtag_Search.setMinimumSize(QtCore.QSize(240, 30))
+        self.Hashtag_Search.setMaximumSize(QtCore.QSize(240, 30))
+        self.Hashtag_Search.setStyleSheet("QLineEdit {\n"
+                                          "    border: 2px solid rgb(37,39,48);\n"
+                                          "    border-radius: 50px;\n"
+                                          "    color: #FFF;\n"
+                                          "    padding-left: 20px;\n"
+                                          "    padding-right: 20px;\n"
+                                          "}")
+        self.Hashtag_Search.setObjectName("Hashtag_Search")
+        self.Author_Search = QtWidgets.QLineEdit(parent=self.frame)
+        self.Author_Search.setGeometry(QtCore.QRect(330, 10, 240, 30))
+        self.Author_Search.setMinimumSize(QtCore.QSize(240, 30))
+        self.Author_Search.setMaximumSize(QtCore.QSize(240, 30))
+        self.Author_Search.setStyleSheet("QLineEdit {\n"
+                                         "    border: 2px solid rgb(37,39,48);\n"
+                                         "    border-radius: 50px;\n"
+                                         "    color: #FFF;\n"
+                                         "    padding-left: 20px;\n"
+                                         "    padding-right: 20px;\n"
+                                         "}")
+        self.Author_Search.setObjectName("Author_Search")
+        self.Location_Search = QtWidgets.QLineEdit(parent=self.frame)
+        self.Location_Search.setGeometry(QtCore.QRect(80, 50, 240, 30))
+        self.Location_Search.setMinimumSize(QtCore.QSize(240, 30))
+        self.Location_Search.setMaximumSize(QtCore.QSize(240, 30))
+        self.Location_Search.setStyleSheet("QLineEdit {\n"
+                                           "    border: 2px solid rgb(37,39,48);\n"
+                                           "    border-radius: 50px;\n"
+                                           "    color: #FFF;\n"
+                                           "    padding-left: 20px;\n"
+                                           "    padding-right: 20px;\n"
+                                           "}")
+        self.Location_Search.setObjectName("Location_Search")
+        self.Text_Search = QtWidgets.QLineEdit(parent=self.frame)
+        self.Text_Search.setGeometry(QtCore.QRect(330, 50, 240, 30))
+        self.Text_Search.setMinimumSize(QtCore.QSize(240, 30))
+        self.Text_Search.setMaximumSize(QtCore.QSize(240, 30))
+        self.Text_Search.setStyleSheet("QLineEdit {\n"
+                                       "    border: 2px solid rgb(37,39,48);\n"
+                                       "    border-radius: 50px;\n"
+                                       "    color: #FFF;\n"
+                                       "    padding-left: 20px;\n"
+                                       "    padding-right: 20px;\n"
+                                       "}")
+        self.Text_Search.setObjectName("Text_Search")
+        self.StartTime_Search = QtWidgets.QLineEdit(parent=self.frame)
+        self.StartTime_Search.setGeometry(QtCore.QRect(80, 90, 240, 30))
+        self.StartTime_Search.setMinimumSize(QtCore.QSize(240, 30))
+        self.StartTime_Search.setMaximumSize(QtCore.QSize(240, 30))
+        self.StartTime_Search.setStyleSheet("QLineEdit {\n"
+                                            "    border: 2px solid rgb(37,39,48);\n"
+                                            "    border-radius: 50px;\n"
+                                            "    color: #FFF;\n"
+                                            "    padding-left: 20px;\n"
+                                            "    padding-right: 20px;\n"
+                                            "}")
+        self.StartTime_Search.setObjectName("StartTime_Search")
+        self.EndTime_Search = QtWidgets.QLineEdit(parent=self.frame)
+        self.EndTime_Search.setGeometry(QtCore.QRect(330, 90, 240, 30))
+        self.EndTime_Search.setMinimumSize(QtCore.QSize(240, 30))
+        self.EndTime_Search.setMaximumSize(QtCore.QSize(240, 30))
+        self.EndTime_Search.setStyleSheet("QLineEdit {\n"
+                                          "    border: 2px solid rgb(37,39,48);\n"
+                                          "    border-radius: 50px;\n"
+                                          "    color: #FFF;\n"
+                                          "    padding-left: 20px;\n"
+                                          "    padding-right: 20px;\n"
+                                          "}")
+        self.EndTime_Search.setObjectName("EndTime_Search")
+        self.Search_Search = QtWidgets.QPushButton(parent=self.frame)
+        self.Search_Search.setGeometry(QtCore.QRect(260, 130, 113, 32))
+        self.Search_Search.setStyleSheet("QPushButton {\n"
+                                         "    color: rgb(255, 255, 255);\n"
+                                         "    background-color: rgb(35, 38, 53);\n"
+                                         "    border: 0px solid;\n"
+                                         "}\n"
+                                         "QPushButton:hover {\n"
+                                         "    background-color: rgb(49, 54, 80);\n"
+                                         "}\n"
+                                         "\n"
+                                         "QPushButton:checked {\n"
+                                         "    background-color: rgb(49, 54, 80);\n"
+                                         "}")
+        self.Search_Search.setObjectName("Search_Search")
+        self.Result_List_Search = QtWidgets.QListWidget(parent=self.frame)
+        self.Result_List_Search.setGeometry(QtCore.QRect(35, 200, 591, 291))
+        self.Result_List_Search.setStyleSheet("background-color:  rgb(35, 38, 53);\n"
+                                              "color:#FFF;")
+        self.Result_List_Search.setObjectName("Result_List_Search")
         self.verticalLayout_6.addWidget(self.frame)
         self.stackedWidget.addWidget(self.page_2)
         self.page_3 = QtWidgets.QWidget()
@@ -287,113 +287,113 @@ class Ui_MainWindow(object):
         self.frame_2.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.frame_2.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.frame_2.setObjectName("frame_2")
-        self.lineEdit_13 = QtWidgets.QLineEdit(parent=self.frame_2)
-        self.lineEdit_13.setGeometry(QtCore.QRect(80, 90, 240, 30))
-        self.lineEdit_13.setMinimumSize(QtCore.QSize(240, 30))
-        self.lineEdit_13.setMaximumSize(QtCore.QSize(240, 30))
-        self.lineEdit_13.setStyleSheet("QLineEdit {\n"
+        self.StartTime_Anazye = QtWidgets.QLineEdit(parent=self.frame_2)
+        self.StartTime_Anazye.setGeometry(QtCore.QRect(80, 90, 240, 30))
+        self.StartTime_Anazye.setMinimumSize(QtCore.QSize(240, 30))
+        self.StartTime_Anazye.setMaximumSize(QtCore.QSize(240, 30))
+        self.StartTime_Anazye.setStyleSheet("QLineEdit {\n"
+                                            "    border: 2px solid rgb(37,39,48);\n"
+                                            "    border-radius: 50px;\n"
+                                            "    color: #FFF;\n"
+                                            "    padding-left: 20px;\n"
+                                            "    padding-right: 20px;\n"
+                                            "}")
+        self.StartTime_Anazye.setObjectName("StartTime_Anazye")
+        self.Location_Anazye = QtWidgets.QLineEdit(parent=self.frame_2)
+        self.Location_Anazye.setGeometry(QtCore.QRect(80, 50, 240, 30))
+        self.Location_Anazye.setMinimumSize(QtCore.QSize(240, 30))
+        self.Location_Anazye.setMaximumSize(QtCore.QSize(240, 30))
+        self.Location_Anazye.setStyleSheet("QLineEdit {\n"
+                                           "    border: 2px solid rgb(37,39,48);\n"
+                                           "    border-radius: 50px;\n"
+                                           "    color: #FFF;\n"
+                                           "    padding-left: 20px;\n"
+                                           "    padding-right: 20px;\n"
+                                           "}")
+        self.Location_Anazye.setObjectName("Location_Anazye")
+        self.EndTime_Anazye = QtWidgets.QLineEdit(parent=self.frame_2)
+        self.EndTime_Anazye.setGeometry(QtCore.QRect(330, 90, 240, 30))
+        self.EndTime_Anazye.setMinimumSize(QtCore.QSize(240, 30))
+        self.EndTime_Anazye.setMaximumSize(QtCore.QSize(240, 30))
+        self.EndTime_Anazye.setStyleSheet("QLineEdit {\n"
+                                          "    border: 2px solid rgb(37,39,48);\n"
+                                          "    border-radius: 50px;\n"
+                                          "    color: #FFF;\n"
+                                          "    padding-left: 20px;\n"
+                                          "    padding-right: 20px;\n"
+                                          "}")
+        self.EndTime_Anazye.setObjectName("EndTime_Anazye")
+        self.Text_Anazye = QtWidgets.QLineEdit(parent=self.frame_2)
+        self.Text_Anazye.setGeometry(QtCore.QRect(330, 50, 240, 30))
+        self.Text_Anazye.setMinimumSize(QtCore.QSize(240, 30))
+        self.Text_Anazye.setMaximumSize(QtCore.QSize(240, 30))
+        self.Text_Anazye.setStyleSheet("QLineEdit {\n"
                                        "    border: 2px solid rgb(37,39,48);\n"
                                        "    border-radius: 50px;\n"
                                        "    color: #FFF;\n"
                                        "    padding-left: 20px;\n"
                                        "    padding-right: 20px;\n"
                                        "}")
-        self.lineEdit_13.setObjectName("lineEdit_13")
-        self.lineEdit_14 = QtWidgets.QLineEdit(parent=self.frame_2)
-        self.lineEdit_14.setGeometry(QtCore.QRect(80, 50, 240, 30))
-        self.lineEdit_14.setMinimumSize(QtCore.QSize(240, 30))
-        self.lineEdit_14.setMaximumSize(QtCore.QSize(240, 30))
-        self.lineEdit_14.setStyleSheet("QLineEdit {\n"
-                                       "    border: 2px solid rgb(37,39,48);\n"
-                                       "    border-radius: 50px;\n"
-                                       "    color: #FFF;\n"
-                                       "    padding-left: 20px;\n"
-                                       "    padding-right: 20px;\n"
-                                       "}")
-        self.lineEdit_14.setObjectName("lineEdit_14")
-        self.lineEdit_15 = QtWidgets.QLineEdit(parent=self.frame_2)
-        self.lineEdit_15.setGeometry(QtCore.QRect(330, 90, 240, 30))
-        self.lineEdit_15.setMinimumSize(QtCore.QSize(240, 30))
-        self.lineEdit_15.setMaximumSize(QtCore.QSize(240, 30))
-        self.lineEdit_15.setStyleSheet("QLineEdit {\n"
-                                       "    border: 2px solid rgb(37,39,48);\n"
-                                       "    border-radius: 50px;\n"
-                                       "    color: #FFF;\n"
-                                       "    padding-left: 20px;\n"
-                                       "    padding-right: 20px;\n"
-                                       "}")
-        self.lineEdit_15.setObjectName("lineEdit_15")
-        self.lineEdit_16 = QtWidgets.QLineEdit(parent=self.frame_2)
-        self.lineEdit_16.setGeometry(QtCore.QRect(330, 50, 240, 30))
-        self.lineEdit_16.setMinimumSize(QtCore.QSize(240, 30))
-        self.lineEdit_16.setMaximumSize(QtCore.QSize(240, 30))
-        self.lineEdit_16.setStyleSheet("QLineEdit {\n"
-                                       "    border: 2px solid rgb(37,39,48);\n"
-                                       "    border-radius: 50px;\n"
-                                       "    color: #FFF;\n"
-                                       "    padding-left: 20px;\n"
-                                       "    padding-right: 20px;\n"
-                                       "}")
-        self.lineEdit_16.setObjectName("lineEdit_16")
-        self.lineEdit_17 = QtWidgets.QLineEdit(parent=self.frame_2)
-        self.lineEdit_17.setGeometry(QtCore.QRect(330, 10, 240, 30))
-        self.lineEdit_17.setMinimumSize(QtCore.QSize(240, 30))
-        self.lineEdit_17.setMaximumSize(QtCore.QSize(240, 30))
-        self.lineEdit_17.setStyleSheet("QLineEdit {\n"
-                                       "    border: 2px solid rgb(37,39,48);\n"
-                                       "    border-radius: 50px;\n"
-                                       "    color: #FFF;\n"
-                                       "    padding-left: 20px;\n"
-                                       "    padding-right: 20px;\n"
-                                       "}")
-        self.lineEdit_17.setObjectName("lineEdit_17")
-        self.pushButton_3 = QtWidgets.QPushButton(parent=self.frame_2)
-        self.pushButton_3.setGeometry(QtCore.QRect(200, 130, 113, 32))
-        self.pushButton_3.setStyleSheet("QPushButton {\n"
-                                        "    color: rgb(255, 255, 255);\n"
-                                        "    background-color: rgb(35, 38, 53);\n"
-                                        "    border: 0px solid;\n"
-                                        "}\n"
-                                        "QPushButton:hover {\n"
-                                        "    background-color: rgb(49, 54, 80);\n"
-                                        "}\n"
-                                        "\n"
-                                        "QPushButton:checked {\n"
-                                        "    background-color: rgb(49, 54, 80);\n"
-                                        "}")
-        self.pushButton_3.setObjectName("pushButton_3")
-        self.lineEdit_18 = QtWidgets.QLineEdit(parent=self.frame_2)
-        self.lineEdit_18.setGeometry(QtCore.QRect(80, 10, 240, 30))
-        self.lineEdit_18.setMinimumSize(QtCore.QSize(240, 30))
-        self.lineEdit_18.setMaximumSize(QtCore.QSize(240, 30))
-        self.lineEdit_18.setStyleSheet("QLineEdit {\n"
-                                       "    border: 2px solid rgb(37,39,48);\n"
-                                       "    border-radius: 50px;\n"
-                                       "    color: #FFF;\n"
-                                       "    padding-left: 20px;\n"
-                                       "    padding-right: 20px;\n"
-                                       "}")
-        self.lineEdit_18.setObjectName("lineEdit_18")
-        self.listWidget_3 = QtWidgets.QListWidget(parent=self.frame_2)
-        self.listWidget_3.setGeometry(QtCore.QRect(35, 200, 181, 291))
-        self.listWidget_3.setStyleSheet("background-color:  rgb(35, 38, 53);\n"
+        self.Text_Anazye.setObjectName("Text_Anazye")
+        self.Author_Anazye = QtWidgets.QLineEdit(parent=self.frame_2)
+        self.Author_Anazye.setGeometry(QtCore.QRect(330, 10, 240, 30))
+        self.Author_Anazye.setMinimumSize(QtCore.QSize(240, 30))
+        self.Author_Anazye.setMaximumSize(QtCore.QSize(240, 30))
+        self.Author_Anazye.setStyleSheet("QLineEdit {\n"
+                                         "    border: 2px solid rgb(37,39,48);\n"
+                                         "    border-radius: 50px;\n"
+                                         "    color: #FFF;\n"
+                                         "    padding-left: 20px;\n"
+                                         "    padding-right: 20px;\n"
+                                         "}")
+        self.Author_Anazye.setObjectName("Author_Anazye")
+        self.Search_Analyze = QtWidgets.QPushButton(parent=self.frame_2)
+        self.Search_Analyze.setGeometry(QtCore.QRect(200, 130, 113, 32))
+        self.Search_Analyze.setStyleSheet("QPushButton {\n"
+                                          "    color: rgb(255, 255, 255);\n"
+                                          "    background-color: rgb(35, 38, 53);\n"
+                                          "    border: 0px solid;\n"
+                                          "}\n"
+                                          "QPushButton:hover {\n"
+                                          "    background-color: rgb(49, 54, 80);\n"
+                                          "}\n"
+                                          "\n"
+                                          "QPushButton:checked {\n"
+                                          "    background-color: rgb(49, 54, 80);\n"
+                                          "}")
+        self.Search_Analyze.setObjectName("Search_Analyze")
+        self.Hashtag_Anazye = QtWidgets.QLineEdit(parent=self.frame_2)
+        self.Hashtag_Anazye.setGeometry(QtCore.QRect(80, 10, 240, 30))
+        self.Hashtag_Anazye.setMinimumSize(QtCore.QSize(240, 30))
+        self.Hashtag_Anazye.setMaximumSize(QtCore.QSize(240, 30))
+        self.Hashtag_Anazye.setStyleSheet("QLineEdit {\n"
+                                          "    border: 2px solid rgb(37,39,48);\n"
+                                          "    border-radius: 50px;\n"
+                                          "    color: #FFF;\n"
+                                          "    padding-left: 20px;\n"
+                                          "    padding-right: 20px;\n"
+                                          "}")
+        self.Hashtag_Anazye.setObjectName("Hashtag_Anazye")
+        self.List_Analyze = QtWidgets.QListWidget(parent=self.frame_2)
+        self.List_Analyze.setGeometry(QtCore.QRect(35, 200, 181, 291))
+        self.List_Analyze.setStyleSheet("background-color:  rgb(35, 38, 53);\n"
                                         "color:#FFF;")
-        self.listWidget_3.setObjectName("listWidget_3")
-        self.pushButton_4 = QtWidgets.QPushButton(parent=self.frame_2)
-        self.pushButton_4.setGeometry(QtCore.QRect(340, 130, 113, 32))
-        self.pushButton_4.setStyleSheet("QPushButton {\n"
-                                        "    color: rgb(255, 255, 255);\n"
-                                        "    background-color: rgb(35, 38, 53);\n"
-                                        "    border: 0px solid;\n"
-                                        "}\n"
-                                        "QPushButton:hover {\n"
-                                        "    background-color: rgb(49, 54, 80);\n"
-                                        "}\n"
-                                        "\n"
-                                        "QPushButton:checked {\n"
-                                        "    background-color: rgb(49, 54, 80);\n"
-                                        "}")
-        self.pushButton_4.setObjectName("pushButton_4")
+        self.List_Analyze.setObjectName("List_Analyze")
+        self.TopTrend_Anazye = QtWidgets.QPushButton(parent=self.frame_2)
+        self.TopTrend_Anazye.setGeometry(QtCore.QRect(340, 130, 113, 32))
+        self.TopTrend_Anazye.setStyleSheet("QPushButton {\n"
+                                           "    color: rgb(255, 255, 255);\n"
+                                           "    background-color: rgb(35, 38, 53);\n"
+                                           "    border: 0px solid;\n"
+                                           "}\n"
+                                           "QPushButton:hover {\n"
+                                           "    background-color: rgb(49, 54, 80);\n"
+                                           "}\n"
+                                           "\n"
+                                           "QPushButton:checked {\n"
+                                           "    background-color: rgb(49, 54, 80);\n"
+                                           "}")
+        self.TopTrend_Anazye.setObjectName("TopTrend_Anazye")
         self.verticalLayout_8.addWidget(self.frame_2)
         self.stackedWidget.addWidget(self.page_3)
         self.verticalLayout_5.addWidget(self.stackedWidget)
@@ -408,35 +408,38 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.label_3.setText(_translate("MainWindow", "Twitter Keeper"))
-        self.btn_page_1.setText(_translate("MainWindow", "Home"))
-        self.btn_page_2.setText(_translate("MainWindow", "Search"))
-        self.btn_page_3.setText(_translate("MainWindow", "Analyze"))
-        self.pushButton_5.setText(_translate("MainWindow", "Pull Tweets"))
-        self.lineEdit_19.setPlaceholderText(
+        self.Title.setText(_translate("MainWindow", "Twitter Keeper"))
+        self.Home_Page.setText(_translate("MainWindow", "Home"))
+        self.Search_Page.setText(_translate("MainWindow", "Search"))
+        self.Analyze_Page.setText(_translate("MainWindow", "Analyze"))
+        self.PullTweet_Field.setText(_translate("MainWindow", "Pull Tweets"))
+        self.Keyword_Pull_Field.setPlaceholderText(
             _translate("MainWindow", "Keyword"))
-        self.lineEdit.setPlaceholderText(_translate("MainWindow", "Hashtag"))
-        self.lineEdit_2.setPlaceholderText(_translate("MainWindow", "Author"))
-        self.lineEdit_3.setPlaceholderText(
-            _translate("MainWindow", "Location"))
-        self.lineEdit_4.setPlaceholderText(_translate("MainWindow", "Text"))
-        self.lineEdit_5.setPlaceholderText(
-            _translate("MainWindow", "Start Time"))
-        self.lineEdit_6.setPlaceholderText(
-            _translate("MainWindow", "End Time"))
-        self.pushButton.setText(_translate("MainWindow", "Search"))
-        self.lineEdit_13.setPlaceholderText(
-            _translate("MainWindow", "Start Time"))
-        self.lineEdit_14.setPlaceholderText(
-            _translate("MainWindow", "Location"))
-        self.lineEdit_15.setPlaceholderText(
-            _translate("MainWindow", "End Time"))
-        self.lineEdit_16.setPlaceholderText(_translate("MainWindow", "Text"))
-        self.lineEdit_17.setPlaceholderText(_translate("MainWindow", "Author"))
-        self.pushButton_3.setText(_translate("MainWindow", "Search"))
-        self.lineEdit_18.setPlaceholderText(
+        self.Hashtag_Search.setPlaceholderText(
             _translate("MainWindow", "Hashtag"))
-        self.pushButton_4.setText(_translate("MainWindow", "Top Trend"))
+        self.Author_Search.setPlaceholderText(
+            _translate("MainWindow", "Author"))
+        self.Location_Search.setPlaceholderText(
+            _translate("MainWindow", "Location"))
+        self.Text_Search.setPlaceholderText(_translate("MainWindow", "Text"))
+        self.StartTime_Search.setPlaceholderText(
+            _translate("MainWindow", "Start Time"))
+        self.EndTime_Search.setPlaceholderText(
+            _translate("MainWindow", "End Time"))
+        self.Search_Search.setText(_translate("MainWindow", "Search"))
+        self.StartTime_Anazye.setPlaceholderText(
+            _translate("MainWindow", "Start Time"))
+        self.Location_Anazye.setPlaceholderText(
+            _translate("MainWindow", "Location"))
+        self.EndTime_Anazye.setPlaceholderText(
+            _translate("MainWindow", "End Time"))
+        self.Text_Anazye.setPlaceholderText(_translate("MainWindow", "Text"))
+        self.Author_Anazye.setPlaceholderText(
+            _translate("MainWindow", "Author"))
+        self.Search_Analyze.setText(_translate("MainWindow", "Search"))
+        self.Hashtag_Anazye.setPlaceholderText(
+            _translate("MainWindow", "Hashtag"))
+        self.TopTrend_Anazye.setText(_translate("MainWindow", "Top Trend"))
 
 
 if __name__ == "__main__":
@@ -446,15 +449,15 @@ if __name__ == "__main__":
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
     # PAGE 1
-    ui.btn_page_1.clicked.connect(
+    ui.Home_Page.clicked.connect(
         lambda: ui.stackedWidget.setCurrentWidget(ui.page_1))
 
     # PAGE 2
-    ui.btn_page_2.clicked.connect(
+    ui.Search_Page.clicked.connect(
         lambda: ui.stackedWidget.setCurrentWidget(ui.page_2))
 
     # PAGE 3
-    ui.btn_page_3.clicked.connect(
+    ui.Analyze_Page.clicked.connect(
         lambda: ui.stackedWidget.setCurrentWidget(ui.page_3))
     MainWindow.show()
     sys.exit(app.exec())

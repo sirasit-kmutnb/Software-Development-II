@@ -86,7 +86,7 @@
          <property name="frameShadow">
           <enum>QFrame::Raised</enum>
          </property>
-         <widget class="QLabel" name="label_3">
+         <widget class="QLabel" name="Title">
           <property name="geometry">
            <rect>
             <x>370</x>
@@ -171,7 +171,7 @@
            <number>0</number>
           </property>
           <item>
-           <widget class="QPushButton" name="btn_page_1">
+           <widget class="QPushButton" name="Home_Page">
             <property name="minimumSize">
              <size>
               <width>0</width>
@@ -207,7 +207,7 @@ QPushButton:checked {
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="btn_page_2">
+           <widget class="QPushButton" name="Search_Page">
             <property name="minimumSize">
              <size>
               <width>0</width>
@@ -243,7 +243,7 @@ QPushButton:checked {
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="btn_page_3">
+           <widget class="QPushButton" name="Analyze_Page">
             <property name="minimumSize">
              <size>
               <width>0</width>
@@ -329,7 +329,7 @@ QPushButton:checked {
                 <property name="frameShadow">
                  <enum>QFrame::Raised</enum>
                 </property>
-                <widget class="QPushButton" name="pushButton_5">
+                <widget class="QPushButton" name="PullTweet_Field">
                  <property name="geometry">
                   <rect>
                    <x>390</x>
@@ -356,7 +356,7 @@ QPushButton:checked {
                   <string>Pull Tweets</string>
                  </property>
                 </widget>
-                <widget class="QLineEdit" name="lineEdit_19">
+                <widget class="QLineEdit" name="Keyword_Pull_Field">
                  <property name="geometry">
                   <rect>
                    <x>140</x>
@@ -417,7 +417,7 @@ QPushButton:checked {
                 <property name="frameShadow">
                  <enum>QFrame::Raised</enum>
                 </property>
-                <widget class="QLineEdit" name="lineEdit">
+                <widget class="QLineEdit" name="Hashtag_Search">
                  <property name="geometry">
                   <rect>
                    <x>80</x>
@@ -451,7 +451,7 @@ QPushButton:checked {
                   <string>Hashtag</string>
                  </property>
                 </widget>
-                <widget class="QLineEdit" name="lineEdit_2">
+                <widget class="QLineEdit" name="Author_Search">
                  <property name="geometry">
                   <rect>
                    <x>330</x>
@@ -485,7 +485,7 @@ QPushButton:checked {
                   <string>Author</string>
                  </property>
                 </widget>
-                <widget class="QLineEdit" name="lineEdit_3">
+                <widget class="QLineEdit" name="Location_Search">
                  <property name="geometry">
                   <rect>
                    <x>80</x>
@@ -519,7 +519,7 @@ QPushButton:checked {
                   <string>Location</string>
                  </property>
                 </widget>
-                <widget class="QLineEdit" name="lineEdit_4">
+                <widget class="QLineEdit" name="Text_Search">
                  <property name="geometry">
                   <rect>
                    <x>330</x>
@@ -553,7 +553,7 @@ QPushButton:checked {
                   <string>Text</string>
                  </property>
                 </widget>
-                <widget class="QLineEdit" name="lineEdit_5">
+                <widget class="QLineEdit" name="StartTime_Search">
                  <property name="geometry">
                   <rect>
                    <x>80</x>
@@ -587,7 +587,7 @@ QPushButton:checked {
                   <string>Start Time</string>
                  </property>
                 </widget>
-                <widget class="QLineEdit" name="lineEdit_6">
+                <widget class="QLineEdit" name="EndTime_Search">
                  <property name="geometry">
                   <rect>
                    <x>330</x>
@@ -621,7 +621,7 @@ QPushButton:checked {
                   <string>End Time</string>
                  </property>
                 </widget>
-                <widget class="QPushButton" name="pushButton">
+                <widget class="QPushButton" name="Search_Search">
                  <property name="geometry">
                   <rect>
                    <x>260</x>
@@ -648,7 +648,7 @@ QPushButton:checked {
                   <string>Search</string>
                  </property>
                 </widget>
-                <widget class="QListWidget" name="listWidget">
+                <widget class="QListWidget" name="Result_List_Search">
                  <property name="geometry">
                   <rect>
                    <x>35</x>
@@ -676,7 +676,7 @@ color:#FFF;</string>
                 <property name="frameShadow">
                  <enum>QFrame::Raised</enum>
                 </property>
-                <widget class="QLineEdit" name="lineEdit_13">
+                <widget class="QLineEdit" name="StartTime_Anazye">
                  <property name="geometry">
                   <rect>
                    <x>80</x>
@@ -710,7 +710,7 @@ color:#FFF;</string>
                   <string>Start Time</string>
                  </property>
                 </widget>
-                <widget class="QLineEdit" name="lineEdit_14">
+                <widget class="QLineEdit" name="Location_Anazye">
                  <property name="geometry">
                   <rect>
                    <x>80</x>
@@ -744,7 +744,7 @@ color:#FFF;</string>
                   <string>Location</string>
                  </property>
                 </widget>
-                <widget class="QLineEdit" name="lineEdit_15">
+                <widget class="QLineEdit" name="EndTime_Anazye">
                  <property name="geometry">
                   <rect>
                    <x>330</x>
@@ -778,7 +778,7 @@ color:#FFF;</string>
                   <string>End Time</string>
                  </property>
                 </widget>
-                <widget class="QLineEdit" name="lineEdit_16">
+                <widget class="QLineEdit" name="Text_Anazye">
                  <property name="geometry">
                   <rect>
                    <x>330</x>
@@ -812,7 +812,7 @@ color:#FFF;</string>
                   <string>Text</string>
                  </property>
                 </widget>
-                <widget class="QLineEdit" name="lineEdit_17">
+                <widget class="QLineEdit" name="Author_Anazye">
                  <property name="geometry">
                   <rect>
                    <x>330</x>
@@ -846,7 +846,7 @@ color:#FFF;</string>
                   <string>Author</string>
                  </property>
                 </widget>
-                <widget class="QPushButton" name="pushButton_3">
+                <widget class="QPushButton" name="Search_Analyze">
                  <property name="geometry">
                   <rect>
                    <x>200</x>
@@ -873,7 +873,7 @@ QPushButton:checked {
                   <string>Search</string>
                  </property>
                 </widget>
-                <widget class="QLineEdit" name="lineEdit_18">
+                <widget class="QLineEdit" name="Hashtag_Anazye">
                  <property name="geometry">
                   <rect>
                    <x>80</x>
@@ -907,7 +907,7 @@ QPushButton:checked {
                   <string>Hashtag</string>
                  </property>
                 </widget>
-                <widget class="QListWidget" name="listWidget_3">
+                <widget class="QListWidget" name="List_Analyze">
                  <property name="geometry">
                   <rect>
                    <x>35</x>
@@ -921,7 +921,7 @@ QPushButton:checked {
 color:#FFF;</string>
                  </property>
                 </widget>
-                <widget class="QPushButton" name="pushButton_4">
+                <widget class="QPushButton" name="TopTrend_Anazye">
                  <property name="geometry">
                   <rect>
                    <x>340</x>
