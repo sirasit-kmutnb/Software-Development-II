@@ -18,13 +18,15 @@ from tqdm import tqdm
 import os
 from dotenv import load_dotenv
 from urllib.parse import urlparse
+from PyQt6.QtCore import QObject, pyqtSignal
 
 load_dotenv()
 
 
-class PullTweetsData():
-
+class PullTweetsData(QObject):
+    update_progress_bar = pyqtSignal(int)
     def __init__(self):
+        super().__init__()  # call __init__ method of superclass
         self.localTZ = pytz.timezone('Asia/Bangkok')
 
     def getAccessToAPI(self, api_key, api_key_secret):
@@ -73,11 +75,13 @@ class PullTweetsData():
         return tweet
 
     def pullTweets(self, query, amount):
+        print(f"You has been called pullTweets with {query} {amount}")
         thread = Thread(target=self.pullTweetsThread, args=(query, amount))
         thread.start()
 
     def pullTweetsThread(self, query, amount):
         count = 0
+        amount = int(amount)
         for tweet in tweepy.Cursor(self.__api.search_tweets, q=query, count=100,
                                    result_type="recent", tweet_mode='extended').items():
             entity_hashtag = tweet.entities.get('hashtags')
@@ -102,9 +106,12 @@ class PullTweetsData():
                                args=(tweet_post,))
             saveTweet.start()
             # print(tweet)
+            progress = int(count/amount * 100)
+            self.update_progress_bar.emit(progress)
             count += 1
             if count == amount:
                 count = 0
+                self.update_progress_bar.emit(progress)
                 break
 
     def find_multi(self, author="", keyword="", hashtag="", location="", text="", fromtime="", totime=""):
