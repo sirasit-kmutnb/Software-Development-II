@@ -25,6 +25,7 @@ load_dotenv()
 
 class PullTweetsData(QObject):
     update_progress_bar = pyqtSignal(int)
+
     def __init__(self):
         super().__init__()  # call __init__ method of superclass
         self.localTZ = pytz.timezone('Asia/Bangkok')
@@ -155,6 +156,30 @@ class PullTweetsData(QObject):
             setTweets.append(i)
         return setTweets
 
+    def remove_tweet(self, author="", keyword="", hashtag="", location="", text="", fromTime="", toTime=""):
+        tweetSet = self.find_multi(
+            author, keyword, hashtag, location, text, fromTime, toTime)
+        if len(tweetSet) == 0:
+            print("No Data")
+        else:
+            for i in range(len(tweetSet)):
+                print("No. ", i)
+            number = int(input("Please Type No. for remove "))
+            if number < 0:
+                print("Wrong Input")
+            elif number <= len(tweetSet)-1:
+                data = tweetSet[number]
+
+                query = {"tweet_author": data["tweet_author"],
+                         "keyword": data["keyword"],
+                         "hashtag": data["hashtag"],
+                         "tweet_location": data["tweet_location"],
+                         "text": data["text"],
+                         "tweet_create_at": data["tweet_create_at"]}
+                self.__db.find_one_and_delete(query)
+            else:
+                print("Wrong Input X")
+
     def splittime(self, time):
         timeset = time.split(".")  # split text from dot and send it to list
         timeset = [int(i) for i in timeset]  # change str to integer
@@ -215,6 +240,7 @@ def pullTweetsTask():
     pullerT1.setUserAuthentication(access_token, access_token_secret)
     pullerT1.getTwitterAPI()
     pullerT1.connectToDB("twitter_keeper", "tweets")
+    pullerT1.remove_tweet(author="Panda_Pda")
     # t1 = Thread(target=pullerT1.pullTweets, args=("#tcas66", 1))
     # t1.start()
 
@@ -229,4 +255,4 @@ def pullTweetsTask():
     # pullerT1.find_tweets("text","ยู")
 
 
-# pullTweetsTask()
+pullTweetsTask()
