@@ -240,7 +240,7 @@ def pullTweetsTask():
     pullerT1.setUserAuthentication(access_token, access_token_secret)
     pullerT1.getTwitterAPI()
     pullerT1.connectToDB("twitter_keeper", "tweets")
-    pullerT1.remove_tweet(author="Panda_Pda")
+    # pullerT1.remove_tweet(author="Panda_Pda")
     # t1 = Thread(target=pullerT1.pullTweets, args=("#tcas66", 1))
     # t1.start()
 
