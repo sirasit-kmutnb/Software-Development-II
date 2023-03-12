@@ -1,1 +1,1 @@
-pullTweetsTask()
+pull_tweets
