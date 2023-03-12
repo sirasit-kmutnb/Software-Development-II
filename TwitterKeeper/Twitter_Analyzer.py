@@ -244,4 +244,4 @@ if __name__ == "__main__":
     # # for i in x:
     # #     print(i['tweet_location'].lower())
     # main().spatialPloting(x).show()
-    print(main().spatialPloting(x))
+    # print(main().spatialPloting(x))
