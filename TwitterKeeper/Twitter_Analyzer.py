@@ -130,8 +130,7 @@ class main():
             author, keyword, hashtag, location, text, fromTime, toTime)
         df = pd.DataFrame({'text': [], 'sentiment': []})
         for tweet in tqdm(tweets_list):
-            sentiment = self.sentiment_analyze.sentiment_analyzer(
-                tweet['text'])
+            sentiment = self.sentiment_analyze.sentiment_analyzer(tweet['text'])
             df = pd.concat([df, pd.DataFrame(
                 pd.Series([tweet['text'], sentiment], index=df.columns)).T], ignore_index=True)
         return df

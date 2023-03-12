@@ -26,6 +26,7 @@ from Twitter_keeper import PullTweetsData
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
+        self.Twitter_keeper = PullTweetsData()
         self.twitter_analyzer = main()
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 600)
@@ -708,9 +709,10 @@ class Ui_MainWindow(object):
         results = self.twitter_analyzer.load_sample_tweets(author,"", hashtag, location, text, stime, etime)
         print(results)
         self.listWidget_2.clear()
+        self.listWidget_2.setStyleSheet("QListWidget::item:selected {background-color: rgb(35, 38, 53);}")
         for result in results:
             item = QtWidgets.QListWidgetItem()
-            item.setText(f"{result['tweet_author']}:\n {result['text']}")
+            item.setText(f"====================\n{result['tweet_author']}\n\n {self.Twitter_keeper.utc_to_local(result['tweet_create_at'])}\n--------------------\n {result['text']}\n====================")
             self.listWidget_2.addItem(item)
 
 
