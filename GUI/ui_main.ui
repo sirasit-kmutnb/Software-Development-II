@@ -16,6 +16,12 @@
     <height>600</height>
    </size>
   </property>
+  <property name="maximumSize">
+   <size>
+    <width>800</width>
+    <height>16777215</height>
+   </size>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
@@ -329,17 +335,137 @@ QPushButton:checked {
                 <property name="frameShadow">
                  <enum>QFrame::Raised</enum>
                 </property>
-                <widget class="QPushButton" name="PullTweet_Field">
-                 <property name="geometry">
-                  <rect>
-                   <x>400</x>
-                   <y>110</y>
-                   <width>113</width>
-                   <height>32</height>
-                  </rect>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">QPushButton {
+                <layout class="QVBoxLayout" name="verticalLayout_19">
+                 <item>
+                  <widget class="QFrame" name="frame_5">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>16777215</height>
+                    </size>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QVBoxLayout" name="verticalLayout_21">
+                    <item>
+                     <widget class="QFrame" name="frame_12">
+                      <property name="maximumSize">
+                       <size>
+                        <width>16777215</width>
+                        <height>50</height>
+                       </size>
+                      </property>
+                      <property name="frameShape">
+                       <enum>QFrame::StyledPanel</enum>
+                      </property>
+                      <property name="frameShadow">
+                       <enum>QFrame::Raised</enum>
+                      </property>
+                      <layout class="QVBoxLayout" name="verticalLayout_22">
+                       <item>
+                        <widget class="QLabel" name="label_2">
+                         <property name="maximumSize">
+                          <size>
+                           <width>16777215</width>
+                           <height>100</height>
+                          </size>
+                         </property>
+                         <property name="styleSheet">
+                          <string notr="true">color: #FFF;</string>
+                         </property>
+                         <property name="text">
+                          <string>Pull Tweets</string>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QFrame" name="frame_11">
+                      <property name="maximumSize">
+                       <size>
+                        <width>16777215</width>
+                        <height>100</height>
+                       </size>
+                      </property>
+                      <property name="frameShape">
+                       <enum>QFrame::StyledPanel</enum>
+                      </property>
+                      <property name="frameShadow">
+                       <enum>QFrame::Raised</enum>
+                      </property>
+                      <layout class="QHBoxLayout" name="horizontalLayout_6">
+                       <item>
+                        <widget class="QLineEdit" name="Keyword_Pull_Field">
+                         <property name="minimumSize">
+                          <size>
+                           <width>200</width>
+                           <height>30</height>
+                          </size>
+                         </property>
+                         <property name="maximumSize">
+                          <size>
+                           <width>240</width>
+                           <height>30</height>
+                          </size>
+                         </property>
+                         <property name="styleSheet">
+                          <string notr="true">QLineEdit {
+	border: 2px solid rgb(37,39,48);
+	border-radius: 50px;
+	color: #FFF;
+	padding-left: 20px;
+	padding-right: 20px;
+}</string>
+                         </property>
+                         <property name="placeholderText">
+                          <string>Keyword</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QLineEdit" name="Keyword_Pull_Field_2">
+                         <property name="minimumSize">
+                          <size>
+                           <width>80</width>
+                           <height>30</height>
+                          </size>
+                         </property>
+                         <property name="maximumSize">
+                          <size>
+                           <width>200</width>
+                           <height>30</height>
+                          </size>
+                         </property>
+                         <property name="styleSheet">
+                          <string notr="true">QLineEdit {
+	border: 2px solid rgb(37,39,48);
+	border-radius: 50px;
+	color: #FFF;
+	padding-left: 20px;
+	padding-right: 20px;
+}</string>
+                         </property>
+                         <property name="placeholderText">
+                          <string>Amount</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QPushButton" name="PullTweet_Field">
+                         <property name="minimumSize">
+                          <size>
+                           <width>100</width>
+                           <height>30</height>
+                          </size>
+                         </property>
+                         <property name="styleSheet">
+                          <string notr="true">QPushButton {
 	color: rgb(255, 255, 255);
 	background-color: rgb(35, 38, 53);
 	border: 0px solid;
@@ -351,92 +477,155 @@ QPushButton:hover {
 QPushButton:checked {
 	background-color: rgb(49, 54, 80);
 }</string>
-                 </property>
-                 <property name="text">
-                  <string>Pull Tweets</string>
-                 </property>
-                </widget>
-                <widget class="QLineEdit" name="Keyword_Pull_Field">
-                 <property name="geometry">
-                  <rect>
-                   <x>140</x>
-                   <y>70</y>
-                   <width>240</width>
-                   <height>30</height>
-                  </rect>
-                 </property>
-                 <property name="minimumSize">
-                  <size>
-                   <width>240</width>
-                   <height>30</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>240</width>
-                   <height>30</height>
-                  </size>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">QLineEdit {
-	border: 2px solid rgb(37,39,48);
-	border-radius: 50px;
-	color: #FFF;
-	padding-left: 20px;
-	padding-right: 20px;
-}</string>
-                 </property>
-                 <property name="placeholderText">
-                  <string>Keyword</string>
-                 </property>
-                </widget>
-                <widget class="QProgressBar" name="progressBar">
-                 <property name="geometry">
-                  <rect>
-                   <x>140</x>
-                   <y>170</y>
-                   <width>361</width>
-                   <height>23</height>
-                  </rect>
-                 </property>
-                 <property name="value">
-                  <number>24</number>
-                 </property>
-                </widget>
-                <widget class="QLineEdit" name="Keyword_Pull_Field_2">
-                 <property name="geometry">
-                  <rect>
-                   <x>140</x>
-                   <y>110</y>
-                   <width>240</width>
-                   <height>30</height>
-                  </rect>
-                 </property>
-                 <property name="minimumSize">
-                  <size>
-                   <width>240</width>
-                   <height>30</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>240</width>
-                   <height>30</height>
-                  </size>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">QLineEdit {
-	border: 2px solid rgb(37,39,48);
-	border-radius: 50px;
-	color: #FFF;
-	padding-left: 20px;
-	padding-right: 20px;
-}</string>
-                 </property>
-                 <property name="placeholderText">
-                  <string>Amount</string>
-                 </property>
-                </widget>
+                         </property>
+                         <property name="text">
+                          <string>Pull Tweets</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QProgressBar" name="progressBar">
+                         <property name="minimumSize">
+                          <size>
+                           <width>0</width>
+                           <height>30</height>
+                          </size>
+                         </property>
+                         <property name="value">
+                          <number>24</number>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QFrame" name="frame_10">
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QVBoxLayout" name="verticalLayout_20">
+                    <item>
+                     <widget class="QLabel" name="label_3">
+                      <property name="maximumSize">
+                       <size>
+                        <width>16777215</width>
+                        <height>100</height>
+                       </size>
+                      </property>
+                      <property name="font">
+                       <font>
+                        <pointsize>24</pointsize>
+                       </font>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">color: #FFF;</string>
+                      </property>
+                      <property name="text">
+                       <string>How to use ?</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_4">
+                      <property name="maximumSize">
+                       <size>
+                        <width>16777215</width>
+                        <height>30</height>
+                       </size>
+                      </property>
+                      <property name="font">
+                       <font>
+                        <pointsize>12</pointsize>
+                       </font>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">color:#FFF;</string>
+                      </property>
+                      <property name="text">
+                       <string>Keyword : Text, Amount : Number</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_5">
+                      <property name="maximumSize">
+                       <size>
+                        <width>16777215</width>
+                        <height>30</height>
+                       </size>
+                      </property>
+                      <property name="font">
+                       <font>
+                        <pointsize>12</pointsize>
+                       </font>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">color:#FFF;</string>
+                      </property>
+                      <property name="text">
+                       <string>Hashtag : #Text, Author, Location, Text : Text</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_6">
+                      <property name="maximumSize">
+                       <size>
+                        <width>16777215</width>
+                        <height>30</height>
+                       </size>
+                      </property>
+                      <property name="font">
+                       <font>
+                        <pointsize>12</pointsize>
+                       </font>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">color:#FFF;</string>
+                      </property>
+                      <property name="text">
+                       <string>Start Time, End Time : year.month.day.hour.minute.second</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_7">
+                      <property name="maximumSize">
+                       <size>
+                        <width>16777215</width>
+                        <height>30</height>
+                       </size>
+                      </property>
+                      <property name="font">
+                       <font>
+                        <pointsize>12</pointsize>
+                       </font>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">color:#FFF;</string>
+                      </property>
+                      <property name="text">
+                       <string>Push Button you want to do !</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                </layout>
                </widget>
               </item>
              </layout>
@@ -451,221 +640,239 @@ QPushButton:checked {
                 <property name="frameShadow">
                  <enum>QFrame::Raised</enum>
                 </property>
-                <widget class="QLineEdit" name="Hashtag_Search">
-                 <property name="geometry">
-                  <rect>
-                   <x>80</x>
-                   <y>10</y>
-                   <width>240</width>
-                   <height>30</height>
-                  </rect>
-                 </property>
-                 <property name="minimumSize">
-                  <size>
-                   <width>240</width>
-                   <height>30</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>240</width>
-                   <height>30</height>
-                  </size>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">QLineEdit {
+                <layout class="QVBoxLayout" name="verticalLayout_18">
+                 <item>
+                  <widget class="QFrame" name="Search_Frame_2">
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QVBoxLayout" name="verticalLayout_14">
+                    <item>
+                     <widget class="QFrame" name="Search_Analyze_Field_2">
+                      <property name="frameShape">
+                       <enum>QFrame::StyledPanel</enum>
+                      </property>
+                      <property name="frameShadow">
+                       <enum>QFrame::Raised</enum>
+                      </property>
+                      <layout class="QHBoxLayout" name="horizontalLayout_4">
+                       <item>
+                        <widget class="QFrame" name="frame_4">
+                         <property name="frameShape">
+                          <enum>QFrame::StyledPanel</enum>
+                         </property>
+                         <property name="frameShadow">
+                          <enum>QFrame::Raised</enum>
+                         </property>
+                         <layout class="QVBoxLayout" name="verticalLayout_15">
+                          <item>
+                           <widget class="QLineEdit" name="Hashtag_Search">
+                            <property name="minimumSize">
+                             <size>
+                              <width>240</width>
+                              <height>30</height>
+                             </size>
+                            </property>
+                            <property name="maximumSize">
+                             <size>
+                              <width>240</width>
+                              <height>30</height>
+                             </size>
+                            </property>
+                            <property name="styleSheet">
+                             <string notr="true">QLineEdit {
 	border: 2px solid rgb(37,39,48);
 	border-radius: 50px;
 	color: #FFF;
 	padding-left: 20px;
 	padding-right: 20px;
 }</string>
-                 </property>
-                 <property name="placeholderText">
-                  <string>Hashtag</string>
-                 </property>
-                </widget>
-                <widget class="QLineEdit" name="Author_Search">
-                 <property name="geometry">
-                  <rect>
-                   <x>330</x>
-                   <y>10</y>
-                   <width>240</width>
-                   <height>30</height>
-                  </rect>
-                 </property>
-                 <property name="minimumSize">
-                  <size>
-                   <width>240</width>
-                   <height>30</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>240</width>
-                   <height>30</height>
-                  </size>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">QLineEdit {
+                            </property>
+                            <property name="placeholderText">
+                             <string>Hashtag</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QLineEdit" name="Location_Search">
+                            <property name="minimumSize">
+                             <size>
+                              <width>240</width>
+                              <height>30</height>
+                             </size>
+                            </property>
+                            <property name="maximumSize">
+                             <size>
+                              <width>240</width>
+                              <height>30</height>
+                             </size>
+                            </property>
+                            <property name="styleSheet">
+                             <string notr="true">QLineEdit {
 	border: 2px solid rgb(37,39,48);
 	border-radius: 50px;
 	color: #FFF;
 	padding-left: 20px;
 	padding-right: 20px;
 }</string>
-                 </property>
-                 <property name="placeholderText">
-                  <string>Author</string>
-                 </property>
-                </widget>
-                <widget class="QLineEdit" name="Location_Search">
-                 <property name="geometry">
-                  <rect>
-                   <x>80</x>
-                   <y>50</y>
-                   <width>240</width>
-                   <height>30</height>
-                  </rect>
-                 </property>
-                 <property name="minimumSize">
-                  <size>
-                   <width>240</width>
-                   <height>30</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>240</width>
-                   <height>30</height>
-                  </size>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">QLineEdit {
+                            </property>
+                            <property name="placeholderText">
+                             <string>Location</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QLineEdit" name="StartTime_Search">
+                            <property name="minimumSize">
+                             <size>
+                              <width>240</width>
+                              <height>30</height>
+                             </size>
+                            </property>
+                            <property name="maximumSize">
+                             <size>
+                              <width>240</width>
+                              <height>30</height>
+                             </size>
+                            </property>
+                            <property name="styleSheet">
+                             <string notr="true">QLineEdit {
 	border: 2px solid rgb(37,39,48);
 	border-radius: 50px;
 	color: #FFF;
 	padding-left: 20px;
 	padding-right: 20px;
 }</string>
-                 </property>
-                 <property name="placeholderText">
-                  <string>Location</string>
-                 </property>
-                </widget>
-                <widget class="QLineEdit" name="Text_Search">
-                 <property name="geometry">
-                  <rect>
-                   <x>330</x>
-                   <y>50</y>
-                   <width>240</width>
-                   <height>30</height>
-                  </rect>
-                 </property>
-                 <property name="minimumSize">
-                  <size>
-                   <width>240</width>
-                   <height>30</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>240</width>
-                   <height>30</height>
-                  </size>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">QLineEdit {
+                            </property>
+                            <property name="placeholderText">
+                             <string>Start Time</string>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QFrame" name="frame_9">
+                         <property name="frameShape">
+                          <enum>QFrame::StyledPanel</enum>
+                         </property>
+                         <property name="frameShadow">
+                          <enum>QFrame::Raised</enum>
+                         </property>
+                         <layout class="QVBoxLayout" name="verticalLayout_16">
+                          <item>
+                           <widget class="QLineEdit" name="Author_Search">
+                            <property name="minimumSize">
+                             <size>
+                              <width>240</width>
+                              <height>30</height>
+                             </size>
+                            </property>
+                            <property name="maximumSize">
+                             <size>
+                              <width>240</width>
+                              <height>30</height>
+                             </size>
+                            </property>
+                            <property name="styleSheet">
+                             <string notr="true">QLineEdit {
 	border: 2px solid rgb(37,39,48);
 	border-radius: 50px;
 	color: #FFF;
 	padding-left: 20px;
 	padding-right: 20px;
 }</string>
-                 </property>
-                 <property name="placeholderText">
-                  <string>Text</string>
-                 </property>
-                </widget>
-                <widget class="QLineEdit" name="StartTime_Search">
-                 <property name="geometry">
-                  <rect>
-                   <x>80</x>
-                   <y>90</y>
-                   <width>240</width>
-                   <height>30</height>
-                  </rect>
-                 </property>
-                 <property name="minimumSize">
-                  <size>
-                   <width>240</width>
-                   <height>30</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>240</width>
-                   <height>30</height>
-                  </size>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">QLineEdit {
+                            </property>
+                            <property name="placeholderText">
+                             <string>Author</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QLineEdit" name="Text_Search">
+                            <property name="minimumSize">
+                             <size>
+                              <width>240</width>
+                              <height>30</height>
+                             </size>
+                            </property>
+                            <property name="maximumSize">
+                             <size>
+                              <width>240</width>
+                              <height>30</height>
+                             </size>
+                            </property>
+                            <property name="styleSheet">
+                             <string notr="true">QLineEdit {
 	border: 2px solid rgb(37,39,48);
 	border-radius: 50px;
 	color: #FFF;
 	padding-left: 20px;
 	padding-right: 20px;
 }</string>
-                 </property>
-                 <property name="placeholderText">
-                  <string>Start Time</string>
-                 </property>
-                </widget>
-                <widget class="QLineEdit" name="EndTime_Search">
-                 <property name="geometry">
-                  <rect>
-                   <x>330</x>
-                   <y>90</y>
-                   <width>240</width>
-                   <height>30</height>
-                  </rect>
-                 </property>
-                 <property name="minimumSize">
-                  <size>
-                   <width>240</width>
-                   <height>30</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>240</width>
-                   <height>30</height>
-                  </size>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">QLineEdit {
+                            </property>
+                            <property name="placeholderText">
+                             <string>Text</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QLineEdit" name="EndTime_Search">
+                            <property name="minimumSize">
+                             <size>
+                              <width>240</width>
+                              <height>30</height>
+                             </size>
+                            </property>
+                            <property name="maximumSize">
+                             <size>
+                              <width>240</width>
+                              <height>30</height>
+                             </size>
+                            </property>
+                            <property name="styleSheet">
+                             <string notr="true">QLineEdit {
 	border: 2px solid rgb(37,39,48);
 	border-radius: 50px;
 	color: #FFF;
 	padding-left: 20px;
 	padding-right: 20px;
 }</string>
-                 </property>
-                 <property name="placeholderText">
-                  <string>End Time</string>
-                 </property>
-                </widget>
-                <widget class="QPushButton" name="Search_Search">
-                 <property name="geometry">
-                  <rect>
-                   <x>260</x>
-                   <y>130</y>
-                   <width>113</width>
-                   <height>32</height>
-                  </rect>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">QPushButton {
+                            </property>
+                            <property name="placeholderText">
+                             <string>End Time</string>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QFrame" name="Search_Button">
+                      <property name="frameShape">
+                       <enum>QFrame::StyledPanel</enum>
+                      </property>
+                      <property name="frameShadow">
+                       <enum>QFrame::Raised</enum>
+                      </property>
+                      <layout class="QHBoxLayout" name="horizontalLayout_5">
+                       <item>
+                        <widget class="QPushButton" name="Search">
+                         <property name="minimumSize">
+                          <size>
+                           <width>0</width>
+                           <height>30</height>
+                          </size>
+                         </property>
+                         <property name="styleSheet">
+                          <string notr="true">QPushButton {
 	color: rgb(255, 255, 255);
 	background-color: rgb(35, 38, 53);
 	border: 0px solid;
@@ -677,220 +884,327 @@ QPushButton:hover {
 QPushButton:checked {
 	background-color: rgb(49, 54, 80);
 }</string>
-                 </property>
-                 <property name="text">
-                  <string>Search</string>
-                 </property>
-                </widget>
-                <widget class="QListWidget" name="Result_List_Search">
-                 <property name="geometry">
-                  <rect>
-                   <x>35</x>
-                   <y>200</y>
-                   <width>591</width>
-                   <height>291</height>
-                  </rect>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">background-color:  rgb(35, 38, 53);
-color:#FFF;</string>
-                 </property>
-                </widget>
+                         </property>
+                         <property name="text">
+                          <string>Search</string>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QFrame" name="Search_List">
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <property name="lineWidth">
+                    <number>1</number>
+                   </property>
+                   <layout class="QVBoxLayout" name="verticalLayout_17">
+                    <property name="spacing">
+                     <number>0</number>
+                    </property>
+                    <property name="leftMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>0</number>
+                    </property>
+                    <item>
+                     <widget class="QListWidget" name="listWidget_2">
+                      <property name="styleSheet">
+                       <string notr="true">color: #FFF;</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                </layout>
                </widget>
               </item>
              </layout>
             </widget>
             <widget class="QWidget" name="page_3">
-             <layout class="QVBoxLayout" name="verticalLayout_8">
-              <item>
-               <widget class="QFrame" name="frame_2">
-                <property name="frameShape">
-                 <enum>QFrame::StyledPanel</enum>
+             <layout class="QGridLayout" name="gridLayout">
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <item row="0" column="0">
+               <widget class="QScrollArea" name="scrollArea">
+                <property name="lineWidth">
+                 <number>0</number>
                 </property>
-                <property name="frameShadow">
-                 <enum>QFrame::Raised</enum>
+                <property name="widgetResizable">
+                 <bool>true</bool>
                 </property>
-                <widget class="QLineEdit" name="StartTime_Anazye">
+                <widget class="QWidget" name="scrollAreaWidgetContents">
                  <property name="geometry">
                   <rect>
-                   <x>80</x>
-                   <y>90</y>
-                   <width>240</width>
-                   <height>30</height>
+                   <x>0</x>
+                   <y>0</y>
+                   <width>624</width>
+                   <height>1724</height>
                   </rect>
                  </property>
-                 <property name="minimumSize">
-                  <size>
-                   <width>240</width>
-                   <height>30</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>240</width>
-                   <height>30</height>
-                  </size>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">QLineEdit {
+                 <layout class="QVBoxLayout" name="verticalLayout_8">
+                  <item>
+                   <widget class="QFrame" name="Search_Frame">
+                    <property name="frameShape">
+                     <enum>QFrame::StyledPanel</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Raised</enum>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_9">
+                     <item>
+                      <widget class="QFrame" name="Search_Analyze_Field">
+                       <property name="frameShape">
+                        <enum>QFrame::StyledPanel</enum>
+                       </property>
+                       <property name="frameShadow">
+                        <enum>QFrame::Raised</enum>
+                       </property>
+                       <layout class="QHBoxLayout" name="horizontalLayout_3">
+                        <item>
+                         <widget class="QFrame" name="frame_2">
+                          <property name="frameShape">
+                           <enum>QFrame::StyledPanel</enum>
+                          </property>
+                          <property name="frameShadow">
+                           <enum>QFrame::Raised</enum>
+                          </property>
+                          <layout class="QVBoxLayout" name="verticalLayout_10">
+                           <item>
+                            <widget class="QLineEdit" name="Hashtag_Search_2">
+                             <property name="minimumSize">
+                              <size>
+                               <width>240</width>
+                               <height>30</height>
+                              </size>
+                             </property>
+                             <property name="maximumSize">
+                              <size>
+                               <width>240</width>
+                               <height>30</height>
+                              </size>
+                             </property>
+                             <property name="styleSheet">
+                              <string notr="true">QLineEdit {
 	border: 2px solid rgb(37,39,48);
 	border-radius: 50px;
 	color: #FFF;
 	padding-left: 20px;
 	padding-right: 20px;
 }</string>
-                 </property>
-                 <property name="placeholderText">
-                  <string>Start Time</string>
-                 </property>
-                </widget>
-                <widget class="QLineEdit" name="Location_Anazye">
-                 <property name="geometry">
-                  <rect>
-                   <x>80</x>
-                   <y>50</y>
-                   <width>240</width>
-                   <height>30</height>
-                  </rect>
-                 </property>
-                 <property name="minimumSize">
-                  <size>
-                   <width>240</width>
-                   <height>30</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>240</width>
-                   <height>30</height>
-                  </size>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">QLineEdit {
+                             </property>
+                             <property name="placeholderText">
+                              <string>Hashtag</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QLineEdit" name="Location_Search_2">
+                             <property name="minimumSize">
+                              <size>
+                               <width>240</width>
+                               <height>30</height>
+                              </size>
+                             </property>
+                             <property name="maximumSize">
+                              <size>
+                               <width>240</width>
+                               <height>30</height>
+                              </size>
+                             </property>
+                             <property name="styleSheet">
+                              <string notr="true">QLineEdit {
 	border: 2px solid rgb(37,39,48);
 	border-radius: 50px;
 	color: #FFF;
 	padding-left: 20px;
 	padding-right: 20px;
 }</string>
-                 </property>
-                 <property name="placeholderText">
-                  <string>Location</string>
-                 </property>
-                </widget>
-                <widget class="QLineEdit" name="EndTime_Anazye">
-                 <property name="geometry">
-                  <rect>
-                   <x>330</x>
-                   <y>90</y>
-                   <width>240</width>
-                   <height>30</height>
-                  </rect>
-                 </property>
-                 <property name="minimumSize">
-                  <size>
-                   <width>240</width>
-                   <height>30</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>240</width>
-                   <height>30</height>
-                  </size>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">QLineEdit {
+                             </property>
+                             <property name="placeholderText">
+                              <string>Location</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QLineEdit" name="StartTime_Search_2">
+                             <property name="minimumSize">
+                              <size>
+                               <width>240</width>
+                               <height>30</height>
+                              </size>
+                             </property>
+                             <property name="maximumSize">
+                              <size>
+                               <width>240</width>
+                               <height>30</height>
+                              </size>
+                             </property>
+                             <property name="styleSheet">
+                              <string notr="true">QLineEdit {
 	border: 2px solid rgb(37,39,48);
 	border-radius: 50px;
 	color: #FFF;
 	padding-left: 20px;
 	padding-right: 20px;
 }</string>
-                 </property>
-                 <property name="placeholderText">
-                  <string>End Time</string>
-                 </property>
-                </widget>
-                <widget class="QLineEdit" name="Text_Anazye">
-                 <property name="geometry">
-                  <rect>
-                   <x>330</x>
-                   <y>50</y>
-                   <width>240</width>
-                   <height>30</height>
-                  </rect>
-                 </property>
-                 <property name="minimumSize">
-                  <size>
-                   <width>240</width>
-                   <height>30</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>240</width>
-                   <height>30</height>
-                  </size>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">QLineEdit {
+                             </property>
+                             <property name="placeholderText">
+                              <string>Start Time</string>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QFrame" name="frame_7">
+                          <property name="frameShape">
+                           <enum>QFrame::StyledPanel</enum>
+                          </property>
+                          <property name="frameShadow">
+                           <enum>QFrame::Raised</enum>
+                          </property>
+                          <layout class="QVBoxLayout" name="verticalLayout_11">
+                           <item>
+                            <widget class="QLineEdit" name="Author_Search_2">
+                             <property name="minimumSize">
+                              <size>
+                               <width>240</width>
+                               <height>30</height>
+                              </size>
+                             </property>
+                             <property name="maximumSize">
+                              <size>
+                               <width>240</width>
+                               <height>30</height>
+                              </size>
+                             </property>
+                             <property name="styleSheet">
+                              <string notr="true">QLineEdit {
 	border: 2px solid rgb(37,39,48);
 	border-radius: 50px;
 	color: #FFF;
 	padding-left: 20px;
 	padding-right: 20px;
 }</string>
-                 </property>
-                 <property name="placeholderText">
-                  <string>Text</string>
-                 </property>
-                </widget>
-                <widget class="QLineEdit" name="Author_Anazye">
-                 <property name="geometry">
-                  <rect>
-                   <x>330</x>
-                   <y>10</y>
-                   <width>240</width>
-                   <height>30</height>
-                  </rect>
-                 </property>
-                 <property name="minimumSize">
-                  <size>
-                   <width>240</width>
-                   <height>30</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>240</width>
-                   <height>30</height>
-                  </size>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">QLineEdit {
+                             </property>
+                             <property name="placeholderText">
+                              <string>Author</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QLineEdit" name="Text_Search_2">
+                             <property name="minimumSize">
+                              <size>
+                               <width>240</width>
+                               <height>30</height>
+                              </size>
+                             </property>
+                             <property name="maximumSize">
+                              <size>
+                               <width>240</width>
+                               <height>30</height>
+                              </size>
+                             </property>
+                             <property name="styleSheet">
+                              <string notr="true">QLineEdit {
 	border: 2px solid rgb(37,39,48);
 	border-radius: 50px;
 	color: #FFF;
 	padding-left: 20px;
 	padding-right: 20px;
 }</string>
-                 </property>
-                 <property name="placeholderText">
-                  <string>Author</string>
-                 </property>
-                </widget>
-                <widget class="QPushButton" name="Search_Analyze">
-                 <property name="geometry">
-                  <rect>
-                   <x>200</x>
-                   <y>130</y>
-                   <width>113</width>
-                   <height>32</height>
-                  </rect>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">QPushButton {
+                             </property>
+                             <property name="placeholderText">
+                              <string>Text</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QLineEdit" name="EndTime_Search_2">
+                             <property name="minimumSize">
+                              <size>
+                               <width>240</width>
+                               <height>30</height>
+                              </size>
+                             </property>
+                             <property name="maximumSize">
+                              <size>
+                               <width>240</width>
+                               <height>30</height>
+                              </size>
+                             </property>
+                             <property name="styleSheet">
+                              <string notr="true">QLineEdit {
+	border: 2px solid rgb(37,39,48);
+	border-radius: 50px;
+	color: #FFF;
+	padding-left: 20px;
+	padding-right: 20px;
+}</string>
+                             </property>
+                             <property name="placeholderText">
+                              <string>End Time</string>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QFrame" name="Analyze_Button">
+                       <property name="frameShape">
+                        <enum>QFrame::StyledPanel</enum>
+                       </property>
+                       <property name="frameShadow">
+                        <enum>QFrame::Raised</enum>
+                       </property>
+                       <layout class="QHBoxLayout" name="horizontalLayout">
+                        <item>
+                         <widget class="QPushButton" name="Search_Trend">
+                          <property name="minimumSize">
+                           <size>
+                            <width>0</width>
+                            <height>30</height>
+                           </size>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">QPushButton {
 	color: rgb(255, 255, 255);
 	background-color: rgb(35, 38, 53);
 	border: 0px solid;
@@ -902,70 +1216,22 @@ QPushButton:hover {
 QPushButton:checked {
 	background-color: rgb(49, 54, 80);
 }</string>
-                 </property>
-                 <property name="text">
-                  <string>Search</string>
-                 </property>
-                </widget>
-                <widget class="QLineEdit" name="Hashtag_Anazye">
-                 <property name="geometry">
-                  <rect>
-                   <x>80</x>
-                   <y>10</y>
-                   <width>240</width>
-                   <height>30</height>
-                  </rect>
-                 </property>
-                 <property name="minimumSize">
-                  <size>
-                   <width>240</width>
-                   <height>30</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>240</width>
-                   <height>30</height>
-                  </size>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">QLineEdit {
-	border: 2px solid rgb(37,39,48);
-	border-radius: 50px;
-	color: #FFF;
-	padding-left: 20px;
-	padding-right: 20px;
-}</string>
-                 </property>
-                 <property name="placeholderText">
-                  <string>Hashtag</string>
-                 </property>
-                </widget>
-                <widget class="QListWidget" name="List_Analyze">
-                 <property name="geometry">
-                  <rect>
-                   <x>35</x>
-                   <y>200</y>
-                   <width>181</width>
-                   <height>291</height>
-                  </rect>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">background-color:  rgb(35, 38, 53);
-color:#FFF;</string>
-                 </property>
-                </widget>
-                <widget class="QPushButton" name="TopTrend_Anazye">
-                 <property name="geometry">
-                  <rect>
-                   <x>340</x>
-                   <y>130</y>
-                   <width>113</width>
-                   <height>32</height>
-                  </rect>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">QPushButton {
+                          </property>
+                          <property name="text">
+                           <string>Search for Analyze</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QPushButton" name="PullTweet_Field_3">
+                          <property name="minimumSize">
+                           <size>
+                            <width>0</width>
+                            <height>30</height>
+                           </size>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">QPushButton {
 	color: rgb(255, 255, 255);
 	background-color: rgb(35, 38, 53);
 	border: 0px solid;
@@ -977,10 +1243,188 @@ QPushButton:hover {
 QPushButton:checked {
 	background-color: rgb(49, 54, 80);
 }</string>
-                 </property>
-                 <property name="text">
-                  <string>Top Trend</string>
-                 </property>
+                          </property>
+                          <property name="text">
+                           <string>Search Trend (Without Query)</string>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QFrame" name="List">
+                    <property name="frameShape">
+                     <enum>QFrame::StyledPanel</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Raised</enum>
+                    </property>
+                    <property name="lineWidth">
+                     <number>1</number>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_12">
+                     <property name="spacing">
+                      <number>0</number>
+                     </property>
+                     <property name="leftMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>0</number>
+                     </property>
+                     <item>
+                      <widget class="QListWidget" name="listWidget">
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>300</height>
+                        </size>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">color: #FFF;</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QFrame" name="Sentiment">
+                    <property name="frameShape">
+                     <enum>QFrame::StyledPanel</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Raised</enum>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_13">
+                     <item>
+                      <widget class="QLabel" name="Sentiment_Label">
+                       <property name="styleSheet">
+                        <string notr="true">color:#FFF;</string>
+                       </property>
+                       <property name="text">
+                        <string>Sentiment</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QFrame" name="frame_8">
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>300</height>
+                        </size>
+                       </property>
+                       <property name="frameShape">
+                        <enum>QFrame::StyledPanel</enum>
+                       </property>
+                       <property name="frameShadow">
+                        <enum>QFrame::Raised</enum>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QFrame" name="WordCloud">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::StyledPanel</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Raised</enum>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_23">
+                     <item>
+                      <widget class="QLabel" name="WordCloud_Label">
+                       <property name="styleSheet">
+                        <string notr="true">color: #FFF;</string>
+                       </property>
+                       <property name="text">
+                        <string>Word Cloud</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QFrame" name="frame_13">
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>300</height>
+                        </size>
+                       </property>
+                       <property name="frameShape">
+                        <enum>QFrame::StyledPanel</enum>
+                       </property>
+                       <property name="frameShadow">
+                        <enum>QFrame::Raised</enum>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QFrame" name="frame_6">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::StyledPanel</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Raised</enum>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_25">
+                     <item>
+                      <widget class="QLabel" name="label">
+                       <property name="styleSheet">
+                        <string notr="true">color:#FFF;</string>
+                       </property>
+                       <property name="text">
+                        <string>Spatial</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QFrame" name="frame_15">
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>300</height>
+                        </size>
+                       </property>
+                       <property name="frameShape">
+                        <enum>QFrame::StyledPanel</enum>
+                       </property>
+                       <property name="frameShadow">
+                        <enum>QFrame::Raised</enum>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                 </layout>
                 </widget>
                </widget>
               </item>
