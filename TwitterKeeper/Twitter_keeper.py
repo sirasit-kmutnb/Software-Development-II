@@ -110,6 +110,7 @@ class PullTweetsData(QObject):
             self.update_progress_bar.emit(progress)
             count += 1
             if count == amount:
+                progress = int(count/amount * 100)
                 count = 0
                 self.update_progress_bar.emit(progress)
                 break

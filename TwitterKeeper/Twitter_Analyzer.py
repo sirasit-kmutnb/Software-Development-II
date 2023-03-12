@@ -115,6 +115,7 @@ class main():
         self.pull_tweets.connectToDB("twitter_keeper", "tweets")
 
     def load_sample_tweets(self, author="", keyword="", hashtag="", location="", text="", fromTime="", toTime=""):
+        print(f"You called load_sample_tweets with {author, keyword, hashtag, location, text, fromTime, toTime}")
         return self.pull_tweets.find_multi(author, keyword, hashtag, location, text, fromTime, toTime)
 
     def tweets_find_top_word(self, author="", keyword="", hashtag="", location="", text="", fromTime="", toTime=""):

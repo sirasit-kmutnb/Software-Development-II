@@ -7,10 +7,26 @@
 
 
 from PyQt6 import QtCore, QtGui, QtWidgets
+import os
+import sys
 
+# Get the directory containing the current script (i.e. script.py)
+this_dir = os.path.dirname(__file__)
+
+# Add the parent directory to the path
+parent_dir = os.path.abspath(os.path.join(this_dir, os.pardir))
+sys.path.append(parent_dir)
+
+# Now add the utils directory to the path
+utils_dir = os.path.abspath(os.path.join(parent_dir, 'TwitterKeeper'))
+sys.path.append(utils_dir)
+
+from Twitter_Analyzer import main
+from Twitter_keeper import PullTweetsData
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
+        self.twitter_analyzer = main()
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 600)
         MainWindow.setMinimumSize(QtCore.QSize(800, 600))
@@ -216,7 +232,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_6.addWidget(self.PullTweet_Field)
         self.progressBar = QtWidgets.QProgressBar(parent=self.frame_11)
         self.progressBar.setMinimumSize(QtCore.QSize(0, 30))
-        self.progressBar.setProperty("value", 24)
+        self.progressBar.setProperty("value", 0)
         self.progressBar.setObjectName("progressBar")
         self.horizontalLayout_6.addWidget(self.progressBar)
         self.verticalLayout_21.addWidget(self.frame_11)
@@ -664,6 +680,44 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         self.stackedWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+        self.PullTweet_Field.clicked.connect(self.on_pull_tweets_button_clicked) # connected to pullTweets
+        self.twitter_analyzer.pull_tweets.update_progress_bar.connect(self.update_progress_bar) # connected to progress of pullTweets
+        self.Search.clicked.connect(self.on_search_clicked)
+
+    def on_pull_tweets_button_clicked(self):
+        # Get the values from the Keyword_Pull_Field and Keyword_Pull_Field2
+        query = self.Keyword_Pull_Field.text()
+        amount = self.Keyword_Pull_Field_2.text()
+
+        # Call the pullTweets method with the values from Keyword_Pull_Field and Keyword_Pull_Field2 as arguments
+        self.twitter_analyzer.pull_tweets.pullTweets(query,amount)
+        self.progressBar.setVisible(True)
+        self.progressBar.setProperty("value", 0)
+
+    def on_search_clicked(self):
+
+        hashtag = str(self.Hashtag_Search.text())
+        author = str(self.Author_Search.text())
+        location = str(self.Location_Search.text())
+        text = str(self.Text_Search.text())
+        stime = str(self.StartTime_Search.text())
+        etime = str(self.EndTime_Search.text())
+        
+        print(isinstance(text,str))
+        results = self.twitter_analyzer.load_sample_tweets(author,"", hashtag, location, text, stime, etime)
+        print(results)
+        self.listWidget_2.clear()
+        for result in results:
+            item = QtWidgets.QListWidgetItem()
+            item.setText(f"{result['tweet_author']}:\n {result['text']}")
+            self.listWidget_2.addItem(item)
+
+
+    def update_progress_bar(self, progress):
+        self.progressBar.setValue(progress)
+        if progress == 100:
+            self.progressBar.setVisible(False)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
