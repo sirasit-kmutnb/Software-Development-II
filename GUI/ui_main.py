@@ -710,10 +710,14 @@ class Ui_MainWindow(object):
         print(results)
         self.listWidget_2.clear()
         self.listWidget_2.setStyleSheet("QListWidget::item:selected {background-color: rgb(35, 38, 53);}")
+        count = 0
         for result in results:
             item = QtWidgets.QListWidgetItem()
-            item.setText(f"====================\n{result['tweet_author']}\n\n {self.Twitter_keeper.utc_to_local(result['tweet_create_at'])}\n--------------------\n {result['text']}\n====================")
+            item.setText(f"====================\n{result['tweet_author']}\n {self.Twitter_keeper.utc_to_local(result['tweet_create_at'])}\n--------------------\n {result['text']}\n====================")
             self.listWidget_2.addItem(item)
+            count += 1
+            if count == 2000:
+                break
 
 
     def update_progress_bar(self, progress):
