@@ -170,12 +170,12 @@ class main():
             locations=data['country'],
             mode='markers',
             marker={
-                'size': data['value']/2,
+                'size': data['value']/10,
                 'color': data['value'],
                 'colorscale': 'Viridis',
                 'opacity': 0.7,
                 'colorbar': {'title': 'Value'},
-                'sizemin':5
+                'sizemin': 5
             },
             text=data['country'] + ': ' + data['value'].astype(str)
         )
@@ -220,7 +220,7 @@ class main():
         # print(selectOne)
         objectSelectName = selectOne["name"]
         # print(objectSelectName)
-        self.pull_tweets.pullTweets(objectSelectName, 10)
+        self.pull_tweets.pullTweets(objectSelectName, 100)
         df = self.tweets_sentiment_analyzer(keyword=objectSelectName)
         print(df)
 
@@ -239,9 +239,9 @@ class main():
 
 
 if __name__ == "__main__":
-    # main().OneAnalyzer()
-    x = main().load_sample_tweets()
-    # for i in x:
-    #     print(i['tweet_location'].lower())
+    main().OneAnalyzer()
+    # x = main().load_sample_tweets()
+    # # for i in x:
+    # #     print(i['tweet_location'].lower())
     # main().spatialPloting(x).show()
     print(main().spatialPloting(x))
