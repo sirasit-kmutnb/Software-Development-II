@@ -208,7 +208,7 @@ class main():
         fig = go.Figure(data=[trace], layout=layout)
 
         # Show the figure
-        return fig
+        return data
 
     def OneAnalyzer(self):
         top10 = self.topTrends()
@@ -244,3 +244,4 @@ if __name__ == "__main__":
     # # for i in x:
     # #     print(i['tweet_location'].lower())
     # main().spatialPloting(x).show()
+    print(main().spatialPloting(x))
