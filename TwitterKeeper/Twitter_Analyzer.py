@@ -13,6 +13,11 @@ from pythainlp.tokenize import word_tokenize
 from pythainlp.corpus import thai_stopwords
 import pandas as pd
 import plotly.graph_objs as go
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
+import plotly.express as px
+import plotly.graph_objs as go
+from plotly.subplots import make_subplots
 
 
 class FindTopWord(PullTweetsData):
@@ -25,18 +30,47 @@ class FindTopWord(PullTweetsData):
     def prepared_Text(self, text_list):
         new_text = []
         for text in text_list:
-            new_text.append(self.preprocessText(text))
+            new_text.append(self.preprocessText(text["text"]))
         return new_text
 
     def MostWordFinder(self, tweets_list):
         vectorizer = CountVectorizer(tokenizer=self.tokenize)
-        transformed_data = vectorizer.fit_transform(tweets_list)
+        transformed_data = vectorizer.fit_transform(self.prepared_Text(tweets_list))
         keyword_df1 = pd.DataFrame(columns=['word', 'count'])
         keyword_df1['word'] = vectorizer.get_feature_names_out()
-        print(vectorizer.get_feature_names_out())
+        # print(vectorizer.get_feature_names_out())
         keyword_df1['count'] = np.ravel(transformed_data.sum(axis=0))
         keyword_df1.sort_values(by=['count'], ascending=False).head(10)
         return keyword_df1
+    
+    def WordCloudPlot(self,df):
+        word_dict = {}
+        for i in range(0,len(df)):
+            word_dict[df.word[i]]= df['count'][i]
+        wordcloud = WordCloud(width=1280,height=720,font_path='./SukhumvitSet-Medium.ttf',mode="RGBA",background_color ="rgba(255, 255, 255, 0)",max_words=70).fit_words(word_dict)
+        #  # Create a new subplot with Plotly
+        # fig = make_subplots(rows=1, cols=1)
+
+        # # Add the wordcloud as an image trace to the plot
+        # fig.add_trace(
+        #     go.Image(z=wordcloud.to_array()),
+        #     row=1, col=1
+        # )
+
+        # # Configure the plot layout
+        # fig.update_layout(
+        #     title='Word Cloud',
+        #     width=1280,
+        #     height=720,
+        #     margin=dict(l=10, r=10, t=80, b=10),
+        #     template='plotly_white'
+        # )
+        # fig.show()
+        fig, ax = plt.subplots(1, 1, figsize=(16,9))
+        ax.imshow(wordcloud, interpolation='bilinear')
+        ax.axis("off")
+        
+        return fig
 
 
 class SentimentAnalyze(PullTweetsData):
@@ -123,11 +157,9 @@ class main():
             author, keyword, hashtag, location, text, fromTime, toTime))
         return self.find_top_word.MostWordFinder(tweets_list)
 
-    def tweets_sentiment_analyzer(self, author="", keyword="", hashtag="", location="", text="", fromTime="", toTime=""):
+    def tweets_sentiment_analyzer(self, tweets_list):
         self.sentiment_analyze.training_model()
         acc = self.sentiment_analyze.evaluating_model()
-        tweets_list = self.load_sample_tweets(
-            author, keyword, hashtag, location, text, fromTime, toTime)
         df = pd.DataFrame({'text': [], 'sentiment': []})
         for tweet in tqdm(tweets_list):
             sentiment = self.sentiment_analyze.sentiment_analyzer(
@@ -135,6 +167,21 @@ class main():
             df = pd.concat([df, pd.DataFrame(
                 pd.Series([tweet['text'], sentiment], index=df.columns)).T], ignore_index=True)
         return df
+    
+    def SentimentPiePlot(self,df):
+        # Count the number of occurrences of each sentiment
+        sentiment_counts = df['sentiment'].value_counts()
+
+        print(sentiment_counts)
+        # Calculate the percentage of each sentiment
+        sentiment_percentages = sentiment_counts / len(df) * 100
+        print(sentiment_percentages)
+        # Create the pie chart
+        fig = px.pie(sentiment_percentages, values=sentiment_percentages.values, 
+                    names=sentiment_percentages.index, title='Sentiment Percentage')
+        # fig.show()
+        #Show the chart
+        return fig
 
     def topTrends(self):
         trends = self.pull_tweets._PullTweetsData__api.get_place_trends(
@@ -178,7 +225,7 @@ class main():
                 'colorbar': {'title': 'Value'},
                 'sizemin': 5
             },
-            text=data['country'] + ': ' + data['value'].astype(str)
+            text = data['country'] + ': ' + data['value'].astype(str)
         )
 
         # Define the layout
@@ -209,7 +256,7 @@ class main():
         fig = go.Figure(data=[trace], layout=layout)
 
         # Show the figure
-        return data
+        return fig
 
     def OneAnalyzer(self):
         top10 = self.topTrends()
@@ -240,9 +287,14 @@ class main():
 
 
 if __name__ == "__main__":
-    main().OneAnalyzer()
-    # x = main().load_sample_tweets()
+    # main().OneAnalyzer()
+    # x = main().load_sample_tweets(hashtag="dek66")
+    # dfMostWord = main().find_top_word.MostWordFinder(x)
+    # main().find_top_word.WordCloudPlot(dfMostWord)
+    # df = main().tweets_sentiment_analyzer(x)
+    # main().SentimentPiePlot(df)
     # # for i in x:
     # #     print(i['tweet_location'].lower())
     # main().spatialPloting(x).show()
     # print(main().spatialPloting(x))
+    pass
