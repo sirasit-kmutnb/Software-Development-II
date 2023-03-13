@@ -409,6 +409,22 @@ class Ui_MainWindow(object):
         self.Search_Button.setObjectName("Search_Button")
         self.horizontalLayout_5 = QtWidgets.QHBoxLayout(self.Search_Button)
         self.horizontalLayout_5.setObjectName("horizontalLayout_5")
+        self.Remove = QtWidgets.QPushButton(parent=self.Search_Button)
+        self.Remove.setMinimumSize(QtCore.QSize(0, 30))
+        self.Remove.setStyleSheet("QPushButton {\n"
+"    color: rgb(255, 255, 255);\n"
+"    background-color: rgb(35, 38, 53);\n"
+"    border: 0px solid;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: rgb(49, 54, 80);\n"
+"}\n"
+"\n"
+"QPushButton:checked {\n"
+"    background-color: rgb(49, 54, 80);\n"
+"}")
+        self.Remove.setObjectName("Remove")
+        self.horizontalLayout_5.addWidget(self.Remove)
         self.Search = QtWidgets.QPushButton(parent=self.Search_Button)
         self.Search.setMinimumSize(QtCore.QSize(0, 30))
         self.Search.setStyleSheet("QPushButton {\n"
@@ -424,6 +440,7 @@ class Ui_MainWindow(object):
                                   "    background-color: rgb(49, 54, 80);\n"
                                   "}")
         self.Search.setObjectName("Search")
+        
         self.horizontalLayout_5.addWidget(self.Search)
         self.verticalLayout_14.addWidget(self.Search_Button)
         self.verticalLayout_18.addWidget(self.Search_Frame_2)
@@ -816,7 +833,9 @@ class Ui_MainWindow(object):
         self.Text_Search.setPlaceholderText(_translate("MainWindow", "Text"))
         self.EndTime_Search.setPlaceholderText(
             _translate("MainWindow", "End Time"))
+        self.Remove.setText(_translate("MainWindow", "Remove"))
         self.Search.setText(_translate("MainWindow", "Search"))
+        
         self.Hashtag_Search_2.setPlaceholderText(
             _translate("MainWindow", "Hashtag"))
         self.Location_Search_2.setPlaceholderText(
