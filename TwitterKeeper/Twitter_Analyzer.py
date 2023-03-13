@@ -69,7 +69,7 @@ class FindTopWord(PullTweetsData):
         plt.imshow(wordcloud, interpolation='bilinear')
         plt.axis('off')
         plt.tight_layout(pad=0)
-        plt.savefig('wordcloud.png', dpi=300, bbox_inches='tight')
+        plt.savefig('../GUI/wordcloud.png', dpi=300, bbox_inches='tight')
         plt.close()
         
 
@@ -219,10 +219,10 @@ class main():
             mode='markers',
             marker={
                 'size': data['value']/10,
-                'color': data['value'],
+                'color': "#000000",
                 'colorscale': 'Viridis',
                 'opacity': 0.7,
-                'colorbar': {'title': 'Value'},
+                # 'colorbar': {'title': 'Value'},
                 'sizemin': 5
             },
             text = data['country'] + ': ' + data['value'].astype(str)
@@ -288,9 +288,9 @@ class main():
 
 if __name__ == "__main__":
     # main().OneAnalyzer()
-    # x = main().load_sample_tweets(hashtag="dek66")
-    # dfMostWord = main().find_top_word.MostWordFinder(x)
-    # main().find_top_word.WordCloudPlot(dfMostWord)
+    x = main().load_sample_tweets(hashtag="dek66")
+    dfMostWord = main().find_top_word.MostWordFinder(x)
+    main().find_top_word.WordCloudPlot(dfMostWord)
     # df = main().tweets_sentiment_analyzer(x)
     # main().SentimentPiePlot(df)
     # # for i in x:

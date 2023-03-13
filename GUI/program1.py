@@ -753,8 +753,10 @@ class Ui_MainWindow(object):
         # label.setGeometry(0, 0, self.WordCloud.width(), self.WordCloud.height())
         # self.WordCloud.setStyleSheet(f"background-image: url({pixmap});")
         plot_widget2 = QtWebEngineWidgets.QWebEngineView(self.WordCloud)
-        plot_widget2.setHtml(f"<html><body><img src=\"wordcloud.png\" /></body></html>")
+        # plot_widget2.setHtml(f"<html><body><img src=\"wordcloud.png\" /></body></html>")
         plot_widget2.setGeometry(0, 0, self.WordCloud.width(), self.WordCloud.height())
+
+        plot_widget2.load(QtCore.QUrl.fromLocalFile(f"{this_dir}/wordcloud.png"))
 
         plot_widget3 = QtWebEngineWidgets.QWebEngineView(self.frame_6)
         plot_widget3.setHtml(figSpatial.to_html(include_plotlyjs='cdn'))
