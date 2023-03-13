@@ -44,7 +44,7 @@ class Connect_to_Function(Ui_MainWindow):
         self.listWidget_2.clear()
         for result in results:
             item = QtWidgets.QListWidgetItem()
-            item.setText(f"{result['tweet_author']}:\n {result['text']}")
+            item.setText(f"====================\n{ result['tweet_author']}\n {result['tweet_create_at']}\n ---------------------\n\n {result['text']}\n ====================")
             self.listWidget_2.addItem(item)
 
     def on_analyze_clicked(self):
