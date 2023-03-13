@@ -141,12 +141,11 @@ class Connect_to_Function(Ui_MainWindow):
         # thread.start()
         # self.twitter_analyzer.pull_tweets.pullTweets(hashtag,10000)
         # Wait until tweets have been pulled
-        is_pulled = self.twitter_analyzer.pull_tweets.pullTweets(hashtag, 10000)
+        self.twitter_analyzer.pull_tweets.pullTweets(hashtag, 10000)
 
         # Wait until tweets have been pulled
-        while not is_pulled:
+        while self.progress < 100:
             QtWidgets.QApplication.processEvents()
-            is_pulled = self.twitter_analyzer.pull_tweets.pullTweets(hashtag, 10000)
 
         self.analyze_tweets(hashtag)
 
@@ -184,6 +183,9 @@ class Connect_to_Function(Ui_MainWindow):
         self.progressBar.setValue(progress)
         if progress == 100:
             self.progressBar.setVisible(False)
+    
+    def get_progress(self,progress):
+        self.progress = progress
 
 if __name__ == "__main__":
     import sys
@@ -192,8 +194,10 @@ if __name__ == "__main__":
     ui = Connect_to_Function()
     ui.setupUi(MainWindow)
     ui.twitter_analyzer = main()
+    ui.progress = 0
     ui.PullTweet_Field.clicked.connect(ui.on_pull_tweets_button_clicked) # connected to pullTweets
     ui.twitter_analyzer.pull_tweets.update_progress_bar.connect(ui.update_progress_bar) # connected to progress of pullTweets
+    ui.twitter_analyzer.pull_tweets.update_progress_bar.connect(ui.get_progress)
     ui.Search.clicked.connect(ui.on_search_clicked)
     ui.Search_Trend.clicked.connect(ui.on_analyze_clicked)
     ui.PullTweet_Field_3.clicked.connect(ui.on_trends_clicked)
