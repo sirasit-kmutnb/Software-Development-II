@@ -995,7 +995,7 @@ QPushButton:checked {
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>624</width>
+                   <width>672</width>
                    <height>1724</height>
                   </rect>
                  </property>
@@ -1273,6 +1273,33 @@ QPushButton:checked {
                           </property>
                           <property name="text">
                            <string>Search Trend (Without Query)</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QPushButton" name="Analyze_Selected_List">
+                          <property name="minimumSize">
+                           <size>
+                            <width>0</width>
+                            <height>30</height>
+                           </size>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">QPushButton {
+	color: rgb(255, 255, 255);
+	background-color: rgb(35, 38, 53);
+	border: 0px solid;
+}
+QPushButton:hover {
+	background-color: rgb(49, 54, 80);
+}
+
+QPushButton:checked {
+	background-color: rgb(49, 54, 80);
+}</string>
+                          </property>
+                          <property name="text">
+                           <string>PushButton</string>
                           </property>
                          </widget>
                         </item>
