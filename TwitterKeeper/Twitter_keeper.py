@@ -79,6 +79,8 @@ class PullTweetsData(QObject):
         print(f"You has been called pullTweets with {query} {amount}")
         thread = Thread(target=self.pullTweetsThread, args=(query, amount))
         thread.start()
+        # Return True when finished pulling tweets
+        return True
 
     def pullTweetsThread(self, query, amount):
         count = 0

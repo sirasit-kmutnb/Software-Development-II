@@ -109,11 +109,77 @@ class Connect_to_Function(Ui_MainWindow):
     def on_trends_clicked(self):
         trends = self.twitter_analyzer.topTrends()
         self.listWidget.clear()
+        print(trends)
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        
         for result in trends:
             item = QtWidgets.QListWidgetItem()
-            item.setText(result)
+            item.setText(f"{result['name']}\n {result['tweet_volume']}")
+            item.setFont(font)
             self.listWidget.addItem(item)
 
+        # Connect the item selection signal to a new function
+        self.listWidget.itemSelectionChanged.connect(self.on_list_item_selected)
+
+    def on_list_item_selected(self):
+        # Get the selected items from the listWidget
+        selected_items = self.listWidget.selectedItems()
+
+        # Get the text of the selected items and pass it to another function
+        selected_texts = selected_items[0].text().split("\n")[0]
+        print(selected_texts)
+
+    def on_analyze_selected_clicked(self):
+        hashtag = self.listWidget.selectedItems()
+        hashtag = hashtag[0].text().split("\n")[0]
+
+        # create a new thread for the pullTweets method
+        # thread = QtCore.QThread()
+        # thread.started.connect(lambda: self.twitter_analyzer.pull_tweets.pullTweets(hashtag,10000))
+        # thread.finished.connect(lambda: self.analyze_tweets(hashtag))
+        # thread.start()
+        # self.twitter_analyzer.pull_tweets.pullTweets(hashtag,10000)
+        # Wait until tweets have been pulled
+        is_pulled = self.twitter_analyzer.pull_tweets.pullTweets(hashtag, 10000)
+
+        # Wait until tweets have been pulled
+        while not is_pulled:
+            QtWidgets.QApplication.processEvents()
+            is_pulled = self.twitter_analyzer.pull_tweets.pullTweets(hashtag, 10000)
+
+        self.analyze_tweets(hashtag)
+
+    def analyze_tweets(self, hashtag):
+        # load the sample tweets and perform sentiment analysis
+        results = self.twitter_analyzer.load_sample_tweets(hashtag=hashtag)
+        dfSentiment = self.twitter_analyzer.tweets_sentiment_analyzer(results)
+        figPie = self.twitter_analyzer.SentimentPiePlot(dfSentiment)
+
+        # find the top words and create a word cloud
+        dfMostWord = self.twitter_analyzer.find_top_word.MostWordFinder(results)
+        self.twitter_analyzer.find_top_word.WordCloudPlot(dfMostWord)
+        plot_widget2 = QtWebEngineWidgets.QWebEngineView(self.WordCloud)
+        plot_widget2.setGeometry(0, 0, self.WordCloud.width(), self.WordCloud.height())
+        plot_widget2.load(QtCore.QUrl.fromLocalFile(f"{this_dir}/wordcloud.png"))
+
+        # create a spatial plot of the tweets
+        figSpatial = self.twitter_analyzer.spatialPloting(results)
+        plot_widget3 = QtWebEngineWidgets.QWebEngineView(self.frame_6)
+        plot_widget3.setHtml(figSpatial.to_html(include_plotlyjs='cdn'))
+        plot_widget3.setZoomFactor(0.75)
+        plot_widget3.setGeometry(0, 0, self.frame_6.width(), self.frame_6.height())
+
+        # display the sentiment pie chart
+        plot_widget = QtWebEngineWidgets.QWebEngineView(self.Sentiment)
+        plot_widget.setHtml(figPie.to_html(include_plotlyjs='cdn'))
+        plot_widget.setGeometry(0, 0, self.Sentiment.width(), self.Sentiment.height())
+        
+        # show the plots
+        plot_widget2.show()
+        plot_widget.show()
+        plot_widget3.show()
+        
     def update_progress_bar(self, progress):
         self.progressBar.setValue(progress)
         if progress == 100:
@@ -131,6 +197,7 @@ if __name__ == "__main__":
     ui.Search.clicked.connect(ui.on_search_clicked)
     ui.Search_Trend.clicked.connect(ui.on_analyze_clicked)
     ui.PullTweet_Field_3.clicked.connect(ui.on_trends_clicked)
+    ui.Analyze_Selected_List.clicked.connect(ui.on_analyze_selected_clicked)
     # PAGE 1
     ui.Home_Page.clicked.connect(
         lambda: ui.stackedWidget.setCurrentWidget(ui.page_1))

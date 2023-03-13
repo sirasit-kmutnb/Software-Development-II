@@ -718,10 +718,11 @@ class Ui_MainWindow(object):
         self.EndTime_Search_2.setPlaceholderText(_translate("MainWindow", "End Time"))
         self.Search_Trend.setText(_translate("MainWindow", "Search for Analyze"))
         self.PullTweet_Field_3.setText(_translate("MainWindow", "Search Trend (Without Query)"))
-        self.Analyze_Selected_List.setText(_translate("MainWindow", "PushButton"))
+        self.Analyze_Selected_List.setText(_translate("MainWindow", "Analyze from list"))
         self.Sentiment_Label.setText(_translate("MainWindow", "Sentiment"))
         self.WordCloud_Label.setText(_translate("MainWindow", "Word Cloud"))
         self.label.setText(_translate("MainWindow", "Spatial"))
+   
 
 
 if __name__ == "__main__":
