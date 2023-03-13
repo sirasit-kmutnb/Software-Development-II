@@ -215,9 +215,8 @@ class Ui_MainWindow(object):
         self.horizontalLayout_6.addWidget(self.PullTweet_Field)
         self.progressBar = QtWidgets.QProgressBar(parent=self.frame_11)
         self.progressBar.setMinimumSize(QtCore.QSize(0, 30))
-        self.progressBar.setProperty("value", 0)
+        self.progressBar.setProperty("value", 24)
         self.progressBar.setObjectName("progressBar")
-        self.progressBar.setVisible(False)
         self.horizontalLayout_6.addWidget(self.progressBar)
         self.verticalLayout_21.addWidget(self.frame_11)
         self.verticalLayout_19.addWidget(self.frame_5)
@@ -447,7 +446,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 672, 1724))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 657, 1584))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.verticalLayout_8 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_8.setObjectName("verticalLayout_8")
@@ -605,6 +604,21 @@ class Ui_MainWindow(object):
         self.Analyze_Selected_List.setObjectName("Analyze_Selected_List")
         self.horizontalLayout.addWidget(self.Analyze_Selected_List)
         self.verticalLayout_9.addWidget(self.Analyze_Button)
+        self.Progress_Frame = QtWidgets.QFrame(parent=self.Search_Frame)
+        self.Progress_Frame.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
+        self.Progress_Frame.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
+        self.Progress_Frame.setObjectName("Progress_Frame")
+        self.verticalLayout_24 = QtWidgets.QVBoxLayout(self.Progress_Frame)
+        self.verticalLayout_24.setObjectName("verticalLayout_24")
+        self.label_8 = QtWidgets.QLabel(parent=self.Progress_Frame)
+        self.label_8.setStyleSheet("color: #FFF;")
+        self.label_8.setObjectName("label_8")
+        self.verticalLayout_24.addWidget(self.label_8)
+        self.progressBar_2 = QtWidgets.QProgressBar(parent=self.Progress_Frame)
+        self.progressBar_2.setProperty("value", 24)
+        self.progressBar_2.setObjectName("progressBar_2")
+        self.verticalLayout_24.addWidget(self.progressBar_2)
+        self.verticalLayout_9.addWidget(self.Progress_Frame)
         self.verticalLayout_8.addWidget(self.Search_Frame)
         self.List = QtWidgets.QFrame(parent=self.scrollAreaWidgetContents)
         self.List.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
@@ -616,7 +630,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_12.setSpacing(0)
         self.verticalLayout_12.setObjectName("verticalLayout_12")
         self.listWidget = QtWidgets.QListWidget(parent=self.List)
-        self.listWidget.setMinimumSize(QtCore.QSize(0, 300))
+        self.listWidget.setMinimumSize(QtCore.QSize(0, 0))
         self.listWidget.setStyleSheet("color: #FFF;")
         self.listWidget.setObjectName("listWidget")
         self.verticalLayout_12.addWidget(self.listWidget)
@@ -683,7 +697,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -718,11 +732,11 @@ class Ui_MainWindow(object):
         self.EndTime_Search_2.setPlaceholderText(_translate("MainWindow", "End Time"))
         self.Search_Trend.setText(_translate("MainWindow", "Search for Analyze"))
         self.PullTweet_Field_3.setText(_translate("MainWindow", "Search Trend (Without Query)"))
-        self.Analyze_Selected_List.setText(_translate("MainWindow", "Analyze from list"))
+        self.Analyze_Selected_List.setText(_translate("MainWindow", "Analyze From List"))
+        self.label_8.setText(_translate("MainWindow", "Pull Data"))
         self.Sentiment_Label.setText(_translate("MainWindow", "Sentiment"))
         self.WordCloud_Label.setText(_translate("MainWindow", "Word Cloud"))
         self.label.setText(_translate("MainWindow", "Spatial"))
-   
 
 
 if __name__ == "__main__":
@@ -731,16 +745,5 @@ if __name__ == "__main__":
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
-    # PAGE 1
-    ui.Home_Page.clicked.connect(
-        lambda: ui.stackedWidget.setCurrentWidget(ui.page_1))
-
-    # PAGE 2
-    ui.Search_Page.clicked.connect(
-        lambda: ui.stackedWidget.setCurrentWidget(ui.page_2))
-
-    # PAGE 3
-    ui.Analyze_Page.clicked.connect(
-        lambda: ui.stackedWidget.setCurrentWidget(ui.page_3))
     MainWindow.show()
     sys.exit(app.exec())

@@ -133,7 +133,8 @@ class Connect_to_Function(Ui_MainWindow):
     def on_analyze_selected_clicked(self):
         hashtag = self.listWidget.selectedItems()
         hashtag = hashtag[0].text().split("\n")[0]
-
+        self.progressBar_2.setVisible(True)
+        self.progressBar_2.setProperty("value", 0)
         # create a new thread for the pullTweets method
         # thread = QtCore.QThread()
         # thread.started.connect(lambda: self.twitter_analyzer.pull_tweets.pullTweets(hashtag,10000))
@@ -181,8 +182,10 @@ class Connect_to_Function(Ui_MainWindow):
         
     def update_progress_bar(self, progress):
         self.progressBar.setValue(progress)
+        self.progressBar_2.setValue(progress)
         if progress == 100:
             self.progressBar.setVisible(False)
+            self.progressBar_2.setVisible(False)
     
     def get_progress(self,progress):
         self.progress = progress
