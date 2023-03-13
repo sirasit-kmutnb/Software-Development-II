@@ -688,9 +688,10 @@ class Ui_MainWindow(object):
         self.twitter_analyzer.pull_tweets.update_progress_bar.connect(self.update_progress_bar) # connected to progress of pullTweets
         self.Search.clicked.connect(self.on_search_clicked)
         self.Search_Trend.clicked.connect(self.on_analyze_clicked)
-        self.WordCloudCanvas = FigureCanvas(plt.Figure(figsize=(16,9)))
-        self.WordCloudLayout = QtWidgets.QVBoxLayout(self.WordCloud)
-        self.WordCloudLayout.addWidget(self.WordCloudCanvas)
+        # Create a QVBoxLayout to hold the QLabel with WordCloud image
+        # self.wordcloud_layout = QtWidgets.QVBoxLayout(self.WordCloud)
+        # self.wordcloud_label = QtWidgets.QLabel(self.WordCloud)
+        # self.wordcloud_layout.addWidget(self.wordcloud_label)
 
     def on_pull_tweets_button_clicked(self):
         # Get the values from the Keyword_Pull_Field and Keyword_Pull_Field2
@@ -733,7 +734,7 @@ class Ui_MainWindow(object):
         figPie = self.twitter_analyzer.SentimentPiePlot(dfSentiment)
 
         dfMostWord = self.twitter_analyzer.find_top_word.MostWordFinder(results)
-        figWordCloud = self.twitter_analyzer.find_top_word.WordCloudPlot(dfMostWord)
+        self.twitter_analyzer.find_top_word.WordCloudPlot(dfMostWord)
         # image = self.twitter_analyzer.find_top_word.WordCloudPlot(dfMostWord)
         figSpatial = self.twitter_analyzer.spatialPloting(results)
 
@@ -743,20 +744,26 @@ class Ui_MainWindow(object):
 
         # pixmap = QtGui.QPixmap()
         # pixmap.fromImage(image)
-
+        
+        # pixmap = QtGui.QPixmap('wordcloud.png')
+        # self.wordcloud_label.setPixmap(pixmap)
+        # Create a QLabel to display the generated image
+        # label = QtWidgets.QLabel(self.WordCloud)
+        # label.setPixmap(pixmap)
+        # label.setGeometry(0, 0, self.WordCloud.width(), self.WordCloud.height())
         # self.WordCloud.setStyleSheet(f"background-image: url({pixmap});")
-        # plot_widget2 = QtWebEngineWidgets.QWebEngineView(self.WordCloud)
-        # plot_widget2.setHtml(figWordCloud.to_html(include_plotlyjs='cdn'))
-        # plot_widget2.setGeometry(0, 0, self.WordCloud.width(), self.WordCloud.height())
+        plot_widget2 = QtWebEngineWidgets.QWebEngineView(self.WordCloud)
+        plot_widget2.setHtml(f"<html><body><img src=\"wordcloud.png\" /></body></html>")
+        plot_widget2.setGeometry(0, 0, self.WordCloud.width(), self.WordCloud.height())
 
         plot_widget3 = QtWebEngineWidgets.QWebEngineView(self.frame_6)
         plot_widget3.setHtml(figSpatial.to_html(include_plotlyjs='cdn'))
         plot_widget3.setGeometry(0, 0, self.frame_6.width(), self.frame_6.height())
 
-        self.WordCloudCanvas.figure = figWordCloud
-        self.WordCloudCanvas.draw()
+        # self.WordCloudCanvas.figure = figWordCloud
+        # self.WordCloudCanvas.draw()
 
-        # plot_widget2.show()
+        plot_widget2.show()
         plot_widget.show()
         plot_widget3.show()
         

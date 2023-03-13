@@ -66,11 +66,12 @@ class FindTopWord(PullTweetsData):
         #     template='plotly_white'
         # )
         # fig.show()
-        fig, ax = plt.subplots(1, 1, figsize=(16,9))
-        ax.imshow(wordcloud, interpolation='bilinear')
-        ax.axis("off")
+        plt.imshow(wordcloud, interpolation='bilinear')
+        plt.axis('off')
+        plt.tight_layout(pad=0)
+        plt.savefig('wordcloud.png', dpi=300, bbox_inches='tight')
+        plt.close()
         
-        return fig
 
 
 class SentimentAnalyze(PullTweetsData):
