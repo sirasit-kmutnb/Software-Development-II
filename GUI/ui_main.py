@@ -215,7 +215,8 @@ class Ui_MainWindow(object):
         self.horizontalLayout_6.addWidget(self.PullTweet_Field)
         self.progressBar = QtWidgets.QProgressBar(parent=self.frame_11)
         self.progressBar.setMinimumSize(QtCore.QSize(0, 30))
-        self.progressBar.setProperty("value", 24)
+        self.progressBar.setProperty("value", 0)
+        self.progressBar.setVisible(False)
         self.progressBar.setObjectName("progressBar")
         self.horizontalLayout_6.addWidget(self.progressBar)
         self.verticalLayout_21.addWidget(self.frame_11)
@@ -615,7 +616,7 @@ class Ui_MainWindow(object):
         self.label_8.setObjectName("label_8")
         self.verticalLayout_24.addWidget(self.label_8)
         self.progressBar_2 = QtWidgets.QProgressBar(parent=self.Progress_Frame)
-        self.progressBar_2.setProperty("value", 24)
+        self.progressBar_2.setProperty("value", 0)
         self.progressBar_2.setObjectName("progressBar_2")
         self.verticalLayout_24.addWidget(self.progressBar_2)
         self.verticalLayout_9.addWidget(self.Progress_Frame)
@@ -626,11 +627,12 @@ class Ui_MainWindow(object):
         self.List.setLineWidth(1)
         self.List.setObjectName("List")
         self.verticalLayout_12 = QtWidgets.QVBoxLayout(self.List)
+
         self.verticalLayout_12.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_12.setSpacing(0)
         self.verticalLayout_12.setObjectName("verticalLayout_12")
         self.listWidget = QtWidgets.QListWidget(parent=self.List)
-        self.listWidget.setMinimumSize(QtCore.QSize(0, 0))
+        self.listWidget.setMinimumSize(QtCore.QSize(0, 380))
         self.listWidget.setStyleSheet("color: #FFF;")
         self.listWidget.setObjectName("listWidget")
         self.verticalLayout_12.addWidget(self.listWidget)
@@ -697,7 +699,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(2)
+        self.stackedWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):

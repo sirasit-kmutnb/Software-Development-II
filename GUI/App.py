@@ -44,7 +44,7 @@ class Connect_to_Function(Ui_MainWindow):
         self.listWidget_2.clear()
         for result in results:
             item = QtWidgets.QListWidgetItem()
-            item.setText(f"====================\n{ result['tweet_author']}\n {result['tweet_create_at']}\n ---------------------\n\n {result['text']}\n ====================")
+            item.setText(f"====================\n{ result['tweet_author']}\n {self.twitter_analyzer.pull_tweets.utc_to_local(result['tweet_create_at'])}\n ---------------------\n\n {result['text']}\n ====================")
             self.listWidget_2.addItem(item)
 
     def on_analyze_clicked(self):
@@ -115,7 +115,13 @@ class Connect_to_Function(Ui_MainWindow):
         
         for result in trends:
             item = QtWidgets.QListWidgetItem()
-            item.setText(f"{result['name']}\n {result['tweet_volume']}")
+            tweet_volumn = result['tweet_volume']
+            if (tweet_volumn>=1000):
+                tweet_volumn = round(tweet_volumn/1000, 1)
+                tweet_volumn_text = f"{tweet_volumn}K"
+            else:
+                tweet_volumn_text = str(tweet_volumn)
+            item.setText(f"{result['name']}\n {tweet_volumn_text} tweets")
             item.setFont(font)
             self.listWidget.addItem(item)
 

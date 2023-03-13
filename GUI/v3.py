@@ -446,7 +446,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 657, 1584))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 657, 1806))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.verticalLayout_8 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_8.setObjectName("verticalLayout_8")
@@ -630,7 +630,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_12.setSpacing(0)
         self.verticalLayout_12.setObjectName("verticalLayout_12")
         self.listWidget = QtWidgets.QListWidget(parent=self.List)
-        self.listWidget.setMinimumSize(QtCore.QSize(0, 0))
+        self.listWidget.setMinimumSize(QtCore.QSize(0, 300))
         self.listWidget.setStyleSheet("color: #FFF;")
         self.listWidget.setObjectName("listWidget")
         self.verticalLayout_12.addWidget(self.listWidget)
@@ -697,7 +697,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(2)
+        self.stackedWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
