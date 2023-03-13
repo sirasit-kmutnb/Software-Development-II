@@ -218,7 +218,7 @@ class main():
             locations=data['country'],
             mode='markers',
             marker={
-                'size': data['value']/10,
+                'size': data['value']/2,
                 'color': "#000000",
                 'colorscale': 'Viridis',
                 'opacity': 0.7,
@@ -230,7 +230,7 @@ class main():
 
         # Define the layout
         layout = go.Layout(
-            title='World Map',
+            title="Spatial Plot",
             geo=dict(
                 projection_type='natural earth',
                 showland=True,
@@ -254,9 +254,15 @@ class main():
 
         # Create the figure
         fig = go.Figure(data=[trace], layout=layout)
-
+        # Update the layout to display the map in full screen
+        fig.update_layout(
+            autosize=True,
+            margin=dict(l=0, r=0, t=0, b=0),
+        )
+        
         # Show the figure
         return fig
+  
 
     def OneAnalyzer(self):
         top10 = self.topTrends()
