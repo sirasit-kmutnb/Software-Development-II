@@ -155,6 +155,39 @@ class PullTweetsData(QObject):
             count += 1
             setTweets.append(i)
         return setTweets
+    
+    # def remove_tweet_set(self, author="", keyword="", hashtag="", location="", text="", fromTime="", toTime=""):
+
+    #     if not fromtime and not totime:
+    #         query = {"tweet_author": {"$regex": author},
+    #                  "keyword": {"$regex": keyword},
+    #                  "hashtag": {"$regex": hashtag},
+    #                  "tweet_location": {"$regex": location},
+    #                  "text": {"$regex": text}
+    #                  }
+    #     elif not fromtime or not totime:
+    #         return "Missing Time"
+
+    #     else:
+    #         new_fromtime = self.splittime(fromtime)
+    #         new_totime = self.splittime(totime)
+    #         try:
+    #             utc_fromtime = self.local_to_utc(datetime(
+    #                 new_fromtime[0], new_fromtime[1], new_fromtime[2], new_fromtime[3], new_fromtime[4], new_fromtime[5]))
+    #             utc_totime = self.local_to_utc(datetime(
+    #                 new_totime[0], new_totime[1], new_totime[2], new_totime[3], new_totime[4], new_totime[5]))
+    #         except:
+    #             return "Bad Data"
+    #         query = {"tweet_author": author,
+    #                      "keyword": keyword,
+    #                      "hashtag": hashtag,
+    #                      "tweet_location": location,
+    #                      "text": text,
+    #                      "tweet_create_at": {
+    #             "$gt": utc_fromtime,
+    #             "$lt": utc_totime
+    #         }}
+    #     self.__db.delete_many(query)
 
     def remove_tweet(self, author="", keyword="", hashtag="", location="", text="", fromTime="", toTime=""):
         tweetSet = self.find_multi(
@@ -240,7 +273,8 @@ def pullTweetsTask():
     pullerT1.setUserAuthentication(access_token, access_token_secret)
     pullerT1.getTwitterAPI()
     pullerT1.connectToDB("twitter_keeper", "tweets")
-    # pullerT1.remove_tweet(author="Panda_Pda")
+    pullerT1.remove_tweet(author="pimpatrungjangs")
+    # print(pullerT1.find_multi(author="pimpatrungjangs"))
     # t1 = Thread(target=pullerT1.pullTweets, args=("#tcas66", 1))
     # t1.start()
 
