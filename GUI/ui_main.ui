@@ -323,7 +323,7 @@ QPushButton:checked {
           <item>
            <widget class="QStackedWidget" name="stackedWidget">
             <property name="currentIndex">
-             <number>0</number>
+             <number>2</number>
             </property>
             <widget class="QWidget" name="page_1">
              <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -995,8 +995,8 @@ QPushButton:checked {
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>672</width>
-                   <height>1724</height>
+                   <width>657</width>
+                   <height>1584</height>
                   </rect>
                  </property>
                  <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -1299,7 +1299,36 @@ QPushButton:checked {
 }</string>
                           </property>
                           <property name="text">
-                           <string>PushButton</string>
+                           <string>Analyze From List</string>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QFrame" name="Progress_Frame">
+                       <property name="frameShape">
+                        <enum>QFrame::StyledPanel</enum>
+                       </property>
+                       <property name="frameShadow">
+                        <enum>QFrame::Raised</enum>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_24">
+                        <item>
+                         <widget class="QLabel" name="label_8">
+                          <property name="styleSheet">
+                           <string notr="true">color: #FFF;</string>
+                          </property>
+                          <property name="text">
+                           <string>Pull Data</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QProgressBar" name="progressBar_2">
+                          <property name="value">
+                           <number>24</number>
                           </property>
                          </widget>
                         </item>
@@ -1341,7 +1370,7 @@ QPushButton:checked {
                        <property name="minimumSize">
                         <size>
                          <width>0</width>
-                         <height>300</height>
+                         <height>0</height>
                         </size>
                        </property>
                        <property name="styleSheet">
