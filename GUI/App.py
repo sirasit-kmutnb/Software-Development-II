@@ -106,6 +106,13 @@ class Connect_to_Function(Ui_MainWindow):
         
     #     # Set the pixmap as the background of the WordCloud frame
     #     self.WordCloud.setStyleSheet(f"background-image: url({pixmap.toImage()});")
+    def on_trends_clicked(self):
+        trends = self.twitter_analyzer.topTrends()
+        self.listWidget.clear()
+        for result in trends:
+            item = QtWidgets.QListWidgetItem()
+            item.setText(result)
+            self.listWidget.addItem(item)
 
     def update_progress_bar(self, progress):
         self.progressBar.setValue(progress)
@@ -123,6 +130,7 @@ if __name__ == "__main__":
     ui.twitter_analyzer.pull_tweets.update_progress_bar.connect(ui.update_progress_bar) # connected to progress of pullTweets
     ui.Search.clicked.connect(ui.on_search_clicked)
     ui.Search_Trend.clicked.connect(ui.on_analyze_clicked)
+    ui.PullTweet_Field_3.clicked.connect(ui.on_trends_clicked)
     # PAGE 1
     ui.Home_Page.clicked.connect(
         lambda: ui.stackedWidget.setCurrentWidget(ui.page_1))
