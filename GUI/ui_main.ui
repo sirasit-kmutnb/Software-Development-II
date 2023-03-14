@@ -378,7 +378,7 @@ QPushButton:checked {
                           <string notr="true">color: #FFF;</string>
                          </property>
                          <property name="text">
-                          <string>Pull Tweets</string>
+                          <string>Pull Tweets ( Limit 15000 tweets per 15 minutes )</string>
                          </property>
                         </widget>
                        </item>
@@ -492,7 +492,7 @@ QPushButton:checked {
                           </size>
                          </property>
                          <property name="value">
-                          <number>24</number>
+                          <number>0</number>
                          </property>
                         </widget>
                        </item>
@@ -597,7 +597,7 @@ QPushButton:checked {
                        <string notr="true">color:#FFF;</string>
                       </property>
                       <property name="text">
-                       <string>Start Time, End Time : year.month.day.hour.minute.second</string>
+                       <string>Start Time, End Time : year.month.day.hour.minute.second, For Ex 2023,1,31,14,59,21</string>
                       </property>
                      </widget>
                     </item>
@@ -1328,7 +1328,7 @@ QPushButton:checked {
                         <item>
                          <widget class="QProgressBar" name="progressBar_2">
                           <property name="value">
-                           <number>24</number>
+                           <number>0</number>
                           </property>
                          </widget>
                         </item>
