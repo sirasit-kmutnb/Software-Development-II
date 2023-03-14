@@ -276,7 +276,7 @@ def pullTweetsTask():
     pullerT1.getTwitterAPI()
     pullerT1.connectToDB("twitter_keeper", "tweets")
     # a = pullerT1.remove_tweet_set(fromtime="2023.3.14.22.05.0", totime="2023.3.14.22.10.0")
-    a = pullerT1.remove_tweet_set(keyword="#ホワイトデー")
+    # a = pullerT1.remove_tweet_set(keyword="#ホワイトデー")
     # a = pullerT1.find_multi(fromtime="2023.3.14.21.50.0", totime="2023.3.14.21.52.0")
     # a = pullerT1.remove_tweet_set(keyword="#ホワイトデー")
     # print(a)
