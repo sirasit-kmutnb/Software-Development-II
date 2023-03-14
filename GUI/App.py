@@ -47,6 +47,18 @@ class Connect_to_Function(Ui_MainWindow):
             item.setText(f"====================\n{ result['tweet_author']}\n {self.twitter_analyzer.pull_tweets.utc_to_local(result['tweet_create_at'])}\n ---------------------\n\n {result['text']}\n ====================")
             self.listWidget_2.addItem(item)
 
+    def on_remove_clicked(self):
+
+        hashtag = str(self.Hashtag_Search.text())
+        author = str(self.Author_Search.text())
+        location = str(self.Location_Search.text())
+        text = str(self.Text_Search.text())
+        stime = str(self.StartTime_Search.text())
+        etime = str(self.EndTime_Search.text())
+        
+        print(isinstance(text,str))
+        self.twitter_analyzer.pull_tweets.remove_tweet_set(author,"", hashtag, location, text, stime, etime)
+
     def on_analyze_clicked(self):
         hashtag = str(self.Hashtag_Search_2.text())
         author = str(self.Author_Search_2.text())
@@ -208,6 +220,7 @@ if __name__ == "__main__":
     ui.twitter_analyzer.pull_tweets.update_progress_bar.connect(ui.update_progress_bar) # connected to progress of pullTweets
     ui.twitter_analyzer.pull_tweets.update_progress_bar.connect(ui.get_progress)
     ui.Search.clicked.connect(ui.on_search_clicked)
+    ui.Remove.clicked.connect(ui.on_remove_clicked)
     ui.Search_Trend.clicked.connect(ui.on_analyze_clicked)
     ui.PullTweet_Field_3.clicked.connect(ui.on_trends_clicked)
     ui.Analyze_Selected_List.clicked.connect(ui.on_analyze_selected_clicked)
