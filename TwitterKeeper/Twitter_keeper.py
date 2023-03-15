@@ -157,21 +157,21 @@ class PullTweetsData(QObject):
             setTweets.append(i)
         return setTweets
     
-    def remove_tweet_set(self, author="", keyword="", hashtag="", location="", text="", fromTime="", toTime=""):
+    def remove_tweet_set(self, author="", keyword="", hashtag="", location="", text="", fromtime="", totime=""):
 
-        if not fromTime and not toTime:
+        if not fromtime and not totime:
             query = {"tweet_author": {"$regex": author},
                      "keyword": {"$regex": keyword},
                      "hashtag": {"$regex": hashtag},
                      "tweet_location": {"$regex": location},
                      "text": {"$regex": text}
                      }
-        elif not fromTime or not toTime:
+        elif not fromtime or not totime:
             return "Missing Time"
 
         else:
-            new_fromtime = self.splittime(fromTime)
-            new_totime = self.splittime(toTime)
+            new_fromtime = self.splittime(fromtime)
+            new_totime = self.splittime(totime)
             try:
                 utc_fromtime = self.local_to_utc(datetime(
                     new_fromtime[0], new_fromtime[1], new_fromtime[2], new_fromtime[3], new_fromtime[4], new_fromtime[5]))
@@ -179,15 +179,16 @@ class PullTweetsData(QObject):
                     new_totime[0], new_totime[1], new_totime[2], new_totime[3], new_totime[4], new_totime[5]))
             except:
                 return "Bad Data"
-            query = {"tweet_author": author,
-                         "keyword": keyword,
-                         "hashtag": hashtag,
-                         "tweet_location": location,
-                         "text": text,
-                         "tweet_create_at": {
+            query = {"tweet_author": {"$regex": author},
+                     "keyword": {"$regex": keyword},
+                     "hashtag": {"$regex": hashtag},
+                     "tweet_location": {"$regex": location},
+                     "text": {"$regex": text},
+                     "tweet_create_at": {
                 "$gt": utc_fromtime,
                 "$lt": utc_totime
             }}
+        
         self.__db.delete_many(query)
 
     def remove_tweet(self, author="", keyword="", hashtag="", location="", text="", fromTime="", toTime=""):
@@ -274,7 +275,12 @@ def pullTweetsTask():
     pullerT1.setUserAuthentication(access_token, access_token_secret)
     pullerT1.getTwitterAPI()
     pullerT1.connectToDB("twitter_keeper", "tweets")
-    # pullerT1.remove_tweet_set(hashtag="#エブエブ")
+    # a = pullerT1.remove_tweet_set(fromtime="2023.3.14.22.05.0", totime="2023.3.14.22.10.0")
+    # a = pullerT1.remove_tweet_set(keyword="#ホワイトデー")
+    # a = pullerT1.find_multi(fromtime="2023.3.14.21.50.0", totime="2023.3.14.21.52.0")
+    # a = pullerT1.remove_tweet_set(keyword="#ホワイトデー")
+    # print(a)
+    
     # pullerT1.remove_tweet(hashtag="#ใส่นัวแฟมิลี่")
     # print(pullerT1.find_multi(hashtag="#ใส่นัวแฟมิลี่"))
     # t1 = Thread(target=pullerT1.pullTweets, args=("#tcas66", 1))
