@@ -67,7 +67,7 @@ class Connect_to_Function(Ui_MainWindow):
         stime = str(self.StartTime_Search_2.text())
         etime = str(self.EndTime_Search_2.text())
 
-        results = self.twitter_analyzer.load_sample_tweets(author,"", hashtag, location, text, stime, etime)
+        results = self.twitter_analyzer.load_sample_tweets(author,hashtag, "", location, text, stime, etime)
         dfSentiment = self.twitter_analyzer.tweets_sentiment_analyzer(results)
         figPie = self.twitter_analyzer.SentimentPiePlot(dfSentiment)
 
@@ -137,16 +137,16 @@ class Connect_to_Function(Ui_MainWindow):
             item.setFont(font)
             self.listWidget.addItem(item)
 
-        # Connect the item selection signal to a new function
-        self.listWidget.itemSelectionChanged.connect(self.on_list_item_selected)
+        # # Connect the item selection signal to a new function
+        # self.listWidget.itemSelectionChanged.connect(self.on_list_item_selected)
 
-    def on_list_item_selected(self):
-        # Get the selected items from the listWidget
-        selected_items = self.listWidget.selectedItems()
+    # def on_list_item_selected(self):
+    #     # Get the selected items from the listWidget
+    #     selected_items = self.listWidget.selectedItems()
 
-        # Get the text of the selected items and pass it to another function
-        selected_texts = selected_items[0].text().split("\n")[0]
-        print(selected_texts)
+    #     # Get the text of the selected items and pass it to another function
+    #     selected_texts = selected_items[0].text().split("\n")[0]
+    #     print(selected_texts)
 
     def on_analyze_selected_clicked(self):
         hashtag = self.listWidget.selectedItems()
@@ -160,7 +160,7 @@ class Connect_to_Function(Ui_MainWindow):
         # thread.start()
         # self.twitter_analyzer.pull_tweets.pullTweets(hashtag,10000)
         # Wait until tweets have been pulled
-        self.twitter_analyzer.pull_tweets.pullTweets(hashtag, 10000)
+        self.twitter_analyzer.pull_tweets.pullTweets(hashtag, 1000)
 
         # Wait until tweets have been pulled
         while self.progress < 100:
@@ -170,7 +170,7 @@ class Connect_to_Function(Ui_MainWindow):
 
     def analyze_tweets(self, hashtag):
         # load the sample tweets and perform sentiment analysis
-        results = self.twitter_analyzer.load_sample_tweets(hashtag=hashtag)
+        results = self.twitter_analyzer.load_sample_tweets(keyword=hashtag)
         dfSentiment = self.twitter_analyzer.tweets_sentiment_analyzer(results)
         figPie = self.twitter_analyzer.SentimentPiePlot(dfSentiment)
 

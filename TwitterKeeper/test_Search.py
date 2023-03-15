@@ -22,7 +22,7 @@ class TestFindTweets(unittest.TestCase):
                 "tweet_location": "This code"
             },
             {
-                "tweet_author": "anonymust",
+                "tweet_author": "anonymous2",
                 "tweet_create_at": datetime(2022, 1, 1, 12, 12, 0),
                 "hashtag": "#test",
                 "keyword": "test",
@@ -30,7 +30,7 @@ class TestFindTweets(unittest.TestCase):
                 "tweet_location": "This code"
             },
             {
-                "tweet_author": "anonymusk",
+                "tweet_author": "anonymous3",
                 "tweet_create_at": datetime(2022, 1, 1, 13, 5, 0),
                 "hashtag": "#dummy",
                 "keyword": "dummy",
@@ -38,7 +38,7 @@ class TestFindTweets(unittest.TestCase):
                 "tweet_location": "Unknown"
             },
             {
-                "tweet_author": "anonymud",
+                "tweet_author": "anonymous4",
                 "tweet_create_at": datetime(2022, 1, 1, 15, 45, 0),
                 "hashtag": "#dummy",
                 "keyword": "dummy",

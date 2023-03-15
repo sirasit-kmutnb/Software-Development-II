@@ -84,38 +84,44 @@ class PullTweetsData(QObject):
     def pullTweetsThread(self, query, amount):
         count = 0
         amount = int(amount)
-        for tweet in tweepy.Cursor(self.__api.search_tweets, q=query, count=100,
-                                   result_type="recent", tweet_mode='extended').items():
-            entity_hashtag = tweet.entities.get('hashtags')
-            hashtag = self.getHashtag(entity_hashtag)
-            tweet_author = tweet.user.screen_name
-            keyword = query
-            dt_str = str(tweet.created_at)
-            format = "%Y-%m-%d %H:%M:%S%z"
-            dt_utc = datetime.strptime(dt_str, format)
-            local_zone = tz.tzlocal()
-            dt_local = dt_utc.astimezone(local_zone)
-            tweet_create_at = dt_local
-            tweet_location = tweet.user.location
-            try:
-                text = tweet.retweeted_status.full_text
-            except:
-                text = tweet.full_text
-            tweet_post = self.createDictData(
-                tweet_author, tweet_create_at, tweet_location, hashtag, keyword, text)
-            # print(tweet_post)
-            saveTweet = Thread(target=self.saveTweetsDict,
-                               args=(tweet_post,))
-            saveTweet.start()
-            # print(tweet)
-            progress = int(count/amount * 100)
-            self.update_progress_bar.emit(progress)
-            count += 1
-            if count == amount:
+        try:
+            for tweet in tweepy.Cursor(self.__api.search_tweets, q=query, count=100,
+                                    result_type="recent", tweet_mode='extended').items():
+                entity_hashtag = tweet.entities.get('hashtags')
+                hashtag = self.getHashtag(entity_hashtag)
+                tweet_author = tweet.user.screen_name
+                keyword = query
+                dt_str = str(tweet.created_at)
+                format = "%Y-%m-%d %H:%M:%S%z"
+                dt_utc = datetime.strptime(dt_str, format)
+                local_zone = tz.tzlocal()
+                dt_local = dt_utc.astimezone(local_zone)
+                tweet_create_at = dt_local
+                tweet_location = tweet.user.location
+                try:
+                    text = tweet.retweeted_status.full_text
+                except:
+                    text = tweet.full_text
+                tweet_post = self.createDictData(
+                    tweet_author, tweet_create_at, tweet_location, hashtag, keyword, text)
+                # print(tweet_post)
+                saveTweet = Thread(target=self.saveTweetsDict,
+                                args=(tweet_post,))
+                saveTweet.start()
+                # print(tweet)
                 progress = int(count/amount * 100)
-                count = 0
                 self.update_progress_bar.emit(progress)
-                break
+                count += 1
+                if count == amount:
+                    progress = int(count/amount * 100)
+                    count = 0
+                    self.update_progress_bar.emit(progress)
+                    break
+        except:
+            print("except")
+            progress = 100
+            count = amount
+            self.update_progress_bar.emit(progress)
 
     def find_multi(self, author="", keyword="", hashtag="", location="", text="", fromtime="", totime=""):
 
