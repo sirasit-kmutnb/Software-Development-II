@@ -132,8 +132,9 @@ class SentimentAnalyze(PullTweetsData):
 class main():
     def __init__(self):
         TH_Bangkok = 1225448
+        TH = 23424960
         JP_Tokyo = 1118370
-        self.WOEID = TH_Bangkok
+        self.WOEID = TH
         api_key = os.getenv('API_KEY')
         api_key_secret = os.getenv('API_KEY_SECRET')
         access_token = os.getenv('ACCESS_TOKEN')
@@ -192,7 +193,7 @@ class main():
         new_list = [d for d in top50 if d.get('tweet_volume') != None]
         sorted_list = sorted(
             new_list, key=lambda x: x['tweet_volume'], reverse=True)
-        top10 = sorted_list[0:10]
+        top10 = sorted_list[0:20]
         return top10
 
     def spatialPloting(self, tw_list):
