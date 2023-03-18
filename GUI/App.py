@@ -1,4 +1,4 @@
-from ui_main import Ui_MainWindow
+from ui_main1 import Ui_MainWindow
 from PyQt6 import QtCore, QtGui, QtWidgets ,QtWebEngineWidgets
 import os
 import sys
