@@ -35,8 +35,13 @@ class Connect_to_Function(Ui_MainWindow):
         author = str(self.Author_Search.text())
         location = str(self.Location_Search.text())
         text = str(self.Text_Search.text())
-        stime = str(self.StartTime_Search.text())
-        etime = str(self.EndTime_Search.text())
+
+        if self.StartTime_Search_Date.isVisible():
+            stime = str(self.dateTimeToPointForm(self.StartTime_Search_Date.dateTime().toPyDateTime()))
+            etime = str(self.dateTimeToPointForm(self.EndTime_Search_Date.dateTime().toPyDateTime()))
+        else:
+            stime = ""
+            etime = ""
         
         print(isinstance(text,str))
         results = self.twitter_analyzer.load_sample_tweets(author,"", hashtag, location, text, stime, etime)
@@ -47,14 +52,22 @@ class Connect_to_Function(Ui_MainWindow):
             item.setText(f"====================\n{ result['tweet_author']}\n {self.twitter_analyzer.pull_tweets.utc_to_local(result['tweet_create_at'])}\n ---------------------\n\n {result['text']}\n ====================")
             self.listWidget_2.addItem(item)
 
+    def dateTimeToPointForm(self,datetime):
+        return f"{datetime.year}.{datetime.month}.{datetime.day}.{datetime.hour}.{datetime.minute}.{datetime.second}"
+
     def on_remove_clicked(self):
 
         hashtag = str(self.Hashtag_Search.text())
         author = str(self.Author_Search.text())
         location = str(self.Location_Search.text())
         text = str(self.Text_Search.text())
-        stime = str(self.StartTime_Search.text())
-        etime = str(self.EndTime_Search.text())
+
+        if self.StartTime_Search_Date.isVisible():
+            stime = str(self.dateTimeToPointForm(self.StartTime_Search_Date.dateTime().toPyDateTime()))
+            etime = str(self.dateTimeToPointForm(self.EndTime_Search_Date.dateTime().toPyDateTime()))
+        else:
+            stime = ""
+            etime = ""
         
         print(isinstance(text,str))
         self.twitter_analyzer.pull_tweets.remove_tweet_set(author,"", hashtag, location, text, stime, etime)
@@ -64,8 +77,13 @@ class Connect_to_Function(Ui_MainWindow):
         author = str(self.Author_Search_2.text())
         location = str(self.Location_Search_2.text())
         text = str(self.Text_Search_2.text())
-        stime = str(self.StartTime_Search_2.text())
-        etime = str(self.EndTime_Search_2.text())
+
+        if self.StartTime_Search_Date1.isVisible():
+            stime = str(self.dateTimeToPointForm(self.StartTime_Search_Date1.dateTime().toPyDateTime()))
+            etime = str(self.dateTimeToPointForm(self.EndTime_Search_Date1.dateTime().toPyDateTime()))
+        else:
+            stime = ""
+            etime = ""
 
         results = self.twitter_analyzer.load_sample_tweets(author,hashtag, "", location, text, stime, etime)
         dfSentiment = self.twitter_analyzer.tweets_sentiment_analyzer(results)
@@ -208,6 +226,32 @@ class Connect_to_Function(Ui_MainWindow):
     def get_progress(self,progress):
         self.progress = progress
 
+    def toggleSearchDate(self,state):
+        if state == 2:
+            self.StartTime_Search_Date.setVisible(True)
+            self.EndTime_Search_Date.setVisible(True)
+            self.StartTime_Label.setVisible(True)
+            self.EndTime_Label.setVisible(True)
+        else:
+            self.StartTime_Search_Date.setVisible(False)
+            self.EndTime_Search_Date.setVisible(False)
+            self.StartTime_Label.setVisible(False)
+            self.EndTime_Label.setVisible(False)
+
+    def toggleSearchDate1(self,state):
+        if state == 2:
+            self.StartTime_Search_Date1.setVisible(True)
+            self.EndTime_Search_Date1.setVisible(True)
+            self.StartTime_Label2.setVisible(True)
+            self.EndTime_Label2.setVisible(True)
+        else:
+            self.StartTime_Search_Date1.setVisible(False)
+            self.EndTime_Search_Date1.setVisible(False)
+            self.StartTime_Label2.setVisible(False)
+            self.EndTime_Label2.setVisible(False)
+
+        
+
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
@@ -219,6 +263,12 @@ if __name__ == "__main__":
     ui.PullTweet_Field.clicked.connect(ui.on_pull_tweets_button_clicked) # connected to pullTweets
     ui.twitter_analyzer.pull_tweets.update_progress_bar.connect(ui.update_progress_bar) # connected to progress of pullTweets
     ui.twitter_analyzer.pull_tweets.update_progress_bar.connect(ui.get_progress)
+
+    ui.timeSearch_Check.stateChanged.connect(ui.toggleSearchDate)
+    ui.timeSearch_Check.stateChanged.connect(ui.toggleSearchDate)
+    ui.timeSearch_Check1.stateChanged.connect(ui.toggleSearchDate1)
+    ui.timeSearch_Check1.stateChanged.connect(ui.toggleSearchDate1)
+
     ui.Search.clicked.connect(ui.on_search_clicked)
     ui.Remove.clicked.connect(ui.on_remove_clicked)
     ui.Search_Trend.clicked.connect(ui.on_analyze_clicked)

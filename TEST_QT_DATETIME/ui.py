@@ -34,6 +34,12 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.pushButton.setText(_translate("MainWindow", "PushButton"))
 
+    def showDateTime(self):
+        date = self.dateTimeEdit.dateTime().toPyDateTime()
+        date = date.toPyDateTime()
+        print(type(date))
+        print(date.year)
+
 
 if __name__ == "__main__":
     import sys
@@ -41,5 +47,6 @@ if __name__ == "__main__":
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
+    ui.pushButton.clicked.connect(ui.showDateTime)
     MainWindow.show()
     sys.exit(app.exec())
