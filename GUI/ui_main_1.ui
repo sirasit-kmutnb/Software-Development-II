@@ -323,7 +323,7 @@ QPushButton:checked {
           <item>
            <widget class="QStackedWidget" name="stackedWidget">
             <property name="currentIndex">
-             <number>1</number>
+             <number>2</number>
             </property>
             <widget class="QWidget" name="page_1">
              <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -864,7 +864,7 @@ padding-right: 20px;</string>
                              <string notr="true">color: #FFF;</string>
                             </property>
                             <property name="text">
-                             <string>From Time</string>
+                             <string>End Time</string>
                             </property>
                            </widget>
                           </item>

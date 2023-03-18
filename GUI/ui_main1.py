@@ -725,7 +725,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(1)
+        self.stackedWidget.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -751,7 +751,7 @@ class Ui_MainWindow(object):
         self.timeSearch_Check.setText(_translate("MainWindow", "Time Search"))
         self.Author_Search.setPlaceholderText(_translate("MainWindow", "Author"))
         self.Text_Search.setPlaceholderText(_translate("MainWindow", "Text"))
-        self.FromTimeLabel.setText(_translate("MainWindow", "From Time"))
+        self.FromTimeLabel.setText(_translate("MainWindow", "End Time"))
         self.EndTime_Search_Date.setDisplayFormat(_translate("MainWindow", "d/M/yyyy  HH:mm:ss"))
         self.Search.setText(_translate("MainWindow", "Search"))
         self.Remove.setText(_translate("MainWindow", "Remove"))
