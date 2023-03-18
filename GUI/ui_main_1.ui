@@ -323,7 +323,7 @@ QPushButton:checked {
           <item>
            <widget class="QStackedWidget" name="stackedWidget">
             <property name="currentIndex">
-             <number>2</number>
+             <number>0</number>
             </property>
             <widget class="QWidget" name="page_1">
              <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -859,7 +859,7 @@ padding-right: 20px;</string>
                            </widget>
                           </item>
                           <item>
-                           <widget class="QLabel" name="FromTimeLabel">
+                           <widget class="QLabel" name="EndTime_Label">
                             <property name="styleSheet">
                              <string notr="true">color: #FFF;</string>
                             </property>
@@ -1140,7 +1140,7 @@ QPushButton:checked {
                             </widget>
                            </item>
                            <item>
-                            <widget class="QLabel" name="label_9">
+                            <widget class="QLabel" name="StartTime_Label2">
                              <property name="styleSheet">
                               <string notr="true">color: #FFF;</string>
                              </property>
@@ -1254,7 +1254,7 @@ padding-right: 20px;</string>
                             </widget>
                            </item>
                            <item>
-                            <widget class="QLabel" name="label_10">
+                            <widget class="QLabel" name="EndTime_Label2">
                              <property name="styleSheet">
                               <string notr="true">color: #FFF;</string>
                              </property>
