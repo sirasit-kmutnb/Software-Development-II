@@ -323,7 +323,7 @@ QPushButton:checked {
           <item>
            <widget class="QStackedWidget" name="stackedWidget">
             <property name="currentIndex">
-             <number>0</number>
+             <number>1</number>
             </property>
             <widget class="QWidget" name="page_1">
              <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -1170,7 +1170,7 @@ padding-right: 20px;</string>
                             </widget>
                            </item>
                            <item>
-                            <widget class="QCheckBox" name="checkBox">
+                            <widget class="QCheckBox" name="timeSearch_Check1">
                              <property name="minimumSize">
                               <size>
                                <width>0</width>
@@ -1181,7 +1181,7 @@ padding-right: 20px;</string>
                               <string notr="true">color: #FFF;</string>
                              </property>
                              <property name="text">
-                              <string>CheckBox</string>
+                              <string>Time Search</string>
                              </property>
                             </widget>
                            </item>
