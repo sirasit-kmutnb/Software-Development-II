@@ -30,7 +30,7 @@ class FindTopWord(PullTweetsData):
     def prepared_Text(self, text_list):
         new_text = []
         for text in text_list:
-            new_text.append(self.preprocessText(text["text"]))
+            new_text.append(self.preprocessText(text['text']))
         return new_text
 
     def MostWordFinder(self, tweets_list):
