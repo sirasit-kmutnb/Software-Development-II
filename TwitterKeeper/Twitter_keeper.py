@@ -29,6 +29,8 @@ class PullTweetsData(QObject):
     def __init__(self):
         super().__init__()  # call __init__ method of superclass
         self.localTZ = pytz.timezone('Asia/Bangkok')
+        self.__api = None
+        self.__auth = None
 
     def getAccessToAPI(self, api_key, api_key_secret):
         self.__auth = tweepy.OAuthHandler(api_key, api_key_secret)
@@ -91,12 +93,13 @@ class PullTweetsData(QObject):
                 hashtag = self.getHashtag(entity_hashtag)
                 tweet_author = tweet.user.screen_name
                 keyword = query
-                dt_str = str(tweet.created_at)
-                format = "%Y-%m-%d %H:%M:%S%z"
-                dt_utc = datetime.strptime(dt_str, format)
-                local_zone = tz.tzlocal()
-                dt_local = dt_utc.astimezone(local_zone)
-                tweet_create_at = dt_local
+                # dt_str = str(tweet.created_at)
+                # format = "%Y-%m-%d %H:%M:%S%z"
+                # dt_utc = datetime.strptime(dt_str, format)
+                # local_zone = tz.tzlocal()
+                # dt_local = dt_utc.astimezone(local_zone)
+                # tweet_create_at = dt_local
+                tweet_create_at = tweet.created_at
                 tweet_location = tweet.user.location
                 try:
                     text = tweet.retweeted_status.full_text
@@ -117,8 +120,9 @@ class PullTweetsData(QObject):
                     count = 0
                     self.update_progress_bar.emit(progress)
                     break
-        except:
+        except Exception as e:
             print("except")
+            print(e)
             progress = 100
             count = amount
             self.update_progress_bar.emit(progress)
