@@ -43,7 +43,7 @@ class Connect_to_Function(Ui_MainWindow):
             etime = self.dateTimeToPointForm(
                 self.EndTime_Search_Date.dateTime().toPyDateTime())
             sample_tweets = self.twitter_analyzer.load_sample_tweets(
-                author, keyword, hashtag, location, text, str(stime), str(etime))
+                author, keyword, hashtag, location, text, "","")
             sorted_list = sorted(
                 sample_tweets, key=lambda x: x['tweet_create_at'], reverse=False)
 
@@ -89,6 +89,9 @@ class Connect_to_Function(Ui_MainWindow):
             author, keyword, hashtag, location, text, stime, etime)
         sorted_list = sorted(
             results, key=lambda x: x['tweet_create_at'], reverse=False)
+        recentTime = self.twitter_analyzer.pull_tweets.utc_to_local(
+                    sorted_list[0]['tweet_create_at'])
+        print(recentTime)
         # stime = self.twitter_analyzer.pull_tweets.utc_to_local(self.twitter_analyzer.pull_tweets.local_to_utc(stime))
         # etime = self.twitter_analyzer.pull_tweets.utc_to_local(self.twitter_analyzer.pull_tweets.local_to_utc(etime))
         self.listWidget_2.clear()
@@ -135,7 +138,7 @@ class Connect_to_Function(Ui_MainWindow):
             etime = self.dateTimeToPointForm(
                 self.EndTime_Search_Date1.dateTime().toPyDateTime())
             sample_tweets = self.twitter_analyzer.load_sample_tweets(
-                author, hashtag, keyword, location, text, str(stime), str(etime))
+                author, hashtag, keyword, location, text, "", "")
             sorted_list = sorted(
                 sample_tweets, key=lambda x: x['tweet_create_at'], reverse=False)
 
@@ -148,6 +151,7 @@ class Connect_to_Function(Ui_MainWindow):
                     sorted_list[0]['tweet_create_at'])
             except:
                 recentTime = "No data, Please pull new tweets."
+            print(recentTime,start_time)
             try:
                 isStartTimeNotReached = recentTime > start_time
             except:
@@ -272,7 +276,7 @@ class Connect_to_Function(Ui_MainWindow):
         while self.progress < 100:
             QtWidgets.QApplication.processEvents()
 
-        self.analyze_tweets(hashtag)
+        self.analyze_tweets("",hashtag,"","","","","")
 
     def analyze_tweets(self, author, hashtag, keyword, location, text, stime, etime):
         # load the sample tweets and perform sentiment analysis
@@ -280,6 +284,23 @@ class Connect_to_Function(Ui_MainWindow):
             author, hashtag, keyword, location, text, stime, etime)
         dfSentiment = self.twitter_analyzer.tweets_sentiment_analyzer(results)
         figPie = self.twitter_analyzer.SentimentPiePlot(dfSentiment)
+
+        #find top 10 word
+        dfMost10Word = self.twitter_analyzer.find_top_word.Most10WordFinder(results)
+        self.MostTenListWidget.clear()
+        print(dfMost10Word)
+        
+        fontFamId = QtGui.QFontDatabase.addApplicationFont('SukhumvitSet-Medium.ttf')
+        fontFam = QtGui.QFontDatabase.applicationFontFamilies(fontFamId)[0]
+
+        font = QtGui.QFont(fontFam)
+        font.setPointSize(14)
+
+        for row in dfMost10Word.itertuples():
+            item = QtWidgets.QListWidgetItem()
+            item.setText(f"{row.word} \n {row.count} words")
+            item.setFont(font)
+            self.MostTenListWidget.addItem(item)
 
         # find the top words and create a word cloud
         dfMostWord = self.twitter_analyzer.find_top_word.MostWordFinder(
