@@ -494,6 +494,9 @@ QPushButton:checked {
                          <property name="value">
                           <number>0</number>
                          </property>
+                         <property name="textVisible">
+                          <bool>true</bool>
+                         </property>
                         </widget>
                        </item>
                       </layout>
@@ -1052,7 +1055,7 @@ QPushButton:checked {
                    <x>0</x>
                    <y>0</y>
                    <width>657</width>
-                   <height>1863</height>
+                   <height>2237</height>
                   </rect>
                  </property>
                  <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -1462,6 +1465,59 @@ QPushButton:checked {
                        <property name="styleSheet">
                         <string notr="true">color: #FFF;</string>
                        </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QFrame" name="MostTenWord">
+                    <property name="frameShape">
+                     <enum>QFrame::StyledPanel</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Raised</enum>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_26">
+                     <item>
+                      <widget class="QLabel" name="label_9">
+                       <property name="styleSheet">
+                        <string notr="true">color: #FFF;</string>
+                       </property>
+                       <property name="text">
+                        <string>Most 10 Words</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QFrame" name="frame_16">
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>300</height>
+                        </size>
+                       </property>
+                       <property name="frameShape">
+                        <enum>QFrame::StyledPanel</enum>
+                       </property>
+                       <property name="frameShadow">
+                        <enum>QFrame::Raised</enum>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_27">
+                        <item>
+                         <widget class="QListWidget" name="MostTenListWidget">
+                          <property name="minimumSize">
+                           <size>
+                            <width>0</width>
+                            <height>300</height>
+                           </size>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">color: #FFF;</string>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
                       </widget>
                      </item>
                     </layout>

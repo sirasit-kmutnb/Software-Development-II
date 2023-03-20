@@ -197,34 +197,37 @@ class PullTweetsData(QObject):
         
         self.__db.delete_many(query)
 
-    def remove_tweet(self, author="", keyword="", hashtag="", location="", text="", fromTime="", toTime=""):
-        tweetSet = self.find_multi(
-            author, keyword, hashtag, location, text, fromTime, toTime)
-        if len(tweetSet) == 0:
-            print("No Data")
-        else:
-            for i in range(len(tweetSet)):
-                print("No. ", i)
-            number = int(input("Please Type No. for remove "))
-            if number < 0:
-                print("Wrong Input")
-            elif number <= len(tweetSet)-1:
-                data = tweetSet[number]
+    # def remove_tweet(self, author="", keyword="", hashtag="", location="", text="", fromTime="", toTime=""):
+    #     tweetSet = self.find_multi(
+    #         author, keyword, hashtag, location, text, fromTime, toTime)
+    #     if len(tweetSet) == 0:
+    #         print("No Data")
+    #     else:
+    #         for i in range(len(tweetSet)):
+    #             print("No. ", i)
+    #         number = int(input("Please Type No. for remove "))
+    #         if number < 0:
+    #             print("Wrong Input")
+    #         elif number <= len(tweetSet)-1:
+    #             data = tweetSet[number]
 
-                query = {"tweet_author": data["tweet_author"],
-                         "keyword": data["keyword"],
-                         "hashtag": data["hashtag"],
-                         "tweet_location": data["tweet_location"],
-                         "text": data["text"],
-                         "tweet_create_at": data["tweet_create_at"]}
-                self.__db.find_one_and_delete(query)
-            else:
-                print("Wrong Input X")
+    #             query = {"tweet_author": data["tweet_author"],
+    #                      "keyword": data["keyword"],
+    #                      "hashtag": data["hashtag"],
+    #                      "tweet_location": data["tweet_location"],
+    #                      "text": data["text"],
+    #                      "tweet_create_at": data["tweet_create_at"]}
+    #             self.__db.find_one_and_delete(query)
+    #         else:
+    #             print("Wrong Input X")
 
     def splittime(self, time):
-        timeset = time.split(".")  # split text from dot and send it to list
-        timeset = [int(i) for i in timeset]  # change str to integer
-        return timeset
+        try:
+            timeset = time.split(".")  # split text from dot and send it to list
+            timeset = [int(i) for i in timeset]  # change str to integer
+            return timeset
+        except:
+            return "Bad Input"
 
     def connectToDB(self, database, collection):
         client = pymongo.MongoClient('localhost', 27017)
@@ -258,16 +261,16 @@ class PullTweetsData(QObject):
             thai_stopwords()) and " " not in word]
         return "/".join(result).rstrip()
 
-    def tokenize(self, d):
-        result = d.split("/")
-        result = list(filter(None, result))
-        return result
+    # def tokenize(self, d):
+    #     result = d.split("/")
+    #     result = list(filter(None, result))
+    #     return result
 
-    def prepared_Text(self, text_list):
-        new_text = []
-        for text in text_list:
-            new_text.append(self.preprocessText(text))
-        return new_text
+    # def prepared_Text(self, text_list):
+    #     new_text = []
+    #     for text in text_list:
+    #         new_text.append(self.preprocessText(text))
+    #     return new_text
 
 
 def pullTweetsTask():

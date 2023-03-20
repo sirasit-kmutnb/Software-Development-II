@@ -294,7 +294,7 @@ class main():
 
 
 if __name__ == "__main__":
-    print(main().topTrends())
+    # print(main().topTrends())
     # main().OneAnalyzer()
     # x = main().load_sample_tweets(hashtag="dek66")
     # dfMostWord = main().find_top_word.MostWordFinder(x)

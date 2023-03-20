@@ -49,7 +49,7 @@ class TestFindTweets(unittest.TestCase):
         self.mock_db.insert_many(self.dummy_tweets)
 
     def test_FindAuthor(self):
-        result = self.Puller.find_multi(author="anonymusk")
+        result = self.Puller.find_multi(author="anonymous3")
         self.assertEqual(result, [self.dummy_tweets[2]])
 
     def test_FindHashtag(self):
@@ -117,11 +117,11 @@ class TestFindTweets(unittest.TestCase):
 
         # find tweets by keyword, text and author
         result = self.Puller.find_multi(
-            author="anonymusk", keyword="dummy", text="Donec")
+            author="anonymous3", keyword="dummy", text="Donec")
         self.assertEqual(result, [self.dummy_tweets[2]])
 
         # find tweets by All Criteria
-        result = self.Puller.find_multi(author="anonymud", hashtag="#dummy", keyword="dummy",
+        result = self.Puller.find_multi(author="anonymous4", hashtag="#dummy", keyword="dummy",
                                         text="vel", fromtime="2022.1.1.19.10.0", totime="2023.1.1.0.0.0")
         self.assertEqual(result, [self.dummy_tweets[3]])
 
