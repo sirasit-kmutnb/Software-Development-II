@@ -323,7 +323,7 @@ QPushButton:checked {
           <item>
            <widget class="QStackedWidget" name="stackedWidget">
             <property name="currentIndex">
-             <number>0</number>
+             <number>2</number>
             </property>
             <widget class="QWidget" name="page_1">
              <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -1092,9 +1092,9 @@ QPushButton:checked {
                  <property name="geometry">
                   <rect>
                    <x>0</x>
-                   <y>0</y>
+                   <y>-706</y>
                    <width>657</width>
-                   <height>2244</height>
+                   <height>2286</height>
                   </rect>
                  </property>
                  <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -1529,6 +1529,12 @@ QPushButton:checked {
                   </item>
                   <item>
                    <widget class="QFrame" name="MostTenWord">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>400</height>
+                     </size>
+                    </property>
                     <property name="frameShape">
                      <enum>QFrame::StyledPanel</enum>
                     </property>
@@ -1560,8 +1566,8 @@ QPushButton:checked {
                        <property name="frameShadow">
                         <enum>QFrame::Raised</enum>
                        </property>
-                       <layout class="QVBoxLayout" name="verticalLayout_27">
-                        <item>
+                       <layout class="QGridLayout" name="gridLayout_2">
+                        <item row="0" column="0">
                          <widget class="QListWidget" name="MostTenListWidget">
                           <property name="minimumSize">
                            <size>

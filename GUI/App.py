@@ -290,10 +290,10 @@ class Connect_to_Function(Ui_MainWindow):
         self.MostTenListWidget.clear()
         print(dfMost10Word)
         
-        fontFamId = QtGui.QFontDatabase.addApplicationFont('SukhumvitSet-Medium.ttf')
-        fontFam = QtGui.QFontDatabase.applicationFontFamilies(fontFamId)[0]
+        # fontFamId = QtGui.QFontDatabase.addApplicationFont('SukhumvitSet-Medium.ttf')
+        # fontFam = QtGui.QFontDatabase.applicationFontFamilies(fontFamId)
 
-        font = QtGui.QFont(fontFam)
+        font = QtGui.QFont()
         font.setPointSize(14)
 
         for row in dfMost10Word.itertuples():
