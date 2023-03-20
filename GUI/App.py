@@ -65,7 +65,12 @@ class Connect_to_Function(Ui_MainWindow):
             print(isStartTimeNotReached)
             if isStartTimeNotReached:
                 self.progressBar_3.setVisible(True)
-                self.twitter_analyzer.pull_tweets.pullTweets(hashtag, 20000)
+                if hashtag:
+                    self.twitter_analyzer.pull_tweets.pullTweets(hashtag, 20000)
+                elif text:
+                    self.twitter_analyzer.pull_tweets.pullTweets(text, 20000)
+                elif keyword:
+                    self.twitter_analyzer.pull_tweets.pullTweets(keyword, 20000)
                 while self.progress < 100:
                     QtWidgets.QApplication.processEvents()
 
@@ -115,7 +120,7 @@ class Connect_to_Function(Ui_MainWindow):
 
         print(isinstance(text, str))
         self.twitter_analyzer.pull_tweets.remove_tweet_set(
-            author, "", hashtag, location, text, stime, etime)
+            author, keyword, hashtag, location, text, stime, etime)
 
     def on_analyze_clicked(self):
         hashtag = str(self.Hashtag_Search_2.text())
@@ -150,7 +155,12 @@ class Connect_to_Function(Ui_MainWindow):
             print(isStartTimeNotReached)
             if isStartTimeNotReached:
                 self.progressBar_2.setVisible(True)
-                self.twitter_analyzer.pull_tweets.pullTweets(hashtag, 20000)
+                if hashtag:
+                    self.twitter_analyzer.pull_tweets.pullTweets(hashtag, 20000)
+                elif text:
+                    self.twitter_analyzer.pull_tweets.pullTweets(text, 20000)
+                elif keyword:
+                    self.twitter_analyzer.pull_tweets.pullTweets(keyword, 20000)
                 while self.progress < 100:
                     QtWidgets.QApplication.processEvents()
 
