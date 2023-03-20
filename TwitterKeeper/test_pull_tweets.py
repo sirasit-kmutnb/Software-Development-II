@@ -4,7 +4,6 @@ from unittest.mock import MagicMock
 from Twitter_keeper import PullTweetsData
 import tweepy
 import threading
-from PyQt6.QtCore import QObject, pyqtSignal
 
 class TestPullTweetsData(unittest.TestCase):
 
