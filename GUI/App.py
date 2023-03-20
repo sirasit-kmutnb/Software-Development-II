@@ -1,5 +1,5 @@
 from ui_main1 import Ui_MainWindow
-from PyQt6 import QtCore, QtGui, QtWidgets ,QtWebEngineWidgets
+from PyQt6 import QtCore, QtGui, QtWidgets, QtWebEngineWidgets
 import os
 import sys
 # Get the directory containing the current script (i.e. script.py)
@@ -13,8 +13,8 @@ sys.path.append(parent_dir)
 utils_dir = os.path.abspath(os.path.join(parent_dir, 'TwitterKeeper'))
 sys.path.append(utils_dir)
 
-from Twitter_Analyzer import main
 from Twitter_keeper import PullTweetsData
+from Twitter_Analyzer import main
 
 
 class Connect_to_Function(Ui_MainWindow):
@@ -25,7 +25,7 @@ class Connect_to_Function(Ui_MainWindow):
         amount = self.Keyword_Pull_Field_2.text()
 
         # Call the pullTweets method with the values from Keyword_Pull_Field and Keyword_Pull_Field2 as arguments
-        self.twitter_analyzer.pull_tweets.pullTweets(query,amount)
+        self.twitter_analyzer.pull_tweets.pullTweets(query, amount)
         self.progressBar.setVisible(True)
         self.progressBar.setProperty("value", 0)
 
@@ -35,25 +35,65 @@ class Connect_to_Function(Ui_MainWindow):
         author = str(self.Author_Search.text())
         location = str(self.Location_Search.text())
         text = str(self.Text_Search.text())
+        keyword = str(self.Keyword_Search.text())
 
         if self.StartTime_Search_Date.isVisible():
-            stime = str(self.dateTimeToPointForm(self.StartTime_Search_Date.dateTime().toPyDateTime()))
-            etime = str(self.dateTimeToPointForm(self.EndTime_Search_Date.dateTime().toPyDateTime()))
+            stime = self.dateTimeToPointForm(
+                self.StartTime_Search_Date.dateTime().toPyDateTime())
+            etime = self.dateTimeToPointForm(
+                self.EndTime_Search_Date.dateTime().toPyDateTime())
+            sample_tweets = self.twitter_analyzer.load_sample_tweets(
+                author, keyword, hashtag, location, text, str(stime), str(etime))
+            sorted_list = sorted(
+                sample_tweets, key=lambda x: x['tweet_create_at'], reverse=False)
+
+            start_time = self.twitter_analyzer.pull_tweets.utc_to_local(
+                self.twitter_analyzer.pull_tweets.local_to_utc(self.StartTime_Search_Date.dateTime().toPyDateTime()))
+            # end_time = self.twitter_analyzer.pull_tweets.utc_to_local(self.twitter_analyzer.pull_tweets.local_to_utc(etime))
+
+            try:
+                recentTime = self.twitter_analyzer.pull_tweets.utc_to_local(
+                    sorted_list[0]['tweet_create_at'])
+            except:
+                recentTime = "No data, Please pull new tweets."
+            print(recentTime, start_time)
+
+            try:
+                isStartTimeNotReached = recentTime > start_time
+            except:
+                isStartTimeNotReached = False
+            print(isStartTimeNotReached)
+            if isStartTimeNotReached:
+                self.progressBar_3.setVisible(True)
+                self.twitter_analyzer.pull_tweets.pullTweets(hashtag, 20000)
+                while self.progress < 100:
+                    QtWidgets.QApplication.processEvents()
+
+            self.showSearchResult(author, hashtag, keyword,
+                                  location, text, str(stime), str(etime))
+
         else:
             stime = ""
             etime = ""
-        
-        print(isinstance(text,str))
-        results = self.twitter_analyzer.load_sample_tweets(author,"", hashtag, location, text, stime, etime)
-        print(results)
-        sorted_list = sorted(results, key=lambda x: x['tweet_create_at'])
+            self.showSearchResult(author, hashtag, keyword,
+                                  location, text, str(stime), str(etime))
+
+    def showSearchResult(self, author, hashtag, keyword, location, text, stime, etime):
+
+        results = self.twitter_analyzer.load_sample_tweets(
+            author, keyword, hashtag, location, text, stime, etime)
+        sorted_list = sorted(
+            results, key=lambda x: x['tweet_create_at'], reverse=False)
+        # stime = self.twitter_analyzer.pull_tweets.utc_to_local(self.twitter_analyzer.pull_tweets.local_to_utc(stime))
+        # etime = self.twitter_analyzer.pull_tweets.utc_to_local(self.twitter_analyzer.pull_tweets.local_to_utc(etime))
         self.listWidget_2.clear()
         for result in sorted_list:
             item = QtWidgets.QListWidgetItem()
-            item.setText(f"====================\n{ result['tweet_author']}\n {self.twitter_analyzer.pull_tweets.utc_to_local(result['tweet_create_at'])}\n ---------------------\n\n {result['text']}\n ====================")
+            item.setText(
+                f"====================\n{ result['tweet_author']}\n {self.twitter_analyzer.pull_tweets.utc_to_local(result['tweet_create_at'])}\n ---------------------\n\n {result['text']}\n ====================")
             self.listWidget_2.addItem(item)
 
-    def dateTimeToPointForm(self,datetime):
+    def dateTimeToPointForm(self, datetime):
         return f"{datetime.year}.{datetime.month}.{datetime.day}.{datetime.hour}.{datetime.minute}.{datetime.second}"
 
     def on_remove_clicked(self):
@@ -62,46 +102,83 @@ class Connect_to_Function(Ui_MainWindow):
         author = str(self.Author_Search.text())
         location = str(self.Location_Search.text())
         text = str(self.Text_Search.text())
+        keyword = str(self.Keyword_Search.text())
 
         if self.StartTime_Search_Date.isVisible():
-            stime = str(self.dateTimeToPointForm(self.StartTime_Search_Date.dateTime().toPyDateTime()))
-            etime = str(self.dateTimeToPointForm(self.EndTime_Search_Date.dateTime().toPyDateTime()))
+            stime = str(self.dateTimeToPointForm(
+                self.StartTime_Search_Date.dateTime().toPyDateTime()))
+            etime = str(self.dateTimeToPointForm(
+                self.EndTime_Search_Date.dateTime().toPyDateTime()))
         else:
             stime = ""
             etime = ""
-        
-        print(isinstance(text,str))
-        self.twitter_analyzer.pull_tweets.remove_tweet_set(author,"", hashtag, location, text, stime, etime)
+
+        print(isinstance(text, str))
+        self.twitter_analyzer.pull_tweets.remove_tweet_set(
+            author, "", hashtag, location, text, stime, etime)
 
     def on_analyze_clicked(self):
         hashtag = str(self.Hashtag_Search_2.text())
         author = str(self.Author_Search_2.text())
         location = str(self.Location_Search_2.text())
         text = str(self.Text_Search_2.text())
+        keyword = str(self.lineEdit.text())
 
         if self.StartTime_Search_Date1.isVisible():
-            stime = str(self.dateTimeToPointForm(self.StartTime_Search_Date1.dateTime().toPyDateTime()))
-            etime = str(self.dateTimeToPointForm(self.EndTime_Search_Date1.dateTime().toPyDateTime()))
+            stime = self.dateTimeToPointForm(
+                self.StartTime_Search_Date1.dateTime().toPyDateTime())
+            etime = self.dateTimeToPointForm(
+                self.EndTime_Search_Date1.dateTime().toPyDateTime())
+            sample_tweets = self.twitter_analyzer.load_sample_tweets(
+                author, hashtag, keyword, location, text, str(stime), str(etime))
+            sorted_list = sorted(
+                sample_tweets, key=lambda x: x['tweet_create_at'], reverse=False)
+
+            start_time = self.twitter_analyzer.pull_tweets.utc_to_local(
+                self.twitter_analyzer.pull_tweets.local_to_utc(self.StartTime_Search_Date1.dateTime().toPyDateTime()))
+            # end_time = self.twitter_analyzer.pull_tweets.utc_to_local(self.twitter_analyzer.pull_tweets.local_to_utc(etime))
+
+            try:
+                recentTime = self.twitter_analyzer.pull_tweets.utc_to_local(
+                    sorted_list[0]['tweet_create_at'])
+            except:
+                recentTime = "No data, Please pull new tweets."
+            try:
+                isStartTimeNotReached = recentTime > start_time
+            except:
+                isStartTimeNotReached = False
+            print(isStartTimeNotReached)
+            if isStartTimeNotReached:
+                self.progressBar_2.setVisible(True)
+                self.twitter_analyzer.pull_tweets.pullTweets(hashtag, 20000)
+                while self.progress < 100:
+                    QtWidgets.QApplication.processEvents()
+
+            self.analyze_tweets(author, hashtag, keyword, location,
+                                text, str(stime), str(etime))
+
         else:
             stime = ""
             etime = ""
+            self.analyze_tweets(author, hashtag, keyword, location,
+                                text, str(stime), str(etime))
 
-        results = self.twitter_analyzer.load_sample_tweets(author,hashtag, "", location, text, stime, etime)
-        dfSentiment = self.twitter_analyzer.tweets_sentiment_analyzer(results)
-        figPie = self.twitter_analyzer.SentimentPiePlot(dfSentiment)
+        # results = self.twitter_analyzer.load_sample_tweets(author,hashtag, "", location, text, stime, etime)
+        # dfSentiment = self.twitter_analyzer.tweets_sentiment_analyzer(results)
+        # figPie = self.twitter_analyzer.SentimentPiePlot(dfSentiment)
 
-        dfMostWord = self.twitter_analyzer.find_top_word.MostWordFinder(results)
-        self.twitter_analyzer.find_top_word.WordCloudPlot(dfMostWord)
+        # dfMostWord = self.twitter_analyzer.find_top_word.MostWordFinder(results)
+        # self.twitter_analyzer.find_top_word.WordCloudPlot(dfMostWord)
         # image = self.twitter_analyzer.find_top_word.WordCloudPlot(dfMostWord)
-        figSpatial = self.twitter_analyzer.spatialPloting(results)
+        # figSpatial = self.twitter_analyzer.spatialPloting(results)
 
-        plot_widget = QtWebEngineWidgets.QWebEngineView(self.Sentiment)
-        plot_widget.setHtml(figPie.to_html(include_plotlyjs='cdn'))
-        plot_widget.setGeometry(0, 0, self.Sentiment.width(), self.Sentiment.height())
+        # plot_widget = QtWebEngineWidgets.QWebEngineView(self.Sentiment)
+        # plot_widget.setHtml(figPie.to_html(include_plotlyjs='cdn'))
+        # plot_widget.setGeometry(0, 0, self.Sentiment.width(), self.Sentiment.height())
 
         # pixmap = QtGui.QPixmap()
         # pixmap.fromImage(image)
-        
+
         # pixmap = QtGui.QPixmap('wordcloud.png')
         # self.wordcloud_label.setPixmap(pixmap)
         # Create a QLabel to display the generated image
@@ -109,32 +186,32 @@ class Connect_to_Function(Ui_MainWindow):
         # label.setPixmap(pixmap)
         # label.setGeometry(0, 0, self.WordCloud.width(), self.WordCloud.height())
         # self.WordCloud.setStyleSheet(f"background-image: url({pixmap});")
-        plot_widget2 = QtWebEngineWidgets.QWebEngineView(self.WordCloud)
+        # plot_widget2 = QtWebEngineWidgets.QWebEngineView(self.WordCloud)
         # plot_widget2.setHtml(f"<html><body><img src=\"wordcloud.png\" /></body></html>")
-        plot_widget2.setGeometry(0, 0, self.WordCloud.width(), self.WordCloud.height())
+        # plot_widget2.setGeometry(0, 0, self.WordCloud.width(), self.WordCloud.height())
 
-        plot_widget2.load(QtCore.QUrl.fromLocalFile(f"{this_dir}/wordcloud.png"))
+        # plot_widget2.load(QtCore.QUrl.fromLocalFile(f"{this_dir}/wordcloud.png"))
 
-        plot_widget3 = QtWebEngineWidgets.QWebEngineView(self.frame_6)
-        plot_widget3.setHtml(figSpatial.to_html(include_plotlyjs='cdn'))
-        plot_widget3.setZoomFactor(0.75)
-        plot_widget3.setGeometry(0, 0, self.frame_6.width(), self.frame_6.height())
+        # plot_widget3 = QtWebEngineWidgets.QWebEngineView(self.frame_6)
+        # plot_widget3.setHtml(figSpatial.to_html(include_plotlyjs='cdn'))
+        # plot_widget3.setZoomFactor(0.75)
+        # plot_widget3.setGeometry(0, 0, self.frame_6.width(), self.frame_6.height())
 
         # self.WordCloudCanvas.figure = figWordCloud
         # self.WordCloudCanvas.draw()
 
-        plot_widget2.show()
-        plot_widget.show()
-        plot_widget3.show()
-        
+        # plot_widget2.show()
+        # plot_widget.show()
+        # plot_widget3.show()
+
     # def update_wordcloud_frame(self, df):
     #     # Call the WordCloudPlot function to get the image
     #     image = self.twitter_analyzer.find_top_word.WordCloudPlot(dfMostWord)
-        
+
     #     # Create a QPixmap from the image bytes
     #     pixmap = QtGui.QPixmap()
     #     pixmap.loadFromData(image)
-        
+
     #     # Set the pixmap as the background of the WordCloud frame
     #     self.WordCloud.setStyleSheet(f"background-image: url({pixmap.toImage()});")
     def on_trends_clicked(self):
@@ -143,11 +220,11 @@ class Connect_to_Function(Ui_MainWindow):
         print(trends)
         font = QtGui.QFont()
         font.setPointSize(14)
-        
+
         for result in trends:
             item = QtWidgets.QListWidgetItem()
             tweet_volumn = result['tweet_volume']
-            if (tweet_volumn>=1000):
+            if (tweet_volumn >= 1000):
                 tweet_volumn = round(tweet_volumn/1000, 1)
                 tweet_volumn_text = f"{tweet_volumn}K"
             else:
@@ -187,47 +264,55 @@ class Connect_to_Function(Ui_MainWindow):
 
         self.analyze_tweets(hashtag)
 
-    def analyze_tweets(self, hashtag):
+    def analyze_tweets(self, author, hashtag, keyword, location, text, stime, etime):
         # load the sample tweets and perform sentiment analysis
-        results = self.twitter_analyzer.load_sample_tweets(keyword=hashtag)
+        results = self.twitter_analyzer.load_sample_tweets(
+            author, hashtag, keyword, location, text, stime, etime)
         dfSentiment = self.twitter_analyzer.tweets_sentiment_analyzer(results)
         figPie = self.twitter_analyzer.SentimentPiePlot(dfSentiment)
 
         # find the top words and create a word cloud
-        dfMostWord = self.twitter_analyzer.find_top_word.MostWordFinder(results)
+        dfMostWord = self.twitter_analyzer.find_top_word.MostWordFinder(
+            results)
         self.twitter_analyzer.find_top_word.WordCloudPlot(dfMostWord)
         plot_widget2 = QtWebEngineWidgets.QWebEngineView(self.WordCloud)
-        plot_widget2.setGeometry(0, 0, self.WordCloud.width(), self.WordCloud.height())
-        plot_widget2.load(QtCore.QUrl.fromLocalFile(f"{this_dir}/wordcloud.png"))
+        plot_widget2.setGeometry(
+            0, 0, self.WordCloud.width(), self.WordCloud.height())
+        plot_widget2.load(QtCore.QUrl.fromLocalFile(
+            f"{this_dir}/wordcloud.png"))
 
         # create a spatial plot of the tweets
         figSpatial = self.twitter_analyzer.spatialPloting(results)
         plot_widget3 = QtWebEngineWidgets.QWebEngineView(self.frame_6)
         plot_widget3.setHtml(figSpatial.to_html(include_plotlyjs='cdn'))
         plot_widget3.setZoomFactor(0.75)
-        plot_widget3.setGeometry(0, 0, self.frame_6.width(), self.frame_6.height())
+        plot_widget3.setGeometry(
+            0, 0, self.frame_6.width(), self.frame_6.height())
 
         # display the sentiment pie chart
         plot_widget = QtWebEngineWidgets.QWebEngineView(self.Sentiment)
         plot_widget.setHtml(figPie.to_html(include_plotlyjs='cdn'))
-        plot_widget.setGeometry(0, 0, self.Sentiment.width(), self.Sentiment.height())
-        
+        plot_widget.setGeometry(
+            0, 0, self.Sentiment.width(), self.Sentiment.height())
+
         # show the plots
         plot_widget2.show()
         plot_widget.show()
         plot_widget3.show()
-        
+
     def update_progress_bar(self, progress):
         self.progressBar.setValue(progress)
         self.progressBar_2.setValue(progress)
+        self.progressBar_3.setValue(progress)
         if progress == 100:
             self.progressBar.setVisible(False)
             self.progressBar_2.setVisible(False)
-    
-    def get_progress(self,progress):
+            self.progressBar_3.setVisible(False)
+
+    def get_progress(self, progress):
         self.progress = progress
 
-    def toggleSearchDate(self,state):
+    def toggleSearchDate(self, state):
         if state == 2:
             self.StartTime_Search_Date.setVisible(True)
             self.EndTime_Search_Date.setVisible(True)
@@ -239,7 +324,7 @@ class Connect_to_Function(Ui_MainWindow):
             self.StartTime_Label.setVisible(False)
             self.EndTime_Label.setVisible(False)
 
-    def toggleSearchDate1(self,state):
+    def toggleSearchDate1(self, state):
         if state == 2:
             self.StartTime_Search_Date1.setVisible(True)
             self.EndTime_Search_Date1.setVisible(True)
@@ -251,7 +336,6 @@ class Connect_to_Function(Ui_MainWindow):
             self.StartTime_Label2.setVisible(False)
             self.EndTime_Label2.setVisible(False)
 
-        
 
 if __name__ == "__main__":
     import sys
@@ -261,9 +345,12 @@ if __name__ == "__main__":
     ui.setupUi(MainWindow)
     ui.twitter_analyzer = main()
     ui.progress = 0
-    ui.PullTweet_Field.clicked.connect(ui.on_pull_tweets_button_clicked) # connected to pullTweets
-    ui.twitter_analyzer.pull_tweets.update_progress_bar.connect(ui.update_progress_bar) # connected to progress of pullTweets
-    ui.twitter_analyzer.pull_tweets.update_progress_bar.connect(ui.get_progress)
+    ui.PullTweet_Field.clicked.connect(
+        ui.on_pull_tweets_button_clicked)  # connected to pullTweets
+    ui.twitter_analyzer.pull_tweets.update_progress_bar.connect(
+        ui.update_progress_bar)  # connected to progress of pullTweets
+    ui.twitter_analyzer.pull_tweets.update_progress_bar.connect(
+        ui.get_progress)
 
     ui.timeSearch_Check.stateChanged.connect(ui.toggleSearchDate)
     ui.timeSearch_Check.stateChanged.connect(ui.toggleSearchDate)

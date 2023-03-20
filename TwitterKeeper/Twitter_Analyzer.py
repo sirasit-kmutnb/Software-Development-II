@@ -162,7 +162,21 @@ class main():
 
     def load_sample_tweets(self, author="", keyword="", hashtag="", location="", text="", fromTime="", toTime=""):
         print(f"You called load_sample_tweets with {author, keyword, hashtag, location, text, fromTime, toTime}")
-        return self.pull_tweets.find_multi(author, keyword, hashtag, location, text, fromTime, toTime)
+        results = self.pull_tweets.find_multi(author, keyword, hashtag, location, text, fromTime, toTime)
+        # sorted_list = sorted(results, key=lambda x: x['tweet_create_at'],reverse=False)
+        # try:
+        #     recentTime = self.pull_tweets.utc_to_local(sorted_list[0]['tweet_create_at'])
+        # except:
+        #     recentTime = "No data, Pulling new tweets."
+        # startTime = self.pull_tweets.utc_to_local(self.pull_tweets.local_to_utc(fromTime))
+        # try:
+        #     isStartTimeNotReached = recentTime > startTime
+        # except:
+        #     isStartTimeNotReached = False
+        # if isStartTimeNotReached:
+        #     self.pull_tweets.pullTweets(query=hashtag,amount=20000)
+
+        return results
 
     def tweets_find_top_word(self, author="", keyword="", hashtag="", location="", text="", fromTime="", toTime=""):
         tweets_list = self.pull_tweets.prepared_Text(self.load_sample_tweets(
