@@ -323,7 +323,7 @@ QPushButton:checked {
           <item>
            <widget class="QStackedWidget" name="stackedWidget">
             <property name="currentIndex">
-             <number>0</number>
+             <number>1</number>
             </property>
             <widget class="QWidget" name="page_1">
              <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -579,7 +579,7 @@ QPushButton:checked {
                        <string notr="true">color:#FFF;</string>
                       </property>
                       <property name="text">
-                       <string>Hashtag : #Text, Author, Location, Text : Text</string>
+                       <string>Hashtag : #Text, Author, Location, Keyword, Text : Text</string>
                       </property>
                      </widget>
                     </item>
@@ -600,7 +600,7 @@ QPushButton:checked {
                        <string notr="true">color:#FFF;</string>
                       </property>
                       <property name="text">
-                       <string>Start Time, End Time : year.month.day.hour.minute.second, For Ex 2023,1,31,14,59,21</string>
+                       <string>Start Time, End Time : Number</string>
                       </property>
                      </widget>
                     </item>
@@ -728,6 +728,22 @@ QPushButton:checked {
                            </widget>
                           </item>
                           <item>
+                           <widget class="QCheckBox" name="timeSearch_Check">
+                            <property name="minimumSize">
+                             <size>
+                              <width>0</width>
+                              <height>30</height>
+                             </size>
+                            </property>
+                            <property name="styleSheet">
+                             <string notr="true">color: #FFF;</string>
+                            </property>
+                            <property name="text">
+                             <string>Time Search</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
                            <widget class="QLabel" name="StartTime_Label">
                             <property name="styleSheet">
                              <string notr="true">color: #FFF;</string>
@@ -774,22 +790,6 @@ padding-right: 20px;</string>
                             </property>
                             <property name="displayFormat">
                              <string>d/M/yyyy  HH:mm:ss</string>
-                            </property>
-                           </widget>
-                          </item>
-                          <item>
-                           <widget class="QCheckBox" name="timeSearch_Check">
-                            <property name="minimumSize">
-                             <size>
-                              <width>0</width>
-                              <height>30</height>
-                             </size>
-                            </property>
-                            <property name="styleSheet">
-                             <string notr="true">color: #FFF;</string>
-                            </property>
-                            <property name="text">
-                             <string>Time Search</string>
                             </property>
                            </widget>
                           </item>
@@ -862,6 +862,34 @@ padding-right: 20px;</string>
                            </widget>
                           </item>
                           <item>
+                           <widget class="QLineEdit" name="Keyword_Search">
+                            <property name="minimumSize">
+                             <size>
+                              <width>240</width>
+                              <height>30</height>
+                             </size>
+                            </property>
+                            <property name="maximumSize">
+                             <size>
+                              <width>240</width>
+                              <height>30</height>
+                             </size>
+                            </property>
+                            <property name="styleSheet">
+                             <string notr="true">QLineEdit {
+	border: 2px solid rgb(37,39,48);
+	border-radius: 50px;
+	color: #FFF;
+	padding-left: 20px;
+	padding-right: 20px;
+}</string>
+                            </property>
+                            <property name="placeholderText">
+                             <string>Keyword</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
                            <widget class="QLabel" name="EndTime_Label">
                             <property name="styleSheet">
                              <string notr="true">color: #FFF;</string>
@@ -888,22 +916,6 @@ padding-right: 20px;</string>
                             </property>
                             <property name="displayFormat">
                              <string>d/M/yyyy  HH:mm:ss</string>
-                            </property>
-                           </widget>
-                          </item>
-                          <item>
-                           <widget class="QFrame" name="EmptyFrame">
-                            <property name="minimumSize">
-                             <size>
-                              <width>0</width>
-                              <height>0</height>
-                             </size>
-                            </property>
-                            <property name="frameShape">
-                             <enum>QFrame::StyledPanel</enum>
-                            </property>
-                            <property name="frameShadow">
-                             <enum>QFrame::Raised</enum>
                             </property>
                            </widget>
                           </item>
@@ -1055,7 +1067,7 @@ QPushButton:checked {
                    <x>0</x>
                    <y>0</y>
                    <width>657</width>
-                   <height>2237</height>
+                   <height>2244</height>
                   </rect>
                  </property>
                  <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -1143,6 +1155,22 @@ QPushButton:checked {
                             </widget>
                            </item>
                            <item>
+                            <widget class="QCheckBox" name="timeSearch_Check1">
+                             <property name="minimumSize">
+                              <size>
+                               <width>0</width>
+                               <height>30</height>
+                              </size>
+                             </property>
+                             <property name="styleSheet">
+                              <string notr="true">color: #FFF;</string>
+                             </property>
+                             <property name="text">
+                              <string>Time Search</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
                             <widget class="QLabel" name="StartTime_Label2">
                              <property name="styleSheet">
                               <string notr="true">color: #FFF;</string>
@@ -1169,22 +1197,6 @@ padding-right: 20px;</string>
                              </property>
                              <property name="displayFormat">
                               <string>d/M/yyyy  HH:mm:ss</string>
-                             </property>
-                            </widget>
-                           </item>
-                           <item>
-                            <widget class="QCheckBox" name="timeSearch_Check1">
-                             <property name="minimumSize">
-                              <size>
-                               <width>0</width>
-                               <height>30</height>
-                              </size>
-                             </property>
-                             <property name="styleSheet">
-                              <string notr="true">color: #FFF;</string>
-                             </property>
-                             <property name="text">
-                              <string>Time Search</string>
                              </property>
                             </widget>
                            </item>
@@ -1257,6 +1269,34 @@ padding-right: 20px;</string>
                             </widget>
                            </item>
                            <item>
+                            <widget class="QLineEdit" name="lineEdit">
+                             <property name="minimumSize">
+                              <size>
+                               <width>240</width>
+                               <height>30</height>
+                              </size>
+                             </property>
+                             <property name="maximumSize">
+                              <size>
+                               <width>240</width>
+                               <height>30</height>
+                              </size>
+                             </property>
+                             <property name="styleSheet">
+                              <string notr="true">QLineEdit {
+	border: 2px solid rgb(37,39,48);
+	border-radius: 50px;
+	color: #FFF;
+	padding-left: 20px;
+	padding-right: 20px;
+}</string>
+                             </property>
+                             <property name="placeholderText">
+                              <string>Keyword</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
                             <widget class="QLabel" name="EndTime_Label2">
                              <property name="styleSheet">
                               <string notr="true">color: #FFF;</string>
@@ -1283,16 +1323,6 @@ padding-right: 20px;</string>
                              </property>
                              <property name="displayFormat">
                               <string>d/M/yyyy  HH:mm:ss</string>
-                             </property>
-                            </widget>
-                           </item>
-                           <item>
-                            <widget class="QFrame" name="frame_14">
-                             <property name="frameShape">
-                              <enum>QFrame::StyledPanel</enum>
-                             </property>
-                             <property name="frameShadow">
-                              <enum>QFrame::Raised</enum>
                              </property>
                             </widget>
                            </item>
