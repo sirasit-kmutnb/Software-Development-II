@@ -46,8 +46,9 @@ class Connect_to_Function(Ui_MainWindow):
         print(isinstance(text,str))
         results = self.twitter_analyzer.load_sample_tweets(author,"", hashtag, location, text, stime, etime)
         print(results)
+        sorted_list = sorted(results, key=lambda x: x['tweet_create_at'])
         self.listWidget_2.clear()
-        for result in results:
+        for result in sorted_list:
             item = QtWidgets.QListWidgetItem()
             item.setText(f"====================\n{ result['tweet_author']}\n {self.twitter_analyzer.pull_tweets.utc_to_local(result['tweet_create_at'])}\n ---------------------\n\n {result['text']}\n ====================")
             self.listWidget_2.addItem(item)

@@ -40,8 +40,18 @@ class FindTopWord(PullTweetsData):
         keyword_df1['word'] = vectorizer.get_feature_names_out()
         # print(vectorizer.get_feature_names_out())
         keyword_df1['count'] = np.ravel(transformed_data.sum(axis=0))
-        keyword_df1.sort_values(by=['count'], ascending=False).head(10)
+        newdf = keyword_df1.sort_values(by=['count'], ascending=False).head(10)
         return keyword_df1
+    
+    def Most10WordFinder(self, tweets_list):
+        vectorizer = CountVectorizer(tokenizer=self.tokenize)
+        transformed_data = vectorizer.fit_transform(self.prepared_Text(tweets_list))
+        keyword_df1 = pd.DataFrame(columns=['word', 'count'])
+        keyword_df1['word'] = vectorizer.get_feature_names_out()
+        # print(vectorizer.get_feature_names_out())
+        keyword_df1['count'] = np.ravel(transformed_data.sum(axis=0))
+        newdf = keyword_df1.sort_values(by=['count'], ascending=False).head(10)
+        return newdf
     
     def WordCloudPlot(self,df):
         word_dict = {}
@@ -296,8 +306,9 @@ class main():
 if __name__ == "__main__":
     # print(main().topTrends())
     # main().OneAnalyzer()
-    # x = main().load_sample_tweets(hashtag="dek66")
-    # dfMostWord = main().find_top_word.MostWordFinder(x)
+    x = main().load_sample_tweets(hashtag="dek66")
+    dfMostWord = main().find_top_word.MostWordFinder(x)
+    print(dfMostWord)
     # main().find_top_word.WordCloudPlot(dfMostWord)
     # df = main().tweets_sentiment_analyzer(x)
     # main().SentimentPiePlot(df)
