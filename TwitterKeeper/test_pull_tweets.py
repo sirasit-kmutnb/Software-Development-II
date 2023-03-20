@@ -1,5 +1,4 @@
 import unittest
-import tweepy
 from unittest.mock import MagicMock
 from Twitter_keeper import PullTweetsData
 import tweepy

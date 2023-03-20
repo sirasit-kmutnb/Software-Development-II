@@ -152,7 +152,6 @@ class main():
         self.database = "twitter_keeper"
         self.collection = "tweets"
         self.find_top_word = FindTopWord()
-        self.sentiment_analyze = SentimentAnalyze()
         self.pull_tweets = PullTweetsData()
         self.pull_tweets.getAccessToAPI(api_key, api_key_secret)
         self.pull_tweets.setUserAuthentication(
@@ -184,6 +183,7 @@ class main():
         return self.find_top_word.MostWordFinder(tweets_list)
 
     def tweets_sentiment_analyzer(self, tweets_list):
+        self.sentiment_analyze = SentimentAnalyze()
         self.sentiment_analyze.training_model()
         acc = self.sentiment_analyze.evaluating_model()
         df = pd.DataFrame({'text': [], 'sentiment': []})
@@ -211,13 +211,15 @@ class main():
     def topTrends(self):
         trends = self.pull_tweets._PullTweetsData__api.get_place_trends(
             self.WOEID)
-        # trends = self.getAPI.get_place_trends(
-        #     self.WOEID)
         top50 = trends[0]['trends']
         new_list = [d for d in top50 if d.get('tweet_volume') != None]
         sorted_list = sorted(
             new_list, key=lambda x: x['tweet_volume'], reverse=True)
-        top10 = sorted_list[0:20]
+        if len(top50) >= 20:
+            top10 = sorted_list[0:20]
+            print(len(top10))
+        else:
+            top10 = sorted_list[0:len(top50)]
         return top10
 
     def spatialPloting(self, tw_list):
@@ -318,7 +320,7 @@ class main():
 
 
 if __name__ == "__main__":
-    # print(main().topTrends())
+    print(main().topTrends())
     # main().OneAnalyzer()
     # x = main().load_sample_tweets(hashtag="dek66")
     # dfMostWord = main().find_top_word.MostWordFinder(x)
