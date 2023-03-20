@@ -217,8 +217,8 @@ class Ui_MainWindow(object):
         self.progressBar.setMinimumSize(QtCore.QSize(0, 30))
         self.progressBar.setProperty("value", 0)
         self.progressBar.setTextVisible(True)
-        self.progressBar.setVisible(False)
         self.progressBar.setObjectName("progressBar")
+        self.progressBar.setVisible(False)
         self.horizontalLayout_6.addWidget(self.progressBar)
         self.verticalLayout_21.addWidget(self.frame_11)
         self.verticalLayout_19.addWidget(self.frame_5)
@@ -322,7 +322,6 @@ class Ui_MainWindow(object):
 "    padding-left: 20px;\n"
 "    padding-right: 20px;\n"
 "}")
-        
         self.Location_Search.setObjectName("Location_Search")
         self.verticalLayout_15.addWidget(self.Location_Search)
         self.timeSearch_Check = QtWidgets.QCheckBox(parent=self.frame_4)
@@ -447,6 +446,19 @@ class Ui_MainWindow(object):
         self.Remove.setObjectName("Remove")
         self.horizontalLayout_5.addWidget(self.Remove)
         self.verticalLayout_14.addWidget(self.Search_Button)
+        self.PullData_Label = QtWidgets.QLabel(parent=self.Search_Frame_2)
+        self.PullData_Label.setStyleSheet("color: #FFF;")
+        self.PullData_Label.setObjectName("PullData_Label")
+        self.verticalLayout_14.addWidget(self.PullData_Label)
+        self.progressBar_3 = QtWidgets.QProgressBar(parent=self.Search_Frame_2)
+        self.progressBar_3.setProperty("value", 0)
+        self.progressBar_3.setObjectName("progressBar_3")
+        self.verticalLayout_14.addWidget(self.progressBar_3)
+        self.frame_14 = QtWidgets.QFrame(parent=self.Search_Frame_2)
+        self.frame_14.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
+        self.frame_14.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
+        self.frame_14.setObjectName("frame_14")
+        self.verticalLayout_14.addWidget(self.frame_14)
         self.verticalLayout_18.addWidget(self.Search_Frame_2)
         self.Search_List = QtWidgets.QFrame(parent=self.frame)
         self.Search_List.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
@@ -773,7 +785,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -804,6 +816,7 @@ class Ui_MainWindow(object):
         self.EndTime_Search_Date.setDisplayFormat(_translate("MainWindow", "d/M/yyyy  HH:mm:ss"))
         self.Search.setText(_translate("MainWindow", "Search"))
         self.Remove.setText(_translate("MainWindow", "Remove"))
+        self.PullData_Label.setText(_translate("MainWindow", "Pull Datas"))
         self.Hashtag_Search_2.setPlaceholderText(_translate("MainWindow", "Hashtag"))
         self.Location_Search_2.setPlaceholderText(_translate("MainWindow", "Location"))
         self.timeSearch_Check1.setText(_translate("MainWindow", "Time Search"))

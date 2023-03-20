@@ -275,19 +275,19 @@ class main():
         return fig
   
 
-    def OneAnalyzer(self):
-        top10 = self.topTrends()
-        for i in range(len(top10)):
-            print("Number", i, "=>", top10[i]["name"])
-        selectNumber = int(
-            input("Please select Number to pull and analyze : "))
-        selectOne = top10[selectNumber]
-        # print(selectOne)
-        objectSelectName = selectOne["name"]
-        # print(objectSelectName)
-        self.pull_tweets.pullTweets(objectSelectName, 100)
-        df = self.tweets_sentiment_analyzer(keyword=objectSelectName)
-        print(df)
+    # def OneAnalyzer(self):
+    #     top10 = self.topTrends()
+    #     for i in range(len(top10)):
+    #         print("Number", i, "=>", top10[i]["name"])
+    #     selectNumber = int(
+    #         input("Please select Number to pull and analyze : "))
+    #     selectOne = top10[selectNumber]
+    #     # print(selectOne)
+    #     objectSelectName = selectOne["name"]
+    #     # print(objectSelectName)
+    #     self.pull_tweets.pullTweets(objectSelectName, 100)
+    #     df = self.tweets_sentiment_analyzer(keyword=objectSelectName)
+    #     print(df)
 
     # def top10Analyzer(self):
     #     top10 = self.topTrends()

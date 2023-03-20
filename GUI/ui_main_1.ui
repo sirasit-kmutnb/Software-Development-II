@@ -991,6 +991,33 @@ QPushButton:checked {
                       </layout>
                      </widget>
                     </item>
+                    <item>
+                     <widget class="QLabel" name="PullData_Label">
+                      <property name="styleSheet">
+                       <string notr="true">color: #FFF;</string>
+                      </property>
+                      <property name="text">
+                       <string>Pull Datas</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QProgressBar" name="progressBar_3">
+                      <property name="value">
+                       <number>0</number>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QFrame" name="frame_14">
+                      <property name="frameShape">
+                       <enum>QFrame::StyledPanel</enum>
+                      </property>
+                      <property name="frameShadow">
+                       <enum>QFrame::Raised</enum>
+                      </property>
+                     </widget>
+                    </item>
                    </layout>
                   </widget>
                  </item>
