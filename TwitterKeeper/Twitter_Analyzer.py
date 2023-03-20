@@ -320,9 +320,9 @@ class main():
 if __name__ == "__main__":
     # print(main().topTrends())
     # main().OneAnalyzer()
-    x = main().load_sample_tweets(hashtag="dek66")
-    dfMostWord = main().find_top_word.MostWordFinder(x)
-    print(dfMostWord)
+    # x = main().load_sample_tweets(hashtag="dek66")
+    # dfMostWord = main().find_top_word.MostWordFinder(x)
+    # print(dfMostWord)
     # main().find_top_word.WordCloudPlot(dfMostWord)
     # df = main().tweets_sentiment_analyzer(x)
     # main().SentimentPiePlot(df)
