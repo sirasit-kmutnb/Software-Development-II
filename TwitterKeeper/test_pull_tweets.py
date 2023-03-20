@@ -3,9 +3,8 @@ import tweepy
 from unittest.mock import MagicMock
 from Twitter_keeper import PullTweetsData
 import tweepy
-from datetime import datetime
-from dateutil import tz
-import pytz
+import threading
+from PyQt6.QtCore import QObject, pyqtSignal
 
 class TestPullTweetsData(unittest.TestCase):
 
@@ -13,20 +12,22 @@ class TestPullTweetsData(unittest.TestCase):
         self.A = tweepy.Cursor
         self.B = PullTweetsData.getHashtag
         tweepy.Cursor = MagicMock()
+        self.MockItems = MagicMock()
+        tweepy.Cursor.return_value = self.MockItems
         PullTweetsData.createDictData = MagicMock()
         PullTweetsData.getHashtag = MagicMock()
         PullTweetsData.getHashtag.return_value = "#hashtag1#hashtag2"
-        datetime.strptime = MagicMock()
-        mock_dt_utc = MagicMock()
-        datetime.strptime.return_value = mock_dt_utc
-        tz.tzlocal = MagicMock()
-        mock_dt_utc.astimezone.return_value = datetime(2022, 1, 1, 12, 0, 0, tzinfo=pytz.UTC)
+        threading.Thread = MagicMock()
+        PullTweetsData.saveTweetsDict = MagicMock()
+        tweepy.API = MagicMock()
+
 
     def tearDown(self):
         tweepy.Cursor = self.A
         PullTweetsData.getHashtag = self.B
 
     def test_pull_tweets(self):
+        tweet = PullTweetsData()
         query = '#hashtag'
         amount = 1
         mock_tweet = MagicMock()
@@ -36,17 +37,13 @@ class TestPullTweetsData(unittest.TestCase):
         mock_tweet.user.location = 'test_location'
         mock_tweet.retweeted_status.full_text = 'test_text'
         mock_tweet.full_text = 'test_text'
-        tweepy.Cursor.return_value = [mock_tweet]
-        PullTweetsData.pullTweetsThread(query, amount)
-        PullTweetsData.createDictData.assert_called_once_with('test_user', datetime(2022, 1, 1, 12, 0, 0, tzinfo=pytz.UTC), 'test_location', )
-
-
-
-
-
-        
-
-
+        self.MockItems.items.return_value = [mock_tweet]
+        # tweepy.Cursor.return_value = [mock_tweet]
+        tweet.getTwitterAPI()
+        tweet.pullTweetsThread(query, amount)
+        PullTweetsData.getHashtag.assert_called_once()
+        PullTweetsData.createDictData.assert_called_once_with('test_user', '2022-01-01 12:00:00+00:00', 'test_location', "#hashtag1#hashtag2", "#hashtag", "test_text")
+        PullTweetsData.saveTweetsDict.assert_called_once()
 
 if __name__ == "__main__":
     unittest.main()

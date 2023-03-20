@@ -250,6 +250,17 @@ class Connect_to_Function(Ui_MainWindow):
             self.EndTime_Search_Date1.setVisible(False)
             self.StartTime_Label2.setVisible(False)
             self.EndTime_Label2.setVisible(False)
+    
+    def hideTimeSearch(self):
+        self.StartTime_Search_Date.setVisible(False)
+        self.EndTime_Search_Date.setVisible(False)
+        self.StartTime_Label.setVisible(False)
+        self.EndTime_Label.setVisible(False)
+        self.StartTime_Search_Date1.setVisible(False)
+        self.EndTime_Search_Date1.setVisible(False)
+        self.StartTime_Label2.setVisible(False)
+        self.EndTime_Label2.setVisible(False)
+        self.progressBar.setVisible(False)
 
         
 
@@ -275,6 +286,7 @@ if __name__ == "__main__":
     ui.Search_Trend.clicked.connect(ui.on_analyze_clicked)
     ui.PullTweet_Field_3.clicked.connect(ui.on_trends_clicked)
     ui.Analyze_Selected_List.clicked.connect(ui.on_analyze_selected_clicked)
+    ui.hideTimeSearch()
     # PAGE 1
     ui.Home_Page.clicked.connect(
         lambda: ui.stackedWidget.setCurrentWidget(ui.page_1))

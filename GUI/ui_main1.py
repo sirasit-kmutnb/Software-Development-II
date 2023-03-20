@@ -218,7 +218,6 @@ class Ui_MainWindow(object):
         self.progressBar.setProperty("value", 0)
         self.progressBar.setTextVisible(True)
         self.progressBar.setObjectName("progressBar")
-        self.progressBar.setVisible(False)
         self.horizontalLayout_6.addWidget(self.progressBar)
         self.verticalLayout_21.addWidget(self.frame_11)
         self.verticalLayout_19.addWidget(self.frame_5)
@@ -400,10 +399,6 @@ class Ui_MainWindow(object):
 "padding-left: 20px;\n"
 "padding-right: 20px;")
         self.EndTime_Search_Date.setObjectName("EndTime_Search_Date")
-        self.StartTime_Search_Date.setVisible(False)
-        self.EndTime_Search_Date.setVisible(False)
-        self.StartTime_Label.setVisible(False)
-        self.EndTime_Label.setVisible(False)
         self.verticalLayout_16.addWidget(self.EndTime_Search_Date)
         self.horizontalLayout_4.addWidget(self.frame_9)
         self.verticalLayout_14.addWidget(self.Search_Analyze_Field_2)
@@ -606,10 +601,6 @@ class Ui_MainWindow(object):
 "padding-left: 20px;\n"
 "padding-right: 20px;")
         self.EndTime_Search_Date1.setObjectName("EndTime_Search_Date1")
-        self.StartTime_Search_Date1.setVisible(False)
-        self.EndTime_Search_Date1.setVisible(False)
-        self.StartTime_Label2.setVisible(False)
-        self.EndTime_Label2.setVisible(False)
         self.verticalLayout_11.addWidget(self.EndTime_Search_Date1)
         self.horizontalLayout_3.addWidget(self.frame_7)
         self.verticalLayout_9.addWidget(self.Search_Analyze_Field)
@@ -785,7 +776,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(1)
+        self.stackedWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -816,7 +807,7 @@ class Ui_MainWindow(object):
         self.EndTime_Search_Date.setDisplayFormat(_translate("MainWindow", "d/M/yyyy  HH:mm:ss"))
         self.Search.setText(_translate("MainWindow", "Search"))
         self.Remove.setText(_translate("MainWindow", "Remove"))
-        self.PullData_Label.setText(_translate("MainWindow", "Pull Datas"))
+        self.PullData_Label.setText(_translate("MainWindow", "Pull Data"))
         self.Hashtag_Search_2.setPlaceholderText(_translate("MainWindow", "Hashtag"))
         self.Location_Search_2.setPlaceholderText(_translate("MainWindow", "Location"))
         self.timeSearch_Check1.setText(_translate("MainWindow", "Time Search"))
