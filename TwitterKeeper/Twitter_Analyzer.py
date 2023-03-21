@@ -240,12 +240,19 @@ class main():
         })
 
         # Define the scattergeo trace
+        def clip_value(value):
+            if value <= 50:
+                return value
+            else:
+                return 50
+        
+        data_value = data['value'].apply(clip_value)
         trace = go.Scattergeo(
             locationmode='country names',
             locations=data['country'],
             mode='markers',
             marker={
-                'size': data['value']/2,
+                'size': data_value,
                 'color': "#000000",
                 'colorscale': 'Viridis',
                 'opacity': 0.7,
@@ -320,7 +327,7 @@ class main():
 
 
 if __name__ == "__main__":
-    print(main().topTrends())
+    # print(main().topTrends())
     # main().OneAnalyzer()
     # x = main().load_sample_tweets(hashtag="dek66")
     # dfMostWord = main().find_top_word.MostWordFinder(x)
