@@ -14,7 +14,6 @@ class TestMostTop10Word(unittest.TestCase):
     #     CountVectorizer = self.c
 
     def test_tokenize(self):
-        
         mock_d = "สอบ/ข้อสอบ/A-Level/Eng"
         expected_result = ['สอบ', 'ข้อสอบ', 'A-Level','Eng']
         result = self.anlz.tokenize(mock_d)
