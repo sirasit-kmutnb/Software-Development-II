@@ -81,13 +81,15 @@ class Connect_to_Function(Ui_MainWindow):
         elif len(sample_tweets) == 0:
             self.progressBar_3.setVisible(True)
             if hashtag:
-                self.twitter_analyzer.pull_tweets.pullTweets(hashtag, 20000)
+                self.twitter_analyzer.pull_tweets.pullTweets(hashtag, 1000)
             elif text:
-                self.twitter_analyzer.pull_tweets.pullTweets(text, 20000)
+                self.twitter_analyzer.pull_tweets.pullTweets(text, 1000)
             elif keyword:
-                self.twitter_analyzer.pull_tweets.pullTweets(keyword, 20000)
+                self.twitter_analyzer.pull_tweets.pullTweets(keyword, 1000)
             while self.progress < 100:
                 QtWidgets.QApplication.processEvents()
+            self.showSearchResult(author, hashtag, keyword,
+                                  location, text,"","",[])
     
         else:
             stime = ""
@@ -197,6 +199,8 @@ class Connect_to_Function(Ui_MainWindow):
                 self.twitter_analyzer.pull_tweets.pullTweets(keyword, 20000)
             while self.progress < 100:
                 QtWidgets.QApplication.processEvents()
+            self.analyze_tweets(author, hashtag, keyword, location,
+                                text, "", "",[])
 
         else:
             stime = ""
