@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Twitter Keeper</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(17, 19, 22);</string>
@@ -323,7 +323,7 @@ QPushButton:checked {
           <item>
            <widget class="QStackedWidget" name="stackedWidget">
             <property name="currentIndex">
-             <number>2</number>
+             <number>0</number>
             </property>
             <widget class="QWidget" name="page_1">
              <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -1092,7 +1092,7 @@ QPushButton:checked {
                  <property name="geometry">
                   <rect>
                    <x>0</x>
-                   <y>-706</y>
+                   <y>0</y>
                    <width>657</width>
                    <height>2286</height>
                   </rect>
