@@ -40,7 +40,7 @@ class FindTopWord(PullTweetsData):
         keyword_df1['word'] = vectorizer.get_feature_names_out()
         # print(vectorizer.get_feature_names_out())
         keyword_df1['count'] = np.ravel(transformed_data.sum(axis=0))
-        newdf = keyword_df1.sort_values(by=['count'], ascending=False).head(10)
+        # newdf = keyword_df1.sort_values(by=['count'], ascending=False).head(10)
         return keyword_df1
     
     def Most10WordFinder(self, tweets_list):
@@ -57,25 +57,13 @@ class FindTopWord(PullTweetsData):
         word_dict = {}
         for i in range(0,len(df)):
             word_dict[df.word[i]]= df['count'][i]
-        wordcloud = WordCloud(width=1280,height=720,font_path='./SukhumvitSet-Medium.ttf',mode="RGBA",background_color ="rgba(255, 255, 255, 0)",max_words=70).fit_words(word_dict)
-        #  # Create a new subplot with Plotly
-        # fig = make_subplots(rows=1, cols=1)
-
-        # # Add the wordcloud as an image trace to the plot
-        # fig.add_trace(
-        #     go.Image(z=wordcloud.to_array()),
-        #     row=1, col=1
-        # )
-
-        # # Configure the plot layout
-        # fig.update_layout(
-        #     title='Word Cloud',
-        #     width=1280,
-        #     height=720,
-        #     margin=dict(l=10, r=10, t=80, b=10),
-        #     template='plotly_white'
-        # )
-        # fig.show()
+        wordcloud = WordCloud(
+            width=1280,
+            height=720,
+            font_path='./SukhumvitSet-Medium.ttf',
+            mode="RGBA",
+            background_color ="rgba(255, 255, 255, 0)",max_words=70).fit_words(word_dict)
+        
         plt.imshow(wordcloud, interpolation='bilinear')
         plt.axis('off')
         plt.tight_layout(pad=0)
