@@ -19,11 +19,6 @@ class TestPullTweetsData(unittest.TestCase):
         PullTweetsData.saveTweetsDict = MagicMock()
         tweepy.API = MagicMock()
 
-
-    def tearDown(self):
-        tweepy.Cursor = self.A
-        PullTweetsData.getHashtag = self.B
-
     def test_pull_tweets(self):
         tweet = PullTweetsData()
         query = '#hashtag'

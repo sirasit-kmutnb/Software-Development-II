@@ -482,7 +482,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, -706, 657, 2286))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 657, 2286))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.verticalLayout_8 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_8.setObjectName("verticalLayout_8")
@@ -777,12 +777,12 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(2)
+        self.stackedWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Twitter Keeper"))
         self.Title.setText(_translate("MainWindow", "Twitter Keeper"))
         self.Home_Page.setText(_translate("MainWindow", "Home"))
         self.Search_Page.setText(_translate("MainWindow", "Search"))

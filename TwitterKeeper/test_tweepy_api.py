@@ -31,24 +31,5 @@ class TestPullTweetsData(unittest.TestCase):
         self.pull_tweets_obj.getTwitterAPI()
         self.assertIsInstance(self.pull_tweets_obj._PullTweetsData__api, tweepy.API)
 
-    def test_pull_tweets(self):
-        A = tweepy.Cursor
-        B = PullTweetsData.getHashtag
-        tweepy.Cursor = MagicMock()
-        PullTweetsData.getHashtag = MagicMock()
-
-        tweepy.Cursor.return_value = {}
-
-
-
-    # def test_pull_tweets(self):
-    #     query = "test"
-    #     amount = 100
-    #     self.pull_tweets_obj.getAccessToAPI(self.api_key, self.api_key_secret)
-    #     self.pull_tweets_obj.setUserAuthentication(self.access_token, self.access_token_secret)
-    #     self.pull_tweets_obj.getTwitterAPI()
-    #     tweets = self.pull_tweets_obj.pullTweets(query, amount)
-    #     self.assertEqual(len(tweets), amount)
-
 if __name__ == "__main__":
     unittest.main()
