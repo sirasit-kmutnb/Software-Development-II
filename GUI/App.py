@@ -37,13 +37,15 @@ class Connect_to_Function(Ui_MainWindow):
         text = str(self.Text_Search.text())
         keyword = str(self.Keyword_Search.text())
 
+        sample_tweets = self.twitter_analyzer.load_sample_tweets(
+                author, keyword, hashtag, location, text, "","")
+
         if self.StartTime_Search_Date.isVisible():
             stime = self.dateTimeToPointForm(
                 self.StartTime_Search_Date.dateTime().toPyDateTime())
             etime = self.dateTimeToPointForm(
                 self.EndTime_Search_Date.dateTime().toPyDateTime())
-            sample_tweets = self.twitter_analyzer.load_sample_tweets(
-                author, keyword, hashtag, location, text, "","")
+            
             sorted_list = sorted(
                 sample_tweets, key=lambda x: x['tweet_create_at'], reverse=False)
 
@@ -75,18 +77,33 @@ class Connect_to_Function(Ui_MainWindow):
                     QtWidgets.QApplication.processEvents()
 
             self.showSearchResult(author, hashtag, keyword,
-                                  location, text, str(stime), str(etime))
-
+                                  location, text, str(stime), str(etime),[])
+        elif len(sample_tweets) == 0:
+            self.progressBar_3.setVisible(True)
+            if hashtag:
+                self.twitter_analyzer.pull_tweets.pullTweets(hashtag, 1000)
+            elif text:
+                self.twitter_analyzer.pull_tweets.pullTweets(text, 1000)
+            elif keyword:
+                self.twitter_analyzer.pull_tweets.pullTweets(keyword, 1000)
+            while self.progress < 100:
+                QtWidgets.QApplication.processEvents()
+            self.showSearchResult(author, hashtag, keyword,
+                                  location, text,"","",[])
+    
         else:
             stime = ""
             etime = ""
             self.showSearchResult(author, hashtag, keyword,
-                                  location, text, str(stime), str(etime))
+                                  location, text, "", "",sample_tweets)
 
-    def showSearchResult(self, author, hashtag, keyword, location, text, stime, etime):
+    def showSearchResult(self, author, hashtag, keyword, location, text, stime, etime,result):
 
-        results = self.twitter_analyzer.load_sample_tweets(
-            author, keyword, hashtag, location, text, stime, etime)
+        if result == []:
+            results = self.twitter_analyzer.load_sample_tweets(
+                author, keyword, hashtag, location, text, stime, etime)
+        else:
+            results = result
         sorted_list = sorted(
             results, key=lambda x: x['tweet_create_at'], reverse=False)
         recentTime = self.twitter_analyzer.pull_tweets.utc_to_local(
@@ -132,13 +149,15 @@ class Connect_to_Function(Ui_MainWindow):
         text = str(self.Text_Search_2.text())
         keyword = str(self.lineEdit.text())
 
+        sample_tweets = self.twitter_analyzer.load_sample_tweets(
+                author, hashtag, keyword, location, text, "", "")
+
         if self.StartTime_Search_Date1.isVisible():
             stime = self.dateTimeToPointForm(
                 self.StartTime_Search_Date1.dateTime().toPyDateTime())
             etime = self.dateTimeToPointForm(
                 self.EndTime_Search_Date1.dateTime().toPyDateTime())
-            sample_tweets = self.twitter_analyzer.load_sample_tweets(
-                author, hashtag, keyword, location, text, "", "")
+            
             sorted_list = sorted(
                 sample_tweets, key=lambda x: x['tweet_create_at'], reverse=False)
 
@@ -169,13 +188,25 @@ class Connect_to_Function(Ui_MainWindow):
                     QtWidgets.QApplication.processEvents()
 
             self.analyze_tweets(author, hashtag, keyword, location,
-                                text, str(stime), str(etime))
+                                text, str(stime), str(etime),[])
+        elif len(sample_tweets) == 0:
+            self.progressBar_3.setVisible(True)
+            if hashtag:
+                self.twitter_analyzer.pull_tweets.pullTweets(hashtag, 20000)
+            elif text:
+                self.twitter_analyzer.pull_tweets.pullTweets(text, 20000)
+            elif keyword:
+                self.twitter_analyzer.pull_tweets.pullTweets(keyword, 20000)
+            while self.progress < 100:
+                QtWidgets.QApplication.processEvents()
+            self.analyze_tweets(author, hashtag, keyword, location,
+                                text, "", "",[])
 
         else:
             stime = ""
             etime = ""
             self.analyze_tweets(author, hashtag, keyword, location,
-                                text, str(stime), str(etime))
+                                text, str(stime), str(etime),sample_tweets)
 
         # results = self.twitter_analyzer.load_sample_tweets(author,hashtag, "", location, text, stime, etime)
         # dfSentiment = self.twitter_analyzer.tweets_sentiment_analyzer(results)
@@ -276,12 +307,15 @@ class Connect_to_Function(Ui_MainWindow):
         while self.progress < 100:
             QtWidgets.QApplication.processEvents()
 
-        self.analyze_tweets("",hashtag,"","","","","")
+        self.analyze_tweets("",hashtag,"","","","","",[])
 
-    def analyze_tweets(self, author, hashtag, keyword, location, text, stime, etime):
+    def analyze_tweets(self, author, hashtag, keyword, location, text, stime, etime,result):
         # load the sample tweets and perform sentiment analysis
-        results = self.twitter_analyzer.load_sample_tweets(
-            author, hashtag, keyword, location, text, stime, etime)
+        if result == []:
+            results = self.twitter_analyzer.load_sample_tweets(
+                author, keyword, hashtag, location, text, stime, etime)
+        else:
+            results = result
         dfSentiment = self.twitter_analyzer.tweets_sentiment_analyzer(results)
         figPie = self.twitter_analyzer.SentimentPiePlot(dfSentiment)
 
@@ -291,7 +325,7 @@ class Connect_to_Function(Ui_MainWindow):
         print(dfMost10Word)
         
         # fontFamId = QtGui.QFontDatabase.addApplicationFont('SukhumvitSet-Medium.ttf')
-        # fontFam = QtGui.QFontDatabase.applicationFontFamilies(fontFamId)[0]
+        # fontFam = QtGui.QFontDatabase.applicationFontFamilies(fontFamId)
 
         font = QtGui.QFont()
         font.setPointSize(14)
