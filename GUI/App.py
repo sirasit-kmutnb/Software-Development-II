@@ -347,12 +347,15 @@ class Connect_to_Function(Ui_MainWindow):
             f"{this_dir}/wordcloud.png"))
 
         # create a spatial plot of the tweets
-        figSpatial = self.twitter_analyzer.spatialPloting(results)
         plot_widget3 = QtWebEngineWidgets.QWebEngineView(self.frame_6)
-        plot_widget3.setHtml(figSpatial.to_html(include_plotlyjs='cdn'))
-        plot_widget3.setZoomFactor(0.75)
-        plot_widget3.setGeometry(
-            0, 0, self.frame_6.width(), self.frame_6.height())
+        try:
+            figSpatial = self.twitter_analyzer.spatialPloting(results)
+            plot_widget3.setHtml(figSpatial.to_html(include_plotlyjs='cdn'))
+            plot_widget3.setZoomFactor(0.75)
+            plot_widget3.setGeometry(
+                0, 0, self.frame_6.width(), self.frame_6.height())
+        except:
+            pass
 
         # display the sentiment pie chart
         plot_widget = QtWebEngineWidgets.QWebEngineView(self.Sentiment)
