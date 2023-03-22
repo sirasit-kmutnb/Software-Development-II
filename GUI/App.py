@@ -40,7 +40,7 @@ class Connect_to_Function(Ui_MainWindow):
         sample_tweets = self.twitter_analyzer.load_sample_tweets(
                 author, keyword, hashtag, location, text, "","")
 
-        if self.StartTime_Search_Date.isVisible():
+        if self.StartTime_Search_Date.isVisible() and len(sample_tweets) != 0:
             stime = self.dateTimeToPointForm(
                 self.StartTime_Search_Date.dateTime().toPyDateTime())
             etime = self.dateTimeToPointForm(
@@ -76,16 +76,16 @@ class Connect_to_Function(Ui_MainWindow):
             if isStartTimeNotReached or isEndTimeNotReached:
                 self.progressBar_3.setVisible(True)
                 if hashtag:
-                    self.twitter_analyzer.pull_tweets.pullTweets(hashtag, 20000)
+                    self.twitter_analyzer.pull_tweets.pullTweets(hashtag, 1000)
                 elif text:
-                    self.twitter_analyzer.pull_tweets.pullTweets(text, 20000)
+                    self.twitter_analyzer.pull_tweets.pullTweets(text, 1000)
                 elif keyword:
-                    self.twitter_analyzer.pull_tweets.pullTweets(keyword, 20000)
+                    self.twitter_analyzer.pull_tweets.pullTweets(keyword, 1000)
                 while self.progress < 100:
                     QtWidgets.QApplication.processEvents()
 
-            self.showSearchResult(author, hashtag, keyword,
-                                  location, text, str(stime), str(etime),[])
+                self.showSearchResult(author, hashtag, keyword,
+                                    location, text, str(stime), str(etime),[])
         elif len(sample_tweets) == 0:
             self.progressBar_3.setVisible(True)
             if hashtag:
@@ -160,7 +160,7 @@ class Connect_to_Function(Ui_MainWindow):
         sample_tweets = self.twitter_analyzer.load_sample_tweets(
                 author, hashtag, keyword, location, text, "", "")
 
-        if self.StartTime_Search_Date1.isVisible():
+        if self.StartTime_Search_Date1.isVisible() and len(sample_tweets) != 0:
             stime = self.dateTimeToPointForm(
                 self.StartTime_Search_Date1.dateTime().toPyDateTime())
             etime = self.dateTimeToPointForm(
@@ -192,27 +192,28 @@ class Connect_to_Function(Ui_MainWindow):
                 isStartTimeNotReached = False
                 isEndTimeNotReached = False
             print(isStartTimeNotReached)
+            print(isEndTimeNotReached)
             if isStartTimeNotReached or isEndTimeNotReached:
                 self.progressBar_2.setVisible(True)
                 if hashtag:
-                    self.twitter_analyzer.pull_tweets.pullTweets(hashtag, 20000)
+                    self.twitter_analyzer.pull_tweets.pullTweets(hashtag, 1000)
                 elif text:
-                    self.twitter_analyzer.pull_tweets.pullTweets(text, 20000)
+                    self.twitter_analyzer.pull_tweets.pullTweets(text, 1000)
                 elif keyword:
-                    self.twitter_analyzer.pull_tweets.pullTweets(keyword, 20000)
+                    self.twitter_analyzer.pull_tweets.pullTweets(keyword, 1000)
                 while self.progress < 100:
                     QtWidgets.QApplication.processEvents()
 
-            self.analyze_tweets(author, hashtag, keyword, location,
-                                text, str(stime), str(etime),[])
+                self.analyze_tweets(author, hashtag, keyword, location,
+                                    text, str(stime), str(etime),[])
         elif len(sample_tweets) == 0:
             self.progressBar_3.setVisible(True)
             if hashtag:
-                self.twitter_analyzer.pull_tweets.pullTweets(hashtag, 20000)
+                self.twitter_analyzer.pull_tweets.pullTweets(hashtag, 1000)
             elif text:
-                self.twitter_analyzer.pull_tweets.pullTweets(text, 20000)
+                self.twitter_analyzer.pull_tweets.pullTweets(text, 1000)
             elif keyword:
-                self.twitter_analyzer.pull_tweets.pullTweets(keyword, 20000)
+                self.twitter_analyzer.pull_tweets.pullTweets(keyword, 1000)
             while self.progress < 100:
                 QtWidgets.QApplication.processEvents()
             self.analyze_tweets(author, hashtag, keyword, location,

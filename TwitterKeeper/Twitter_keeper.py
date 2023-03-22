@@ -243,7 +243,7 @@ class PullTweetsData(QObject):
                              {"$set": tweet_post}, upsert=True)
 
     def removeSpecialChar(self, text):
-        return re.sub(r"[\]\[!-@#$?%+:\"\n^_]", "", text).rstrip()
+        return re.sub(r"[\]\[!-@#$?%+:\"\n^_… .]", "", text).rstrip()
 
     def removeEmoji(self, text):
         allchars = [str for str in text]
