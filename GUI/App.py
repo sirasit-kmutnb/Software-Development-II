@@ -51,21 +51,29 @@ class Connect_to_Function(Ui_MainWindow):
 
             start_time = self.twitter_analyzer.pull_tweets.utc_to_local(
                 self.twitter_analyzer.pull_tweets.local_to_utc(self.StartTime_Search_Date.dateTime().toPyDateTime()))
+            end_time = self.twitter_analyzer.pull_tweets.utc_to_local(
+                self.twitter_analyzer.pull_tweets.local_to_utc(self.EndTime_Search_Date.dateTime().toPyDateTime()))
+            
             # end_time = self.twitter_analyzer.pull_tweets.utc_to_local(self.twitter_analyzer.pull_tweets.local_to_utc(etime))
 
             try:
                 recentTime = self.twitter_analyzer.pull_tweets.utc_to_local(
                     sorted_list[0]['tweet_create_at'])
+                latestTime = self.twitter_analyzer.pull_tweets.utc_to_local(
+                    sorted_list[-1]['tweet_create_at'])
             except:
                 recentTime = "No data, Please pull new tweets."
-            print(recentTime, start_time)
+                latestTime = "No data, Please pull new tweets."
+            print(recentTime,latestTime, start_time)
 
             try:
                 isStartTimeNotReached = recentTime > start_time
+                isEndTimeNotReached = latestTime < end_time
             except:
                 isStartTimeNotReached = False
+                isEndTimeNotReached = False
             print(isStartTimeNotReached)
-            if isStartTimeNotReached:
+            if isStartTimeNotReached or isEndTimeNotReached:
                 self.progressBar_3.setVisible(True)
                 if hashtag:
                     self.twitter_analyzer.pull_tweets.pullTweets(hashtag, 20000)
@@ -163,20 +171,28 @@ class Connect_to_Function(Ui_MainWindow):
 
             start_time = self.twitter_analyzer.pull_tweets.utc_to_local(
                 self.twitter_analyzer.pull_tweets.local_to_utc(self.StartTime_Search_Date1.dateTime().toPyDateTime()))
+            end_time = self.twitter_analyzer.pull_tweets.utc_to_local(
+                self.twitter_analyzer.pull_tweets.local_to_utc(self.EndTime_Search_Date1.dateTime().toPyDateTime()))
+            
             # end_time = self.twitter_analyzer.pull_tweets.utc_to_local(self.twitter_analyzer.pull_tweets.local_to_utc(etime))
 
             try:
                 recentTime = self.twitter_analyzer.pull_tweets.utc_to_local(
                     sorted_list[0]['tweet_create_at'])
+                latestTime = self.twitter_analyzer.pull_tweets.utc_to_local(
+                    sorted_list[-1]['tweet_create_at'])
             except:
                 recentTime = "No data, Please pull new tweets."
+                latestTime = "No data, Please pull new tweets."
             print(recentTime,start_time)
             try:
                 isStartTimeNotReached = recentTime > start_time
+                isEndTimeNotReached = latestTime < end_time
             except:
                 isStartTimeNotReached = False
+                isEndTimeNotReached = False
             print(isStartTimeNotReached)
-            if isStartTimeNotReached:
+            if isStartTimeNotReached or isEndTimeNotReached:
                 self.progressBar_2.setVisible(True)
                 if hashtag:
                     self.twitter_analyzer.pull_tweets.pullTweets(hashtag, 20000)
